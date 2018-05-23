@@ -27,6 +27,7 @@ ADD_EXECUTABLE(${ORDINAL_RUNTIME}
         Core/Debug/SLogger.cpp
         Rendering/Window/CWindow.cpp
         Rendering/Vulkan/CVulkanInstance.cpp
+        Rendering/Vulkan/CVulkanPhysicalDevice.cpp
         Rendering/CRenderingEngine.cpp)
 
 # But tests depends on GTEST and GMOCK

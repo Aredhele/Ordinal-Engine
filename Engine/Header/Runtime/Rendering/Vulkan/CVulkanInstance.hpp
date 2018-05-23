@@ -29,6 +29,10 @@
 #   include <GLFW/glfw3.h>
 #endif
 
+#include <vector>
+#include <string>
+#include <cstring>
+
 /// \namespace ord
 namespace ord
 {
@@ -48,7 +52,32 @@ public:
 
 private:
 
-    VkInstance m_vk_instance = VK_NULL_HANDLE;
+    /// \brief Checks if all requested layers are present
+    /// \return True or false
+    bool checkValidationLayerSupport();
+
+    /// \brief  Returns all required extensions by the application
+    /// \return A vector of extensions
+    std::vector<const char*> GetRequiredExtensions();
+
+    /// \brief Validation layer debug call back
+    static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(
+            VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType,
+            uint64_t obj, size_t location, int32_t code,
+            const char* layerPrefix, const char* msg, void* userData);
+
+
+    bool SetupCallback();
+    bool PickPhysicalDevice();
+    bool isDeviceSuitable(VkPhysicalDevice device);
+
+private:
+
+    VkInstance                m_vk_instance        = VK_NULL_HANDLE;
+    VkDebugReportCallbackEXT  m_vk_callback        = VK_NULL_HANDLE;
+    VkPhysicalDevice          m_vk_physical_device = VK_NULL_HANDLE;
+
+    std::vector<const char *> m_validation_layers;
 };
 
 } // !namespace
