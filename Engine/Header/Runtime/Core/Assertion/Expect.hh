@@ -15,18 +15,15 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       Main.cpp
-/// \date       23/05/2018
+/// \file       Expect.hh
+/// \date       10/02/2018
 /// \project    Ordinal Engine
-/// \package    Runtime
+/// \package    Runtime/Core/Assertion/
 /// \author     Vincent STEHLY--CALISTO
 
-#include <iostream>
-#include "Runtime/Platform/Configuration/Configuration.hh"
-#include "Runtime/Rendering/Window/CWindow.hpp"
+#ifndef ORDINAL_ENGINE_EXPECT_HPP__
+#define ORDINAL_ENGINE_EXPECT_HPP__
 
-int Ordinal_EntryPoint(int argc, char ** argv)
-{
-    ord::CWindow window(42, 42, "Ordinal");
-    return 0;
-}
+// None
+
+#endif // !ORDINAL_ENGINE_EXPECT_HPP__

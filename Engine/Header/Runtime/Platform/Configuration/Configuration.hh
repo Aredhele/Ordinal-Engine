@@ -1,4 +1,4 @@
-/// Copyright (C) 2018-2019, Ordinal Engine
+/// Copyright (C) 2018-2019 Ordinal Engine
 /// Vincent STEHLY--CALISTO, vincentstehly@hotmail.fr
 ///
 /// This program is free software; you can redistribute it and/or modify
@@ -15,18 +15,16 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       Main.cpp
-/// \date       23/05/2018
+/// \file       Configuration.hh
+/// \date       08/02/2018
 /// \project    Ordinal Engine
-/// \package    Runtime
+/// \package    Platform/Configuration
 /// \author     Vincent STEHLY--CALISTO
 
-#include <iostream>
-#include "Runtime/Platform/Configuration/Configuration.hh"
-#include "Runtime/Rendering/Window/CWindow.hpp"
+#ifndef ORDINAL_ENGINE_CONFIGURATION_HPP__
+#define ORDINAL_ENGINE_CONFIGURATION_HPP__
 
-int Ordinal_EntryPoint(int argc, char ** argv)
-{
-    ord::CWindow window(42, 42, "Ordinal");
-    return 0;
-}
+#include "Runtime/Platform/Configuration/Type.hh"
+#include "Runtime/Platform/Configuration/Compiler.hh"
+
+#endif // !ORDINAL_ENGINE_CONFIGURATION_HPP__

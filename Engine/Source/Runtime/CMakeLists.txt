@@ -22,7 +22,10 @@ INCLUDE_DIRECTORIES(
         ${ORDINAL_THIRD_PARTY_DIR}/Glm/
         ${ORDINAL_THIRD_PARTY_DIR}/ImGUI/Header/)
 
-ADD_EXECUTABLE(${ORDINAL_RUNTIME} Main.cpp)
+ADD_EXECUTABLE(${ORDINAL_RUNTIME}
+        Main.cpp
+        Core/Debug/SLogger.cpp
+        Rendering/Window/CWindow.cpp)
 
 # But tests depends on GTEST and GMOCK
 ADD_DEPENDENCIES(${ORDINAL_RUNTIME} glfw ResourcesCopy ImGUI)

@@ -1,4 +1,4 @@
-/// Copyright (C) 2018-2019, Ordinal Engine
+/// Copyright (C) 2018-2019 Ordinal Engine
 /// Vincent STEHLY--CALISTO, vincentstehly@hotmail.fr
 ///
 /// This program is free software; you can redistribute it and/or modify
@@ -15,18 +15,30 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       Main.cpp
-/// \date       23/05/2018
+/// \file       Type.hh
+/// \date       08/02/2018
 /// \project    Ordinal Engine
-/// \package    Runtime
+/// \package    Platform/Configuration
 /// \author     Vincent STEHLY--CALISTO
 
-#include <iostream>
-#include "Runtime/Platform/Configuration/Configuration.hh"
-#include "Runtime/Rendering/Window/CWindow.hpp"
+#ifndef ORDINAL_ENGINE_TYPE_HPP__
+#define ORDINAL_ENGINE_TYPE_HPP__
 
-int Ordinal_EntryPoint(int argc, char ** argv)
-{
-    ord::CWindow window(42, 42, "Ordinal");
-    return 0;
-}
+typedef unsigned char	    uchar;
+typedef unsigned short	    ushort;
+typedef unsigned int	    uint;
+typedef unsigned long	    ulong;
+
+typedef unsigned char       uint8;
+typedef unsigned short      uint16;
+typedef unsigned int        uint32;
+typedef unsigned long long  uint64;
+
+typedef char                int8;
+typedef short               int16;
+typedef int                 int32;
+typedef long long           int64;
+
+typedef unsigned long long  size;
+
+#endif // !ORDINAL_ENGINE_TYPE_HPP__
