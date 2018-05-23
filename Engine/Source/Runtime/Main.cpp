@@ -21,12 +21,22 @@
 /// \package    Runtime
 /// \author     Vincent STEHLY--CALISTO
 
-#include <iostream>
+#include "Runtime/Core/Debug/SLogger.hpp"
+#include "Runtime/Rendering/CRenderingEngine.hpp"
 #include "Runtime/Platform/Configuration/Configuration.hh"
-#include "Runtime/Rendering/Window/CWindow.hpp"
 
 int Ordinal_EntryPoint(int argc, char ** argv)
 {
-    ord::CWindow window(42, 42, "Ordinal");
+    ord::CRenderingEngine rendering_engine;
+
+    if(!rendering_engine.Initialize())
+    {
+        ord::SLogger::LogError("Exiting application ...");
+        return -1;
+    }
+
+    // Temporary game loop
+    rendering_engine.Run();
+
     return 0;
 }

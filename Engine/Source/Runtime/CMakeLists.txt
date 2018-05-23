@@ -25,7 +25,9 @@ INCLUDE_DIRECTORIES(
 ADD_EXECUTABLE(${ORDINAL_RUNTIME}
         Main.cpp
         Core/Debug/SLogger.cpp
-        Rendering/Window/CWindow.cpp)
+        Rendering/Window/CWindow.cpp
+        Rendering/Vulkan/CVulkanInstance.cpp
+        Rendering/CRenderingEngine.cpp)
 
 # But tests depends on GTEST and GMOCK
 ADD_DEPENDENCIES(${ORDINAL_RUNTIME} glfw ResourcesCopy ImGUI)

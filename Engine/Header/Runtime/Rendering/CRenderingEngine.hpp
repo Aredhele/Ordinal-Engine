@@ -15,51 +15,41 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CWindow.hpp
-/// \date       23/05/2018
+/// \file       CRenderingEngine.hpp
+/// \date       23/05/2018 
 /// \project    Ordinal Engine
-/// \package    Runtime/Rendering/Window/
+/// \package    Runtime/Rendering
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_C_WINDOW_HPP__
-#define ORDINAL_ENGINE_C_WINDOW_HPP__
+#ifndef ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__
+#define ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__
 
-#ifndef GLFW_INCLUDE_VULKAN
-#   define GLFW_INCLUDE_VULKAN
-#   include <GLFW/glfw3.h>
-#endif
+#include "Runtime/Rendering/Window/CWindow.hpp"
+#include "Runtime/Rendering/Vulkan/CVulkanInstance.hpp"
 
 /// \namespace ord
 namespace ord
 {
 
-/// \brief Manages GLFW window
-/// \class CWindow
-class CWindow
+/// \brief Holds the renderer
+/// \class CRenderingEngine
+class CRenderingEngine
 {
 public:
 
-    /// \brief  Destructor
-    ~CWindow();
+    /// \brief  Initializes the renderer
+    /// \return True on success, else false
+    bool Initialize();
 
-    /// \brief  Initializes the OpenGL context
-    /// \param  width The width of the window
-    /// \param  height The heigth of the window
-    /// \param  sz_title The title of the window
-    void Initialize(int width, int height, const char * sz_title);
-
-    /// \brief  Returns the current glfw window
-    /// \return A pointer on the glfw window
-    GLFWwindow * GetContext() const;
-
-    /// \brief Destroy the current OpenGL context
-    void Destroy();
+    /// \brief Starts rendering
+    void Run();
 
 private:
 
-    GLFWwindow * mp_window = nullptr; ///< The window pointer
+    CWindow         m_window;
+    CVulkanInstance m_vk_instance;
 };
 
-} // !namespace
+} // !namespace 
 
-#endif // !ORDINAL_ENGINE_C_WINDOW_HPP__
+#endif // !ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__

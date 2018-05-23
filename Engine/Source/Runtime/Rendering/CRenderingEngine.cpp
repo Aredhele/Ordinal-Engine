@@ -15,51 +15,45 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CWindow.hpp
+/// \file       CRenderingEngine.cpp
 /// \date       23/05/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Rendering/Window/
+/// \package    Runtime/Rendering
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_C_WINDOW_HPP__
-#define ORDINAL_ENGINE_C_WINDOW_HPP__
-
-#ifndef GLFW_INCLUDE_VULKAN
-#   define GLFW_INCLUDE_VULKAN
-#   include <GLFW/glfw3.h>
-#endif
+#include "Runtime/Core/Debug/SLogger.hpp"
+#include "Runtime/Rendering/CRenderingEngine.hpp"
 
 /// \namespace ord
 namespace ord
 {
 
-/// \brief Manages GLFW window
-/// \class CWindow
-class CWindow
+/// \brief Initializes the renderer
+/// \return True on success, else false
+bool CRenderingEngine::Initialize()
 {
-public:
+    // Window creation
+    m_window.Initialize(1280, 720, "Ordinal Runtime");
 
-    /// \brief  Destructor
-    ~CWindow();
+    // Vulkan instance creation
+    if(!m_vk_instance.CreateInstance())
+    {
+        SLogger::LogError("Unable to initialize the rendering engine.");
+        return false;
+    }
 
-    /// \brief  Initializes the OpenGL context
-    /// \param  width The width of the window
-    /// \param  height The heigth of the window
-    /// \param  sz_title The title of the window
-    void Initialize(int width, int height, const char * sz_title);
+    SLogger::LogInfo("Rendering engine initialized");
+    return true;
+}
 
-    /// \brief  Returns the current glfw window
-    /// \return A pointer on the glfw window
-    GLFWwindow * GetContext() const;
-
-    /// \brief Destroy the current OpenGL context
-    void Destroy();
-
-private:
-
-    GLFWwindow * mp_window = nullptr; ///< The window pointer
-};
+/// \brief Starts rendering
+void CRenderingEngine::Run()
+{
+    GLFWwindow * p_window = m_window.GetContext();
+    while (!glfwWindowShouldClose(p_window))
+    {
+        glfwPollEvents();
+    }
+}
 
 } // !namespace
-
-#endif // !ORDINAL_ENGINE_C_WINDOW_HPP__

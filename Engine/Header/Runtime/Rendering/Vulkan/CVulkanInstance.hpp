@@ -15,14 +15,14 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CWindow.hpp
+/// \file       CVulkanInstance.hpp
 /// \date       23/05/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Rendering/Window/
+/// \package    Runtime/Rendering/Vulkan
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_C_WINDOW_HPP__
-#define ORDINAL_ENGINE_C_WINDOW_HPP__
+#ifndef ORDINAL_ENGINE_C_VULKAN_INSTANCE_HPP__
+#define ORDINAL_ENGINE_C_VULKAN_INSTANCE_HPP__
 
 #ifndef GLFW_INCLUDE_VULKAN
 #   define GLFW_INCLUDE_VULKAN
@@ -33,33 +33,24 @@
 namespace ord
 {
 
-/// \brief Manages GLFW window
-/// \class CWindow
-class CWindow
+/// \brief Encapsulate the vulkan instance
+/// \class CVulkanInstance
+class CVulkanInstance
 {
 public:
 
-    /// \brief  Destructor
-    ~CWindow();
+    /// \brief  Creates the vulkan instance
+    /// \return True on success, else false
+    bool CreateInstance();
 
-    /// \brief  Initializes the OpenGL context
-    /// \param  width The width of the window
-    /// \param  height The heigth of the window
-    /// \param  sz_title The title of the window
-    void Initialize(int width, int height, const char * sz_title);
-
-    /// \brief  Returns the current glfw window
-    /// \return A pointer on the glfw window
-    GLFWwindow * GetContext() const;
-
-    /// \brief Destroy the current OpenGL context
-    void Destroy();
+    /// \brief  Destroys the vulkan instance
+    void DestroyInstance();
 
 private:
 
-    GLFWwindow * mp_window = nullptr; ///< The window pointer
+    VkInstance m_vk_instance = VK_NULL_HANDLE;
 };
 
 } // !namespace
 
-#endif // !ORDINAL_ENGINE_C_WINDOW_HPP__
+#endif // !ORDINAL_ENGINE_C_VULKAN_INSTANCE_HPP__

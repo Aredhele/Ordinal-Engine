@@ -29,21 +29,6 @@
 namespace ord
 {
 
-/// \brief Default constructor
-CWindow::CWindow()
-{
-    Initialize(1280, 720, "Ordinal");
-}
-
-/// \brief  Constructor
-/// \param  width The width of the window
-/// \param  height The heigth of the window
-/// \param  sz_title The title of the window
-CWindow::CWindow(int width, int height, const char * sz_title)
-{
-    Initialize(width, height, sz_title);
-}
-
 /// \brief  Destructor
 CWindow::~CWindow()
 {
