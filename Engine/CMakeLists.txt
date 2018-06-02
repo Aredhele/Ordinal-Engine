@@ -16,5 +16,4 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 ADD_SUBDIRECTORY(Source)
-ADD_SUBDIRECTORY(UnitTest)
 ADD_SUBDIRECTORY(ThirdParty)

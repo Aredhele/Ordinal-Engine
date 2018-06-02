@@ -15,7 +15,4 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-ADD_SUBDIRECTORY(Glew)
-ADD_SUBDIRECTORY(Glfw)
-ADD_SUBDIRECTORY(Glm)
-ADD_SUBDIRECTORY(ImGUI)
+ADD_SUBDIRECTORY(UnitTest)

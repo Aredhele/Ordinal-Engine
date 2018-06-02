@@ -22,21 +22,9 @@
 /// \author     Vincent STEHLY--CALISTO
 
 #include "Runtime/Core/Debug/SLogger.hpp"
-#include "Runtime/Rendering/CRenderingEngine.hpp"
 #include "Runtime/Platform/Configuration/Configuration.hh"
 
 int Ordinal_EntryPoint(int argc, char ** argv)
 {
-    ord::CRenderingEngine rendering_engine;
-
-    if(!rendering_engine.Initialize())
-    {
-        ord::SLogger::LogError("Exiting application ...");
-        return -1;
-    }
-
-    // Temporary game loop
-    rendering_engine.Run();
-
     return 0;
 }

@@ -15,25 +15,21 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# Adds all runtime header
-INCLUDE_DIRECTORIES(
-        ${ORDINAL_ENGINE_HEADER_DIR}
-        ${ORDINAL_VK_HEADER_DIR})
+# Create the given directory
+# param directory : The directory to create
+function(CREATE_DIRECTORY directory)
+    FILE(MAKE_DIRECTORY ${directory})
+    MESSAGE(STATUS "Created : ${directory}")
+endfunction()
 
-ADD_EXECUTABLE(${ORDINAL_RUNTIME}
-        Main.cpp
-        Core/Debug/SLogger.cpp)
-
-ADD_CUSTOM_TARGET(ResourcesCopy)
-ADD_DEPENDENCIES (${ORDINAL_RUNTIME} ResourcesCopy)
-
-# Linking ...
-TARGET_LINK_LIBRARIES(${ORDINAL_RUNTIME}
-        ${COMPILER_DEPENDENCIES}
-        ${PLATFORM_DEPENDENCIES}
-        ${ORDINAL_VK_LIB_DIR}/vulkan-1.lib)
-
-# Copy all resources on engine build
-ADD_CUSTOM_COMMAND(TARGET ResourcesCopy PRE_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${ORDINAL_ENGINE_RESOURCE_DIR} ${ORDINAL_BIN_OUTPUT}/Resources
-        COMMENT "[INFO] Copying shared files ...")
+# Check the architecture(32 or 64 bits)
+# param architecture : Will contains 32 or 64
+function(CHECK_ARCHITECTURE architecture)
+    # 64 bits compiler
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        SET(${architecture} 64 PARENT_SCOPE)
+    # 32 bits compiler
+    elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        SET(${architecture} 32 PARENT_SCOPE)
+    endif()
+endfunction()
