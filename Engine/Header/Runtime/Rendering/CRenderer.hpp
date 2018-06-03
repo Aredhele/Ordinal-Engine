@@ -24,9 +24,33 @@
 #ifndef ORDINAL_ENGINE_C_RENDERER_HPP__
 #define ORDINAL_ENGINE_C_RENDERER_HPP__
 
+#include <string>
+#include <stdexcept>
+
+#include "vulkan/vulkan.h"
+
 /// \namespace ord
 namespace ord
 {
+
+/// \brief  Contains all needed information
+///         to initialize the window
+/// \struct SWindowCreateInfo
+struct SWindowCreateInfo
+{
+    int                     window_width;   ///< The width of the window
+    int                     window_height;  ///< The height of the window
+    const char*             p_window_name;  ///< The name of the window
+};
+
+/// \brief  Contains all needed information
+///         to initialize the renderer
+/// \struct SRendererCreateInfo
+struct SRendererCreateInfo
+{
+    const char*             p_engine_name;  ///< The name of the engine
+    SWindowCreateInfo       p_window_info;  ///< The info about the window
+};
 
 /// \brief Manages rendering using Vulkan api
 /// \class CRenderer
@@ -40,8 +64,13 @@ public:
     /// \brief  Destructor
     ~CRenderer();
 
-private:
+    /// \brief Initializes the renderer with an info structure
+    /// \param renderer_info The structure that contains info
+    ///        about the renderer initialization
+    /// \throw Can throw runtime errors exceptions
+    void Initialize(const SRendererCreateInfo& renderer_info);
 
+private:
 
 };
     
