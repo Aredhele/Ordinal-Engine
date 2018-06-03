@@ -25,9 +25,11 @@
 #define ORDINAL_ENGINE_C_RENDERER_HPP__
 
 #include <string>
+#include <vector>
 #include <stdexcept>
 
 #include "vulkan/vulkan.h"
+#include "Runtime/Platform/Configuration/Configuration.hh"
 
 /// \namespace ord
 namespace ord
@@ -36,21 +38,27 @@ namespace ord
 /// \brief  Contains all needed information
 ///         to initialize the window
 /// \struct SWindowCreateInfo
-struct SWindowCreateInfo
+typedef struct SWindowCreateInfo
 {
-    int                     window_width;   ///< The width of the window
-    int                     window_height;  ///< The height of the window
-    const char*             p_window_name;  ///< The name of the window
-};
+    int                     window_width;           ///< The width of the window
+    int                     window_height;          ///< The height of the window
+    const char*             p_window_name;          ///< The name of the window
+
+} SWindowCreateInfo;
 
 /// \brief  Contains all needed information
 ///         to initialize the renderer
 /// \struct SRendererCreateInfo
-struct SRendererCreateInfo
+typedef struct SRendererCreateInfo
 {
-    const char*             p_engine_name;  ///< The name of the engine
-    SWindowCreateInfo       p_window_info;  ///< The info about the window
-};
+    const char*             p_engine_name;          ///< The name of the engine
+    const char*             p_application_name;     ///< The name of the application
+    SWindowCreateInfo       p_window_info;          ///< The info about the window
+    uint32_t                api_version;            ///< The version of the vulkan api
+    uint32_t                engine_version;         ///< The version of the engine
+    uint32_t                application_version;    ///< The version of the application
+
+} SRendererCreateInfo;
 
 /// \brief Manages rendering using Vulkan api
 /// \class CRenderer
@@ -72,6 +80,22 @@ public:
 
 private:
 
+    /// \brief Initializes the vulkan instance
+    /// \param renderer_info The structure that contains info
+    ///        about the renderer initialization
+    /// \throw Can throw runtime errors exceptions
+    void InitializeInstance(const SRendererCreateInfo& renderer_info);
+
+    /// \brief Initializes vulkan physical devices
+    /// \param renderer_info The structure that contains info
+    ///        about the renderer initialization
+    /// \throw Can throw runtime errors exceptions
+    void InitializePhysicalDevice(const SRendererCreateInfo& renderer_info);
+
+private:
+
+    VkInstance                      mp_instance       = VK_NULL_HANDLE; ///< TODO
+    std::vector <VkPhysicalDevice>  m_physical_devices;                 ///< TODO
 };
     
 } // !namespace 

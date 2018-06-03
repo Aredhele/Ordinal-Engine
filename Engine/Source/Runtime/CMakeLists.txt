@@ -29,7 +29,7 @@ FILE(GLOB_RECURSE ENGINE_HEADERS
 
 ADD_EXECUTABLE(${ORDINAL_RUNTIME}
         ${ENGINE_SOURCES}
-        ${ENGINE_HEADERS})
+        ${ENGINE_HEADERS} ../../Header/Runtime/Rendering/Helper/VulkanHelper.hh)
 
 ADD_CUSTOM_TARGET(ResourcesCopy)
 ADD_DEPENDENCIES (${ORDINAL_RUNTIME} ResourcesCopy)

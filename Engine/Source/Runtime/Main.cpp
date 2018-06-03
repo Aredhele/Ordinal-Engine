@@ -36,8 +36,12 @@ int Ordinal_EntryPoint(int argc, char ** argv)
 
     // Information about the renderer
     ord::SRendererCreateInfo s_renderer_create_info {};
-    s_renderer_create_info.p_engine_name = "Ordinal Engine";
-    s_renderer_create_info.p_window_info = s_window_create_info;
+    s_renderer_create_info.p_engine_name         = "Ordinal Engine";
+    s_renderer_create_info.p_application_name    = "Ordinal";
+    s_renderer_create_info.p_window_info         = s_window_create_info;
+    s_renderer_create_info.api_version           = VK_MAKE_VERSION(1, 1, 0);
+    s_renderer_create_info.engine_version        = VK_MAKE_VERSION(0, 1, 0);
+    s_renderer_create_info.application_version   = VK_MAKE_VERSION(0, 1, 0);
 
     ord::CRenderer renderer;
 
