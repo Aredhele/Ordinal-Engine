@@ -38,6 +38,11 @@ CRenderer::CRenderer()
 /// \brief  Destructor
 CRenderer::~CRenderer()
 {
+    for(const auto& device : m_logical_devices)
+        vkDestroyDevice(device, nullptr);
+
+    UninitializeDebug();
+
     vkDestroyInstance(mp_instance, nullptr);
 }
 
@@ -49,7 +54,9 @@ void CRenderer::Initialize(const SRendererCreateInfo& renderer_info)
 {
     SLogger::LogInfo("Initializing vulkan renderer ...");
 
+    SetupDebug();
     InitializeInstance(renderer_info);
+    InitializeDebug();
     InitializePhysicalDevice(renderer_info);
 
     SLogger::LogInfo("Vulkan renderer fully initialized.");
@@ -70,8 +77,12 @@ void CRenderer::InitializeInstance(const SRendererCreateInfo& renderer_info)
     application_info.applicationVersion   = renderer_info.application_version;
 
     VkInstanceCreateInfo instance_create_info {};
-    instance_create_info.sType            = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-    instance_create_info.pApplicationInfo = &application_info;
+    instance_create_info.sType                   = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+    instance_create_info.pApplicationInfo        = &application_info;
+    instance_create_info.enabledLayerCount       = static_cast<uint32_t>(m_instance_layers.size());
+    instance_create_info.enabledExtensionCount   = static_cast<uint32_t>(m_instance_extensions.size());
+    instance_create_info.ppEnabledLayerNames     = m_instance_layers.data();
+    instance_create_info.ppEnabledExtensionNames = m_instance_extensions.data();
 
     VkResult result = vkCreateInstance(&instance_create_info, nullptr, &mp_instance);
 
@@ -97,8 +108,131 @@ void CRenderer::InitializePhysicalDevice(const SRendererCreateInfo &renderer_inf
 
     DisplayPhysicalDeviceProperties(m_physical_devices);
 
-    SLogger::LogInfo("%u Physical device(s) found.", m_physical_devices.size());
+    uint32_t instance_layer_properties_count = 0;
+    vkEnumerateInstanceLayerProperties(&instance_layer_properties_count, nullptr);
+
+    std::vector<VkLayerProperties> instance_layer_properties(instance_layer_properties_count);
+    vkEnumerateInstanceLayerProperties(&instance_layer_properties_count, instance_layer_properties.data());
+
+    DisplayInstanceLayerProperties(instance_layer_properties);
+
+    for(const auto& physical_device : m_physical_devices)
+    {
+        uint32_t family_count = 0;
+        vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &family_count, nullptr);
+
+        std::vector<VkQueueFamilyProperties> family_properties(family_count);
+        vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &family_count, family_properties.data());
+
+        bool found = false;
+        uint32_t family_properties_index = 0;
+
+        for(uint32_t nFamilyProperties = 0; nFamilyProperties < family_properties.size(); ++nFamilyProperties)
+        {
+            if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_GRAPHICS_BIT)
+            {
+                found = true;
+                family_properties_index = nFamilyProperties;
+                break;
+            }
+        }
+
+        if(!found)
+        {
+            throw std::runtime_error("No graphics queue found.");
+        }
+
+        float queue_priority = 1.0f;
+        VkDeviceQueueCreateInfo device_queue_create_info {};
+        device_queue_create_info.sType            = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+        device_queue_create_info.queueFamilyIndex = family_properties_index;
+        device_queue_create_info.queueCount       = 1;
+        device_queue_create_info.pQueuePriorities = &queue_priority;
+
+        VkDeviceCreateInfo device_create_info {};
+        device_create_info.sType                   = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+        device_create_info.queueCreateInfoCount    = 1;
+        device_create_info.pQueueCreateInfos       = &device_queue_create_info;
+
+        VkDevice logical_device = VK_NULL_HANDLE;
+        VkResult result = vkCreateDevice(physical_device, &device_create_info, nullptr, &logical_device);
+
+        if(result != VK_SUCCESS)
+        {
+            throw std::runtime_error("Error while creating vulkan logical device.");
+        }
+
+        m_logical_devices.push_back(logical_device);
+    }
+
+    SLogger::LogInfo("%u Physical device(s) found.",  m_physical_devices.size());
+    SLogger::LogInfo("%u Logical device(s) created.", m_logical_devices.size());
     SLogger::LogInfo("Vulkan physical devices initialized.");
+}
+
+VKAPI_ATTR VkBool32 VKAPI_CALL
+VulkanDebugCallback(
+    VkDebugReportFlagsEXT       flags,
+    VkDebugReportObjectTypeEXT  object_type,
+    uint64_t                    source_object,
+    size_t                      location,
+    int32_t                     msg_code,
+    const char *                layer_prefix,
+    const char *                message,
+    void *                      user_date
+    )
+{
+    if(flags & VK_DEBUG_REPORT_INFORMATION_BIT_EXT)
+    {
+        return VK_TRUE;
+    }
+
+    std::string readable_flag = GetReadableValidationLayerFlag(static_cast<VkDebugReportFlagBitsEXT>(flags));
+    SLogger::LogError("@[%s] - [%s] Validation Layer : %s", layer_prefix, readable_flag.c_str(), message);
+    return VK_FALSE;
+}
+
+/// \brief TODO
+void CRenderer::SetupDebug()
+{
+    m_instance_layers.push_back    ("VK_LAYER_LUNARG_standard_validation");
+    m_instance_extensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+}
+
+PFN_vkCreateDebugReportCallbackEXT  fvkCreateDebugReportCallbackEXT  = VK_NULL_HANDLE;
+PFN_vkDestroyDebugReportCallbackEXT fvkDestroyDebugReportCallbackEXT = VK_NULL_HANDLE;
+
+/// \brief TODO
+void CRenderer::InitializeDebug()
+{
+    fvkCreateDebugReportCallbackEXT  = reinterpret_cast<PFN_vkCreateDebugReportCallbackEXT>(vkGetInstanceProcAddr(mp_instance,   "vkCreateDebugReportCallbackEXT"));
+    fvkDestroyDebugReportCallbackEXT = reinterpret_cast<PFN_vkDestroyDebugReportCallbackEXT>(vkGetInstanceProcAddr(mp_instance,  "vkDestroyDebugReportCallbackEXT"));
+
+    if(fvkCreateDebugReportCallbackEXT == VK_NULL_HANDLE || fvkDestroyDebugReportCallbackEXT == VK_NULL_HANDLE)
+    {
+        throw std::runtime_error("Can't fetch function pointer from vulkan loader");
+    }
+
+    VkDebugReportCallbackCreateInfoEXT debug_callback_create_info {};
+    debug_callback_create_info.sType            = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
+    debug_callback_create_info.pfnCallback      = VulkanDebugCallback;
+    debug_callback_create_info.flags            =
+            VK_DEBUG_REPORT_INFORMATION_BIT_EXT         | VK_DEBUG_REPORT_WARNING_BIT_EXT |
+            VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT | VK_DEBUG_REPORT_ERROR_BIT_EXT   |
+            VK_DEBUG_REPORT_DEBUG_BIT_EXT;
+
+    VkResult result = fvkCreateDebugReportCallbackEXT(mp_instance, &debug_callback_create_info, nullptr, &m_debug_report_callback);
+
+    if(result != VK_SUCCESS)
+    {
+        throw std::runtime_error("Error while initializing debug callbacks");
+    }
+}
+
+/// \brief TODO
+void CRenderer::UninitializeDebug()
+{
+    fvkDestroyDebugReportCallbackEXT(mp_instance, m_debug_report_callback, nullptr);
 }
 
 } // !namespace

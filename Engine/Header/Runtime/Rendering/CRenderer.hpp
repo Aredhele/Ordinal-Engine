@@ -92,10 +92,24 @@ private:
     /// \throw Can throw runtime errors exceptions
     void InitializePhysicalDevice(const SRendererCreateInfo& renderer_info);
 
+    /// \brief TODO
+    void SetupDebug();
+
+    /// \brief TODO
+    void InitializeDebug();
+
+    /// \brief TODO
+    void UninitializeDebug();
+
 private:
 
-    VkInstance                      mp_instance       = VK_NULL_HANDLE; ///< TODO
-    std::vector <VkPhysicalDevice>  m_physical_devices;                 ///< TODO
+    VkInstance                      mp_instance       = VK_NULL_HANDLE;         ///< TODO
+    std::vector <VkPhysicalDevice>  m_physical_devices;                         ///< TODO
+    std::vector <VkDevice>          m_logical_devices;                          ///< TODO
+    std::vector <const char*>       m_instance_layers;                          ///< TODO
+    std::vector <const char*>       m_instance_extensions;                      ///< TODO
+
+    VkDebugReportCallbackEXT        m_debug_report_callback = VK_NULL_HANDLE;   ///< TODO
 };
     
 } // !namespace 

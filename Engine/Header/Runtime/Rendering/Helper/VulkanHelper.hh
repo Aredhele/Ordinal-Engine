@@ -26,13 +26,30 @@
 
 #include <string>
 #include <vector>
+
 #include "vulkan/vulkan.h"
-#include <Runtime/Core/Debug/SLogger.hpp>
-#include <iostream>
+#include "Runtime/Core/Debug/SLogger.hpp"
 
 /// \namespace ord
 namespace ord
 {
+
+/// \brief  Returns a readable string containing the report flag
+/// \param  flags The report flag
+/// \return A readable string containing the report flag
+std::string GetReadableValidationLayerFlag(VkDebugReportFlagBitsEXT flags)
+{
+    switch(flags)
+    {
+        case VK_DEBUG_REPORT_INFORMATION_BIT_EXT:           return std::string("VK_DEBUG_REPORT_INFORMATION_BIT_EXT");
+        case VK_DEBUG_REPORT_WARNING_BIT_EXT:               return std::string("VK_DEBUG_REPORT_WARNING_BIT_EXT");
+        case VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT:   return std::string("VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT");
+        case VK_DEBUG_REPORT_ERROR_BIT_EXT:                 return std::string("VK_DEBUG_REPORT_ERROR_BIT_EXT");
+        case VK_DEBUG_REPORT_DEBUG_BIT_EXT:                 return std::string("VK_DEBUG_REPORT_DEBUG_BIT_EXT");
+        default:
+            return std::string("None");
+    }
+}
 
 /// \brief  Returns a readable string of the physical device type
 /// \param  physical_device_type The type of the physical device
@@ -96,6 +113,7 @@ void DisplayPhysicalDeviceProperties(const std::vector<VkPhysicalDevice>& physic
         SLogger::LogInfo("Physical device max sampler allocation count : %u",   device_limits.maxSamplerAllocationCount);
         SLogger::LogInfo("Physical device max framebuffer width        : %u",   device_limits.maxFramebufferWidth);
         SLogger::LogInfo("Physical device max framebuffer height       : %u\n", device_limits.maxFramebufferHeight);
+        /* .... */
 
         VkPhysicalDeviceMemoryProperties physical_device_memory_properties {};
         vkGetPhysicalDeviceMemoryProperties(physical_devices[nPhysicalDevice], &physical_device_memory_properties);
@@ -113,6 +131,21 @@ void DisplayPhysicalDeviceProperties(const std::vector<VkPhysicalDevice>& physic
             SLogger::LogInfo("Physical device memory heap size %u : %llu MB",    nHeap, heap_size_bytes / (1024 * 1024));
             SLogger::LogInfo("Physical device memory heap size %u : %4.3f GB\n", nHeap, heap_size_bytes / (float)(1024 * 1024 * 1024));
         }
+    }
+}
+
+/// \brief Displays the properties of layers
+/// \param layer_properties The list of layer properties
+void DisplayInstanceLayerProperties(const std::vector<VkLayerProperties>& layer_properties)
+{
+    for(auto nLayerProperties = 0; nLayerProperties < layer_properties.size(); ++nLayerProperties)
+    {
+        uint32_t layer_spec_version = layer_properties[nLayerProperties].specVersion;
+        uint32_t layer_impl_version = layer_properties[nLayerProperties].implementationVersion;
+
+        SLogger::LogInfo("Instance layer %u name : %s (%s)",    nLayerProperties, layer_properties[nLayerProperties].layerName, layer_properties[nLayerProperties].description);
+        SLogger::LogInfo("Instance layer %u spec : %u.%u.%u",   nLayerProperties, VK_VERSION_MAJOR(layer_spec_version), VK_VERSION_MINOR(layer_spec_version), VK_VERSION_PATCH(layer_spec_version));
+        SLogger::LogInfo("Instance layer %u impl : %u.%u.%u\n", nLayerProperties, VK_VERSION_MAJOR(layer_impl_version), VK_VERSION_MINOR(layer_impl_version), VK_VERSION_PATCH(layer_impl_version));
     }
 }
 
