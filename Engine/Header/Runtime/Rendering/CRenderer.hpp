@@ -101,15 +101,17 @@ private:
     /// \brief TODO
     void UninitializeDebug();
 
-private:
+public:
 
     VkInstance                      mp_instance       = VK_NULL_HANDLE;         ///< TODO
+    std::vector <VkQueue>           m_queues;                                   ///< TODO
     std::vector <VkPhysicalDevice>  m_physical_devices;                         ///< TODO
     std::vector <VkDevice>          m_logical_devices;                          ///< TODO
     std::vector <const char*>       m_instance_layers;                          ///< TODO
     std::vector <const char*>       m_instance_extensions;                      ///< TODO
 
-    VkDebugReportCallbackEXT        m_debug_report_callback = VK_NULL_HANDLE;   ///< TODO
+    uint32_t                        m_family_properties_index = 0;
+    VkDebugReportCallbackEXT        m_debug_report_callback   = VK_NULL_HANDLE;   ///< TODO
 };
     
 } // !namespace 

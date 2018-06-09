@@ -125,14 +125,12 @@ void CRenderer::InitializePhysicalDevice(const SRendererCreateInfo &renderer_inf
         vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &family_count, family_properties.data());
 
         bool found = false;
-        uint32_t family_properties_index = 0;
-
         for(uint32_t nFamilyProperties = 0; nFamilyProperties < family_properties.size(); ++nFamilyProperties)
         {
             if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_GRAPHICS_BIT)
             {
                 found = true;
-                family_properties_index = nFamilyProperties;
+                m_family_properties_index = nFamilyProperties;
                 break;
             }
         }
@@ -145,7 +143,7 @@ void CRenderer::InitializePhysicalDevice(const SRendererCreateInfo &renderer_inf
         float queue_priority = 1.0f;
         VkDeviceQueueCreateInfo device_queue_create_info {};
         device_queue_create_info.sType            = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-        device_queue_create_info.queueFamilyIndex = family_properties_index;
+        device_queue_create_info.queueFamilyIndex = m_family_properties_index;
         device_queue_create_info.queueCount       = 1;
         device_queue_create_info.pQueuePriorities = &queue_priority;
 
@@ -163,6 +161,9 @@ void CRenderer::InitializePhysicalDevice(const SRendererCreateInfo &renderer_inf
         }
 
         m_logical_devices.push_back(logical_device);
+
+        m_queues.push_back(VK_NULL_HANDLE);
+        vkGetDeviceQueue(logical_device, m_family_properties_index, 0, &m_queues.back());
     }
 
     SLogger::LogInfo("%u Physical device(s) found.",  m_physical_devices.size());
