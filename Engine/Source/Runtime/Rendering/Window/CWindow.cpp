@@ -27,6 +27,24 @@
 namespace ord
 {
 
+CWindow::CWindow()
+{
 
+}
+
+CWindow::~CWindow()
+{
+
+}
+
+void CWindow::Close()
+{
+
+}
+
+bool CWindow::Update()
+{
+    return false;
+}
 
 } // !namespace

@@ -94,6 +94,16 @@ void CRenderer::InitializeInstance(const SRendererCreateInfo& renderer_info)
     SLogger::LogInfo("Vulkan instance initialized.");
 }
 
+/// \brief TODO
+/// \param width  TODO
+/// \param height TODO
+/// \param name   TODO
+CWindow * CRenderer::OpenWindow(uint32_t width, uint32_t height, const std::string &name)
+{
+    mp_window = new CWindow();
+    return mp_window;
+}
+
 /// \brief Initializes vulkan physical devices
 /// \param renderer_info The structure that contains info
 ///        about the renderer initialization

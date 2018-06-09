@@ -24,6 +24,8 @@
 #ifndef ORDINAL_ENGINE_C_WINDOW_HPP__
 #define ORDINAL_ENGINE_C_WINDOW_HPP__
 
+#include "Runtime/Platform/Platform.hh"
+
 /// \namespace ord
 namespace ord
 {
@@ -34,11 +36,16 @@ class CWindow
 {
 public:
 
-    /// \brief  Default constructor
-    CWindow();
-
-    /// \brief  Destructor
+     CWindow();
     ~CWindow();
+
+    void Close ();
+    bool Update();
+
+private:
+
+    bool m_window_should_run = true;
+
 };
 
 } // !namespace

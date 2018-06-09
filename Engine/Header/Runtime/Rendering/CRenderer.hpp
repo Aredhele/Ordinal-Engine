@@ -28,8 +28,10 @@
 #include <vector>
 #include <stdexcept>
 
-#include "vulkan/vulkan.h"
+#include "Runtime/Platform/Platform.hh"
 #include "Runtime/Platform/Configuration/Configuration.hh"
+
+#include "Runtime/Rendering/Window/CWindow.hpp"
 
 /// \namespace ord
 namespace ord
@@ -78,6 +80,13 @@ public:
     /// \throw Can throw runtime errors exceptions
     void Initialize(const SRendererCreateInfo& renderer_info);
 
+    /// \brief TODO
+    /// \param width  TODO
+    /// \param height TODO
+    /// \param name   TODO
+    /// \return TODO
+    CWindow * OpenWindow(uint32_t width, uint32_t height, const std::string & name);
+
 private:
 
     /// \brief Initializes the vulkan instance
@@ -112,6 +121,8 @@ public:
 
     uint32_t                        m_family_properties_index = 0;
     VkDebugReportCallbackEXT        m_debug_report_callback   = VK_NULL_HANDLE;   ///< TODO
+
+    CWindow *                       mp_window = nullptr;
 };
     
 } // !namespace 
