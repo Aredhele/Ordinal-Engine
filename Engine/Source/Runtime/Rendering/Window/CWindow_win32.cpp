@@ -15,20 +15,42 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       Platform.h
+/// \file       CWindow_win32.cpp
 /// \date       09/06/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Platform
+/// \package    Runtime/Rendering/Window
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_PLATFORM_HPP__
-#define ORDINAL_ENGINE_PLATFORM_HPP__
+#include "Runtime/Rendering/Window/CWindow.hpp"
 
-#ifdef ORDINAL_WINDOWS
-#   define VK_USE_PLATFORM_WIN32_KHR 1
-#   include <windows.h>
-#endif
+/// \namespace ord
+namespace ord
+{
 
-#include "vulkan/vulkan.h"
+#ifdef VK_USE_PLATFORM_WIN32_KHR
 
-#endif // !ORDINAL_ENGINE_PLATFORM_HPP__
+/* static */ uint64_t CWindow::m_win32_class_id_counter = 0;
+
+void CWindow::InitializeOSWindow()
+{
+    WNDCLASSEX win_class {};
+}
+
+void CWindow::UpdateOSWindow()
+{
+
+}
+
+void CWindow::ReleaseOSWindow()
+{
+
+}
+
+void CWindow::InitializeOSSurface()
+{
+
+}
+
+#endif // !VK_USE_PLATFORM_WIN32_KHR
+
+} // !namespace

@@ -39,12 +39,12 @@ CWindow::~CWindow()
 
 void CWindow::Close()
 {
-
+    m_window_should_run = false;
 }
 
 bool CWindow::Update()
 {
-    return false;
+    return m_window_should_run;
 }
 
 } // !namespace

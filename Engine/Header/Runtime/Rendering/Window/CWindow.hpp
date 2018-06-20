@@ -24,6 +24,7 @@
 #ifndef ORDINAL_ENGINE_C_WINDOW_HPP__
 #define ORDINAL_ENGINE_C_WINDOW_HPP__
 
+#include <string>
 #include "Runtime/Platform/Platform.hh"
 
 /// \namespace ord
@@ -44,7 +45,22 @@ public:
 
 private:
 
+    void InitializeOSWindow ();
+    void ReleaseOSWindow    ();
+    void UpdateOSWindow     ();
+    void InitializeOSSurface();
+
+private:
+
     bool m_window_should_run = true;
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+    std::string     m_win32_class_name;
+    static uint64_t m_win32_class_id_counter;
+
+    HINSTANCE       m_win32_instance = nullptr;
+    HWND            m_win32_window   = nullptr;
+#endif
 
 };
 

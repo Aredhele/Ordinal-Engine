@@ -29,7 +29,7 @@ FILE(GLOB_RECURSE ENGINE_HEADERS
 
 ADD_EXECUTABLE(${ORDINAL_RUNTIME}
         ${ENGINE_SOURCES}
-        ${ENGINE_HEADERS} ../../Header/Runtime/Rendering/Helper/VulkanHelper.hh ../../Header/Runtime/Platform/Platform.hh Rendering/Window/CWindow.cpp ../../Header/Runtime/Rendering/Window/CWindow.hpp)
+        ${ENGINE_HEADERS} ../../Header/Runtime/Rendering/Helper/VulkanHelper.hh ../../Header/Runtime/Platform/Platform.hh Rendering/Window/CWindow.cpp ../../Header/Runtime/Rendering/Window/CWindow.hpp Rendering/Window/CWindow_win32.cpp)
 
 ADD_CUSTOM_TARGET(ResourcesCopy)
 ADD_DEPENDENCIES (${ORDINAL_RUNTIME} ResourcesCopy)
