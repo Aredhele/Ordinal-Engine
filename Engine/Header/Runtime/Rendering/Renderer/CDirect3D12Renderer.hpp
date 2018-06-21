@@ -36,8 +36,17 @@ namespace rendering
 
 /// \brief TODO
 /// \class CDirect3D12Renderer
-class CDirect3D12Renderer
-{};
+class CDirect3D12Renderer : public IRenderer
+{
+public:
+
+    /// \brief Initializes the renderer from the create info structure
+    /// \param s_renderer_info Contains all needed information to initialize a renderer
+    void Initialize(const SRendererCreateInfo& s_renderer_info) final;
+
+    /// \brief Releases the renderer
+    void Release() final;
+};
 
 } // !namespace
 

@@ -23,3 +23,27 @@
 
 #include "Runtime/Rendering/Renderer/CVulkanRenderer.hpp"
 
+/// \namespace ord
+namespace ord
+{
+
+/// \namespace rendering
+namespace rendering
+{
+
+/// \brief Initializes the renderer from the create info structure
+/// \param s_renderer_info Contains all needed information to initialize a renderer
+void CVulkanRenderer::Initialize(const SRendererCreateInfo& s_renderer_info)
+{
+    // None
+}
+
+/// \brief Releases the renderer
+void CVulkanRenderer::Release()
+{
+   // None
+}
+
+} // !namespace
+
+} // !namespace
