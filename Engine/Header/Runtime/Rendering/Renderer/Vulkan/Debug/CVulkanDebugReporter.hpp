@@ -15,14 +15,16 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CVulkanInstance.hpp
+/// \file       CVulkanDebugReporter.hpp
 /// \date       21/06/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Rendering/Renderer/Vulkan
+/// \package    Runtime/Rendering/Renderer/Vulkan/Debug
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_C_VULKAN_INSTANCE_HPP__
-#define ORDINAL_ENGINE_C_VULKAN_INSTANCE_HPP__
+#ifndef ORDINAL_ENGINE_C_VULKAN_DEBUG_REPORTER_HPP__
+#define ORDINAL_ENGINE_C_VULKAN_DEBUG_REPORTER_HPP__
+
+#include "Runtime/Platform/Configuration/Configuration.hh"
 
 /// \namespace ord
 namespace ord
@@ -33,15 +35,12 @@ namespace rendering
 {
 
 /// \brief TODO
-/// \class CVulkanInstance
-class CVulkanInstance
-{
-public:
-
-};
+/// \class CVulkanDebugReporter
+class CVulkanDebugReporter
+{};
 
 } // !namespace
 
 } // !namespace
 
-#endif // !ORDINAL_ENGINE_C_VULKAN_INSTANCE_HPP__
+#endif // !ORDINAL_ENGINE_C_VULKAN_DEBUG_REPORTER_HPP__

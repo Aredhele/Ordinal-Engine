@@ -52,8 +52,8 @@ class IRenderer
 public:
 
     /// \brief Initializes the renderer from the create info structure
-    /// \param s_renderer_info Contains all needed information to initialize a renderer
-    virtual void Initialize(const SRendererCreateInfo& s_renderer_info) = 0;
+    /// \param renderer_info Contains all needed information to initialize a renderer
+    virtual void Initialize(const SRendererCreateInfo& renderer_info) = 0;
 
     /// \brief Releases the renderer
     virtual void Release() = 0;

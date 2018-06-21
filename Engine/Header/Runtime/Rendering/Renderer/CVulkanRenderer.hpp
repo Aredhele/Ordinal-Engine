@@ -25,6 +25,7 @@
 #define ORDINAL_ENGINE_C_VULKAN_RENDERER_HPP__
 
 #include <vector>
+#include <stdexcept>
 
 #include "Runtime/Rendering/Renderer/IRenderer.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanLogicalDevice.hpp"
@@ -44,15 +45,20 @@ class CVulkanRenderer : public IRenderer
 public:
 
     /// \brief Initializes the renderer from the create info structure
-    /// \param s_renderer_info Contains all needed information to initialize a renderer
-    void Initialize(const SRendererCreateInfo& s_renderer_info) final;
+    /// \param renderer_info Contains all needed information to initialize a renderer
+    void Initialize(const SRendererCreateInfo& renderer_info) final;
 
     /// \brief Releases the renderer
     void Release() final;
 
 private:
 
-    std::vector<CVulkanLogicalDevice> m_logical_devices; ///< Contains all logical devices
+    // None
+
+private:
+
+    VkInstance                        mp_instance       = VK_NULL_HANDLE; ///< The vulkan instance handle
+    std::vector<CVulkanLogicalDevice> m_logical_devices;                  ///< Contains all logical devices
 };
 
 } // !namespace
