@@ -47,6 +47,7 @@ public:
 
     /// \brief Initializes the renderer from the create info structure
     /// \param renderer_info Contains all needed information to initialize a renderer
+    /// \throw runtime_error Throws on initialization failure
     void Initialize(const SRendererCreateInfo& renderer_info) final;
 
     /// \brief Releases the renderer
@@ -54,13 +55,27 @@ public:
 
 private:
 
-    // None
+#ifdef ORDINAL_DEBUG
+    /// \brief Fills the vector of layers to enable
+    void InitializeInstanceLayers();
+
+    /// \brief Fills the vector of extensions to enable
+    void InitializeInstanceExtensions();
+#endif
+
+    /// \brief Initializes the renderer from the create info structure
+    /// \param renderer_info Contains all needed information to initialize a renderer
+    /// \throw runtime_error Throws on initialization failure
+    void InitializeInstance(const SRendererCreateInfo& renderer_info);
 
 private:
 
     VkInstance                        mp_instance       = VK_NULL_HANDLE; ///< The vulkan instance handle
     CVulkanDebugReporter              m_debug_reporter;                   ///< Vulkan debug reporter
     std::vector<CVulkanLogicalDevice> m_logical_devices;                  ///< Contains all logical devices
+
+    std::vector<const char *>         m_instance_layers;                  ///< TODO
+    std::vector<const char *>         m_instance_extensions;              ///< TODO
 };
 
 } // !namespace

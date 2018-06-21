@@ -36,6 +36,43 @@ namespace rendering
 /// \param s_renderer_info Contains all needed information to initialize a renderer
 void CVulkanRenderer::Initialize(const SRendererCreateInfo& renderer_info)
 {
+    SLogger::LogInfo("Vulkan initialization ...");
+
+#ifdef ORDINAL_DEBUG
+    InitializeInstanceLayers();
+    InitializeInstanceExtensions();
+#endif
+
+    InitializeInstance(renderer_info);
+
+    SLogger::LogInfo("Vulkan renderer fully initialized");
+}
+
+/// \brief Releases the renderer
+void CVulkanRenderer::Release()
+{
+   // None
+}
+
+#ifdef ORDINAL_DEBUG
+/// \brief Fills the vector of layers to enable
+void CVulkanRenderer::InitializeInstanceLayers()
+{
+    m_instance_layers.push_back("VK_LAYER_LUNARG_standard_validation");
+}
+
+/// \brief Fills the vector of extensions to enable
+void CVulkanRenderer::InitializeInstanceExtensions()
+{
+    m_instance_extensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+}
+#endif
+
+/// \brief Initializes the renderer from the create info structure
+/// \param renderer_info Contains all needed information to initialize a renderer
+/// \throw runtime_error Throws on initialization failure
+void CVulkanRenderer::InitializeInstance(const SRendererCreateInfo& renderer_info)
+{
     VkApplicationInfo application_info {};
     {
         application_info.sType                       = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -50,26 +87,18 @@ void CVulkanRenderer::Initialize(const SRendererCreateInfo& renderer_info)
     {
         instance_create_info.sType                   = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
         instance_create_info.pApplicationInfo        = &application_info;
-        instance_create_info.enabledLayerCount       = 0; // static_cast<uint32_t>(m_instance_layers.size());
-        instance_create_info.enabledExtensionCount   = 0; // static_cast<uint32_t>(m_instance_extensions.size());
-        instance_create_info.ppEnabledLayerNames     = nullptr; // m_instance_layers.data();
-        instance_create_info.ppEnabledExtensionNames = nullptr; // m_instance_extensions.data();
+        instance_create_info.enabledLayerCount       = static_cast<uint32_t>(m_instance_layers.size());
+        instance_create_info.enabledExtensionCount   = static_cast<uint32_t>(m_instance_extensions.size());
+        instance_create_info.ppEnabledLayerNames     = m_instance_layers.data();
+        instance_create_info.ppEnabledExtensionNames = m_instance_extensions.data();
     }
 
     VkResult result = vkCreateInstance(&instance_create_info, nullptr, &mp_instance);
 
     if(result != VK_SUCCESS)
-    {
         throw std::runtime_error("Error while creating vulkan instance.");
-    }
 
-    SLogger::LogInfo("Vulkan instance initialized.");
-}
-
-/// \brief Releases the renderer
-void CVulkanRenderer::Release()
-{
-   // None
+    SLogger::LogInfo("\tVulkan instance initialized.");
 }
 
 } // !namespace

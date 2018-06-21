@@ -53,7 +53,7 @@ public:
     /// \param  key The key of the function
     /// \return The function referenced by the given key, if not found, return nullptr
     template<typename T>
-    T GetFunction(uint32_t key);
+    T GetFunction(uint32_t key) const;
 
 private:
 

@@ -35,12 +35,13 @@ namespace rendering
 /// \param  key The key of the function
 /// \return The function referenced by the given key, if not found, return nullptr
 template<typename T>
-T CVulkanFunctionLoader::GetFunction(uint32_t key)
+T CVulkanFunctionLoader::GetFunction(uint32_t key) const
 {
     static_assert(std::is_pointer<T>::value);
 
-    if(m_function_pointers.end() != m_function_pointers.find(key))
-        return reinterpret_cast<T>(m_function_pointers[key]);
+    const auto const_iterator = m_function_pointers.find(key);
+    if(m_function_pointers.cend() != const_iterator)
+        return reinterpret_cast<T>(const_iterator->second);
 
     return nullptr;
 }
