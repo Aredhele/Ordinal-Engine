@@ -29,6 +29,7 @@
 
 #include "Runtime/Rendering/Renderer/IRenderer.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanLogicalDevice.hpp"
+#include "Runtime/Rendering/Renderer/Vulkan/Debug/CVulkanDebugReporter.hpp"
 
 /// \namespace ord
 namespace ord
@@ -58,6 +59,7 @@ private:
 private:
 
     VkInstance                        mp_instance       = VK_NULL_HANDLE; ///< The vulkan instance handle
+    CVulkanDebugReporter              m_debug_reporter;                   ///< Vulkan debug reporter
     std::vector<CVulkanLogicalDevice> m_logical_devices;                  ///< Contains all logical devices
 };
 

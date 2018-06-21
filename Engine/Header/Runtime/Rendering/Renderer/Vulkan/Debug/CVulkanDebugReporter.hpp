@@ -34,17 +34,6 @@ namespace ord
 namespace rendering
 {
 
-/// \brief The debug report callback
-/// \param flags Indicates the VkDebugReportFlagBitsEXT that triggered this callback
-/// \param object_type Specifies the type of object being used or created when event was triggered
-/// \param source_object Gives the object where the issue was detected
-/// \param location Indicates the location of the trigger
-/// \param message_code This is a layer-defined value indicating what test triggered this callback
-/// \param p_layer_prefix This is the abbreviation of the component making the callback
-/// \param p_message This a null-terminated string detailing the trigger conditions
-/// \param p_user_data This the user data given when the DebugReportCallback was created
-/// \return VK_TRUE to abort the vulkan call, else VK_FALSE
-
 /// \brief  Stores report info
 /// \struct SDebugCallbackReportInfo
 struct SDebugCallbackReportInfo
