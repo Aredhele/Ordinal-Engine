@@ -24,6 +24,8 @@
 #ifndef ORDINAL_ENGINE_I_RENDERER_HPP__
 #define ORDINAL_ENGINE_I_RENDERER_HPP__
 
+#include "Runtime/Platform/Configuration/Configuration.hh"
+
 /// \namespace ord
 namespace ord
 {
@@ -32,11 +34,29 @@ namespace ord
 namespace rendering
 {
 
-/// \brief TODO
+/// \brief  Contains all needed information to initialize the renderer
+/// \struct SRendererCreateInfo
+struct SRendererCreateInfo
+{
+    const char* p_engine_name;          ///< The name of the engine
+    const char* p_application_name;     ///< The name of the application
+    uint32_t    api_version;            ///< The version of the vulkan api
+    uint32_t    engine_version;         ///< The version of the engine
+    uint32_t    application_version;    ///< The version of the application
+};
+
+/// \brief Base interface for all renderers
 /// \class IRenderer
 class IRenderer
 {
 public:
+
+    /// \brief Initializes the renderer from the create info structure
+    /// \param s_renderer_info Contains all needed information to initialize a renderer
+    virtual void Initialize(const SRendererCreateInfo& s_renderer_info) = 0;
+
+    /// \brief Releases the renderer
+    virtual void Release() = 0;
 };
 
 } // !namespace
