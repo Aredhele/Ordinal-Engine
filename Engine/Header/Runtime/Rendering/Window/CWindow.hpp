@@ -25,7 +25,7 @@
 #define ORDINAL_ENGINE_C_WINDOW_HPP__
 
 #include <string>
-#include "Runtime/Platform/Platform.hh"
+#include "Runtime/Platform/Configuration/Configuration.hh"
 
 /// \namespace ord
 namespace ord

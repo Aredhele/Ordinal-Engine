@@ -26,7 +26,7 @@ namespace ord { namespace impl {
 
 /// \brief  Displays the assertion message
 inline void assert_print(const char *szName, const char *szExpr, const char *szMsg,
-                  const char *szFile, const char *szFunc, int32 line)
+                  const char *szFile, const char *szFunc, int32_t line)
 {
     fprintf(stderr, "FILE\t : %s\nLINE\t : %d\nFUNCTION : %s\n"
                     "Assertion failed %s(%s) with message : %s\n",
@@ -35,7 +35,7 @@ inline void assert_print(const char *szName, const char *szExpr, const char *szM
 
 /// \brief  Checks if the expression is true
 inline void assert_true(bool bExpr, const char *szExpr, const char *szMsg,
-                 const char *szFile, const char *szFunc, int32 line)
+                 const char *szFile, const char *szFunc, int32_t line)
 {
     if (!bExpr)
     {
@@ -46,7 +46,7 @@ inline void assert_true(bool bExpr, const char *szExpr, const char *szMsg,
 
 /// \brief  Checks sif the expression is false
 inline void assert_false(bool bExpr, const char *szExpr, const char *szMsg,
-                  const char *szFile, const char *szFunc, int32 line)
+                  const char *szFile, const char *szFunc, int32_t line)
 {
     if (bExpr)
     {
@@ -60,7 +60,7 @@ template<class T, class U>
 inline void assert_equal(const T &lhs, const U &rhs,
                   const char * szLhs, const char * szRhs,
                   const char * szMsg, const char * szFile,
-                  const char * szFunc, int32 line)
+                  const char * szFunc, int32_t line)
 {
     if (lhs != rhs)
     {
@@ -77,7 +77,7 @@ template <class T, class U>
 inline void assert_non_equal(const T &lhs, const U &rhs,
                       const char * szLhs, const char * szRhs,
                       const char * szMsg, const char * szFile,
-                      const char * szFunc, int32 line)
+                      const char * szFunc, int32_t line)
 {
     if (lhs == rhs)
     {
@@ -91,7 +91,7 @@ inline void assert_non_equal(const T &lhs, const U &rhs,
 
 /// \brief  Checks if ptr is null pointer
 inline void assert_is_null(void *ptr, const char *szExpr, const char *szMsg,
-                           const char *szFile, const char *szFunc, int32 line)
+                           const char *szFile, const char *szFunc, int32_t line)
 {
     if (ptr != nullptr)
     {
@@ -102,7 +102,7 @@ inline void assert_is_null(void *ptr, const char *szExpr, const char *szMsg,
 
 /// \brief  Checks if ptr is not null pointer
 inline void assert_is_not_null(void *ptr, const char *szExpr, const char *szMsg,
-                               const char *szFile, const char *szFunc, int32 line)
+                               const char *szFile, const char *szFunc, int32_t line)
 {
     if (ptr == nullptr)
     {
@@ -116,7 +116,7 @@ template <class T, class U>
 inline void assert_is_greater_than(const T & lhs, const U & rhs,
                             const char * szLhs, const char * szRhs,
                             const char * szMsg, const char * szFile,
-                            const char * szFunc, int32 line)
+                            const char * szFunc, int32_t line)
 {
     if(lhs < rhs)
     {
@@ -133,7 +133,7 @@ template <class T, class U>
 inline void assert_is_lower_than(const T & lhs, const U & rhs,
                           const char * szLhs, const char * szRhs,
                           const char * szMsg, const char * szFile,
-                          const char * szFunc, int32 line)
+                          const char * szFunc, int32_t line)
 {
     if(lhs > rhs)
     {

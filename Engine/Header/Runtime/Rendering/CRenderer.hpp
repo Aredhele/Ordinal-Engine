@@ -28,7 +28,6 @@
 #include <vector>
 #include <stdexcept>
 
-#include "Runtime/Platform/Platform.hh"
 #include "Runtime/Platform/Configuration/Configuration.hh"
 
 #include "Runtime/Rendering/Window/CWindow.hpp"

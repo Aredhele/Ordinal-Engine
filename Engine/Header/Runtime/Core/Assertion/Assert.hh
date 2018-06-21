@@ -44,7 +44,7 @@ void assert_print(const char * szName,
                   const char * szMsg,
                   const char * szFile,
                   const char * szFunc,
-                  int32 line);
+                  int32_t line);
 
 /// \brief  Checks if the expression is true
 void assert_true(bool bExpr,
@@ -52,7 +52,7 @@ void assert_true(bool bExpr,
                  const char * szMsg,
                  const char * szFile,
                  const char * szFunc,
-                 int32 line);
+                 int32_t line);
 
 /// \brief  Checks sif the expression is false
 void assert_false(bool bExpr,
@@ -60,7 +60,7 @@ void assert_false(bool bExpr,
                   const char * szMsg,
                   const char * szFile,
                   const char * szFunc,
-                  int32 line);
+                  int32_t line);
 
 /// \brief  Checks if rhs and lhs are equal
 template <class T, class U>
@@ -71,7 +71,7 @@ void assert_equal(const T & lhs,
                   const char * szMsg,
                   const char * szFile,
                   const char * szFunc,
-                  int32 line);
+                  int32_t line);
 
 /// \brief  Checks if rhs and lhs are different
 template <class T, class U>
@@ -82,7 +82,7 @@ void assert_non_equal(const T & lhs,
                       const char * szMsg,
                       const char * szFile,
                       const char * szFunc,
-                      int32 line);
+                      int32_t line);
 
 /// \brief  Checks if ptr is null pointer
 void assert_is_null(void * ptr,
@@ -90,7 +90,7 @@ void assert_is_null(void * ptr,
                     const char * szMsg,
                     const char * szFile,
                     const char * szFunc,
-                    int32 line);
+                    int32_t line);
 
 /// \brief  Checks if ptr is not null pointer
 void assert_is_not_null(void * ptr,
@@ -98,7 +98,7 @@ void assert_is_not_null(void * ptr,
                         const char * szMsg,
                         const char * szFile,
                         const char * szFunc,
-                        int32 line);
+                        int32_t line);
 
 /// \brief  Checks if rhs is greater than lhs
 template <class T, class U>
@@ -109,7 +109,7 @@ void assert_is_greater_than(const T & lhs,
                             const char * szMsg,
                             const char * szFile,
                             const char * szFunc,
-                            int32 line);
+                            int32_t line);
 
 /// \brief  Checks if rhs is lower than lhs
 template <class T, class U>
@@ -120,7 +120,7 @@ void assert_is_lower_than(const T & lhs,
                           const char * szMsg,
                           const char * szFile,
                           const char * szFunc,
-                          int32 line);
+                          int32_t line);
 
 }  // namespace impl
 

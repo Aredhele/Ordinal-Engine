@@ -1,4 +1,4 @@
-/// Copyright (C) 2018-2019 Ordinal Engine
+/// Copyright (C) 2018-2019, Ordinal Engine
 /// Vincent STEHLY--CALISTO, vincentstehly@hotmail.fr
 ///
 /// This program is free software; you can redistribute it and/or modify
@@ -15,30 +15,28 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       Type.hh
-/// \date       08/02/2018
+/// \file       SocketHandle.hh
+/// \date       21/06/2018
 /// \project    Ordinal Engine
-/// \package    Platform/Configuration
+/// \package    Runtime/Network/Socket
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_TYPE_HPP__
-#define ORDINAL_ENGINE_TYPE_HPP__
+#ifndef ORDINAL_ENGINE_C_SOCKET_HANDLE_HH_
+#define ORDINAL_ENGINE_C_SOCKET_HANDLE_HH_
 
-typedef unsigned char	    uchar;
-typedef unsigned short	    ushort;
-typedef unsigned int	    uint;
-typedef unsigned long	    ulong;
+#include "Runtime/Platform/Configuration/Configuration.hh
 
-typedef unsigned char       uint8;
-typedef unsigned short      uint16;
-typedef unsigned int        uint32;
-typedef unsigned long long  uint64;
+/// \namespace ord
+namespace ord { namespace network {
 
-typedef char                int8;
-typedef short               int16;
-typedef int                 int32;
-typedef long long           int64;
+#if defined(ORDINAL_WINDOWS)
+    typedef UINT_PTR SocketHandle;
 
-typedef unsigned long long  size;
+#else
+    typedef int SocketHandle;
 
-#endif // !ORDINAL_ENGINE_TYPE_HPP__
+#endif
+
+} } // !namespace
+
+#endif // !ORDINAL_ENGINE_C_SOCKET_HANDLE_HH__

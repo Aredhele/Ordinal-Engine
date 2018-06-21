@@ -24,7 +24,7 @@
 #ifndef ORDINAL_ENGINE_CONFIGURATION_HPP__
 #define ORDINAL_ENGINE_CONFIGURATION_HPP__
 
-#include "Runtime/Platform/Configuration/Type.hh"
 #include "Runtime/Platform/Configuration/Compiler.hh"
+#include "Runtime/Platform/Configuration/Platform.hh"
 
 #endif // !ORDINAL_ENGINE_CONFIGURATION_HPP__
