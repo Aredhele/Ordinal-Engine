@@ -23,6 +23,7 @@
 
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Rendering/Renderer/CVulkanRenderer.hpp"
+#include "Runtime/Rendering/Renderer/Vulkan/CVulkanPhysicalDevice.hpp"
 
 /// \namespace ord
 namespace ord
@@ -44,6 +45,7 @@ void CVulkanRenderer::Initialize(const SRendererCreateInfo& renderer_info)
 #endif
 
     InitializeInstance(renderer_info);
+    InitializeLogicalDevices();
 
     SLogger::LogInfo("Vulkan renderer fully initialized");
 }
@@ -99,6 +101,33 @@ void CVulkanRenderer::InitializeInstance(const SRendererCreateInfo& renderer_inf
         throw std::runtime_error("Error while creating vulkan instance.");
 
     SLogger::LogInfo("\tVulkan instance initialized.");
+}
+
+/// \brief Initializes logical devices from physical devices
+/// \throw runtime_error Throws on initialization failure
+void CVulkanRenderer::InitializeLogicalDevices()
+{
+    // Gets the amount of physical devices
+    uint32_t physical_device_count = CVulkanPhysicalDevice::GetPhysicalDeviceCount(mp_instance);
+
+    // Gets the list of physical device handles
+    std::vector<VkPhysicalDevice> physical_devices(physical_device_count, VK_NULL_HANDLE);
+    CVulkanPhysicalDevice::GetPhysicalDevices(mp_instance, physical_device_count, physical_devices.data());
+
+    // Searches for suitable devices
+    for(const auto& physical_device : physical_devices)
+    {
+        if(CVulkanPhysicalDevice::IsPhysicalDeviceSuitable(physical_device))
+        {
+            m_logical_devices.emplace_back(new CVulkanLogicalDevice());
+            m_logical_devices.back()->Initialize(physical_device);
+        }
+    }
+
+    if(m_logical_devices.empty())
+        throw std::runtime_error("No suitable GPU found.");
+
+    SLogger::LogInfo("\tLogical devices initialized.");
 }
 
 } // !namespace

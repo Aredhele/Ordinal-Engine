@@ -68,14 +68,18 @@ private:
     /// \throw runtime_error Throws on initialization failure
     void InitializeInstance(const SRendererCreateInfo& renderer_info);
 
+    /// \brief Initializes logical devices from physical devices
+    /// \throw runtime_error Throws on initialization failure
+    void InitializeLogicalDevices();
+
 private:
 
-    VkInstance                        mp_instance       = VK_NULL_HANDLE; ///< The vulkan instance handle
-    CVulkanDebugReporter              m_debug_reporter;                   ///< Vulkan debug reporter
-    std::vector<CVulkanLogicalDevice> m_logical_devices;                  ///< Contains all logical devices
+    VkInstance                          mp_instance       = VK_NULL_HANDLE; ///< The vulkan instance handle
+    CVulkanDebugReporter                m_debug_reporter;                   ///< Vulkan debug reporter
+    std::vector<CVulkanLogicalDevice *> m_logical_devices;                  ///< Contains all logical devices
 
-    std::vector<const char *>         m_instance_layers;                  ///< TODO
-    std::vector<const char *>         m_instance_extensions;              ///< TODO
+    std::vector<const char *>           m_instance_layers;                  ///< TODO
+    std::vector<const char *>           m_instance_extensions;              ///< TODO
 };
 
 } // !namespace

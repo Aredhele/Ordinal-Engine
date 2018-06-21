@@ -24,6 +24,9 @@
 #ifndef ORDINAL_ENGINE_C_VULKAN_LOGICAL_DEVICE_HPP__
 #define ORDINAL_ENGINE_C_VULKAN_LOGICAL_DEVICE_HPP__
 
+#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Rendering/Renderer/Vulkan/CVulkanPhysicalDevice.hpp"
+
 /// \namespace ord
 namespace ord
 {
@@ -32,16 +35,35 @@ namespace ord
 namespace rendering
 {
 
-/// \brief TODO
+/// \brief Manages a vulkan logical device
 /// \class CVulkanLogicalDevice
 class CVulkanLogicalDevice
 {
 public:
 
+    /// \brief Initializes the logical device
+    /// \param physical_device The vulkan physical device
+    void Initialize(VkPhysicalDevice physical_device);
+
+    /// \brief Releases the logical device
+    void Release();
+
+public:
+
+    /// \brief Returns the vulkan logical device handle
+    /// \return The handle on the vulkan logical device
+    inline VkDevice GetLogicalDeviceHandle() const;
+
+private:
+
+    VkDevice                mp_logical_device  = VK_NULL_HANDLE;    ///< TODO
+    CVulkanPhysicalDevice * mp_physical_device = nullptr;           ///< TODO
 };
 
 } // !namespace
 
 } // !namespace
+
+#include "Runtime/Rendering/Renderer/Vulkan/Impl/CVulkanLogicalDevice.inl"
 
 #endif // !ORDINAL_ENGINE_C_VULKAN_LOGICAL_DEVICE_HPP__
