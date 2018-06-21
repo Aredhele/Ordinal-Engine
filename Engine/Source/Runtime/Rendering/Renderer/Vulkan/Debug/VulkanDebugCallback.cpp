@@ -21,6 +21,7 @@
 /// \package    Runtime/Rendering/Renderer/Vulkan/Debug
 /// \author     Vincent STEHLY--CALISTO
 
+#include "Runtime/Core/Assertion/Assert.hh"
 #include "Runtime/Rendering/Renderer/Vulkan/Debug/VulkanDebugCallback.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Debug/CVulkanDebugReporter.hpp"
 
@@ -54,8 +55,23 @@ VkBool32 VulkanDebugCallback
     void*                      p_user_data
 )
 {
+    // Pre-conditions
+    ASSERT_NOT_NULL_MSG(p_user_data, "Please set callback user data pointer");
+
+    SDebugCallbackReportInfo callback_report_info {};
+    {
+        callback_report_info.flags          = flags;
+        callback_report_info.object_type    = object_type;
+        callback_report_info.source_object  = source_object;
+        callback_report_info.location       = location;
+        callback_report_info.message_code   = message_code;
+        callback_report_info.p_layer_prefix = p_layer_prefix;
+        callback_report_info.p_message      = p_message;
+        callback_report_info.p_user_data    = p_user_data;
+    }
+
     auto * p_debug_reporter = static_cast<CVulkanDebugReporter *>(p_user_data);
-    return VK_FALSE;
+    return p_debug_reporter->Report(callback_report_info);
 }
 
 } // !namespace

@@ -34,10 +34,70 @@ namespace ord
 namespace rendering
 {
 
-/// \brief TODO
+/// \brief The debug report callback
+/// \param flags Indicates the VkDebugReportFlagBitsEXT that triggered this callback
+/// \param object_type Specifies the type of object being used or created when event was triggered
+/// \param source_object Gives the object where the issue was detected
+/// \param location Indicates the location of the trigger
+/// \param message_code This is a layer-defined value indicating what test triggered this callback
+/// \param p_layer_prefix This is the abbreviation of the component making the callback
+/// \param p_message This a null-terminated string detailing the trigger conditions
+/// \param p_user_data This the user data given when the DebugReportCallback was created
+/// \return VK_TRUE to abort the vulkan call, else VK_FALSE
+
+/// \brief  Stores report info
+/// \struct SDebugCallbackReportInfo
+struct SDebugCallbackReportInfo
+{
+    VkDebugReportFlagsEXT      flags;           ///< Indicates the VkDebugReportFlagBitsEXT that triggered this callback
+    VkDebugReportObjectTypeEXT object_type;     ///< Specifies the type of object being used or created when event was triggered
+    uint64_t                   source_object;   ///< Gives the object where the issue was detected
+    size_t                     location;        ///< Indicates the location of the trigger
+    int32_t                    message_code;    ///< This is a layer-defined value indicating what test triggered this callback
+    const char*                p_layer_prefix;  ///< This is the abbreviation of the component making the callback
+    const char*                p_message;       ///< This a null-terminated string detailing the trigger conditions
+    void*                      p_user_data;     ///< This the user data given when the DebugReportCallback was created
+};
+
+/// \brief Manages and displays debug reports
 /// \class CVulkanDebugReporter
 class CVulkanDebugReporter
-{};
+{
+public:
+
+    /// \brief Manages and displays the report info
+    /// \param callback_report_info The report info
+    /// \return VK_TRUE if the vulkan call should be aborted, else VK_FALSE
+    VkBool32 Report(const SDebugCallbackReportInfo& callback_report_info);
+
+private:
+
+    /// \brief Displays the information report info
+    /// \param callback_report_info The report info
+    /// \return VK_TRUE if the vulkan call should be aborted, else VK_FALSE
+    VkBool32 ReportInformation(const SDebugCallbackReportInfo& callback_report_info);
+
+    /// \brief Displays the debug report info
+    /// \param callback_report_info The report info
+    /// \return VK_TRUE if the vulkan call should be aborted, else VK_FALSE
+    VkBool32 ReportDebug(const SDebugCallbackReportInfo& callback_report_info);
+
+    /// \brief Displays the warning report info
+    /// \param callback_report_info The report info
+    /// \return VK_TRUE if the vulkan call should be aborted, else VK_FALSE
+    VkBool32 ReportWarning(const SDebugCallbackReportInfo& callback_report_info);
+
+    /// \brief Displays the performance warning report info
+    /// \param callback_report_info The report info
+    /// \return VK_TRUE if the vulkan call should be aborted, else VK_FALSE
+    VkBool32 ReportPerformanceWarning(const SDebugCallbackReportInfo& callback_report_info);
+
+    /// \brief Displays the error report info
+    /// \param callback_report_info The report info
+    /// \return VK_TRUE if the vulkan call should be aborted, else VK_FALSE
+    VkBool32 ReportError(const SDebugCallbackReportInfo& callback_report_info);
+
+};
 
 } // !namespace
 
