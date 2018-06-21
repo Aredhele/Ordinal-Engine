@@ -24,6 +24,7 @@
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Rendering/CRenderer.hpp"
 #include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Network/Socket/CSocket.hpp"
 
 // http://etd.dtu.dk/thesis/264045/ep10_38.pdf
 

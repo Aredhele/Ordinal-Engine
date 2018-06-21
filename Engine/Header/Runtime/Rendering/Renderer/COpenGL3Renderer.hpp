@@ -15,14 +15,14 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CVulkanRenderer.hpp
+/// \file       COpenGL3Renderer.hpp
 /// \date       21/06/2018
 /// \project    Ordinal Engine
 /// \package    Runtime/Rendering/Renderer
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_C_VULKAN_RENDERER_HPP__
-#define ORDINAL_ENGINE_C_VULKAN_RENDERER_HPP__
+#ifndef ORDINAL_ENGINE_C_OPEN_GL_3_RENDERER_HPP__
+#define ORDINAL_ENGINE_C_OPEN_GL_3_RENDERER_HPP__
 
 #include "Runtime/Rendering/Renderer/IRenderer.hpp"
 
@@ -35,12 +35,12 @@ namespace rendering
 {
 
 /// \brief TODO
-/// \class CVulkanRenderer
-class CVulkanRenderer
+/// \class COpenGL3Renderer
+class COpenGL3Renderer
 {};
 
 } // !namespace
 
 } // !namespace
 
-#endif // !ORDINAL_ENGINE_C_VULKAN_RENDERER_HPP__
+#endif // !ORDINAL_ENGINE_C_OPEN_GL_3_RENDERER_HPP__
