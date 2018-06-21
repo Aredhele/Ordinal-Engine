@@ -15,19 +15,14 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CVulkanRenderer.hpp
+/// \file       CVulkanInstance.hpp
 /// \date       21/06/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Rendering/Renderer
+/// \package    Runtime/Rendering/Renderer/Vulkan
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_C_VULKAN_RENDERER_HPP__
-#define ORDINAL_ENGINE_C_VULKAN_RENDERER_HPP__
-
-#include <vector>
-
-#include "Runtime/Rendering/Renderer/IRenderer.hpp"
-#include "Runtime/Rendering/Renderer/Vulkan/CVulkanLogicalDevice.hpp"
+#ifndef ORDINAL_ENGINE_C_VULKAN_INSTANCE_HPP__
+#define ORDINAL_ENGINE_C_VULKAN_INSTANCE_HPP__
 
 /// \namespace ord
 namespace ord
@@ -37,26 +32,16 @@ namespace ord
 namespace rendering
 {
 
-/// \brief Vulkan renderer
-/// \class CVulkanRenderer
-class CVulkanRenderer : public IRenderer
+/// \brief TODO
+/// \class CVulkanInstance
+class CVulkanInstance
 {
 public:
 
-    /// \brief Initializes the renderer from the create info structure
-    /// \param s_renderer_info Contains all needed information to initialize a renderer
-    void Initialize(const SRendererCreateInfo& s_renderer_info) final;
-
-    /// \brief Releases the renderer
-    void Release() final;
-
-private:
-
-    std::vector<CVulkanLogicalDevice> m_logical_devices; ///< Contains all logical devices
 };
 
 } // !namespace
 
 } // !namespace
 
-#endif // !ORDINAL_ENGINE_C_VULKAN_RENDERER_HPP__
+#endif // !ORDINAL_ENGINE_C_VULKAN_INSTANCE_HPP__
