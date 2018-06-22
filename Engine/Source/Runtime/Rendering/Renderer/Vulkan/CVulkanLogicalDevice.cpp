@@ -21,6 +21,7 @@
 /// \package    Runtime/Rendering/Renderer/Vulkan
 /// \author     Vincent STEHLY--CALISTO
 
+#include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Core/Assertion/Assert.hh"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanLogicalDevice.hpp"
 
@@ -36,6 +37,7 @@ namespace rendering
 /// \param physical_device The vulkan physical device
 void CVulkanLogicalDevice::Initialize(VkPhysicalDevice physical_device)
 {
+    SLogger::LogInfo("\tVulkan Logical Device initialization ...");
     // Pre-conditions
     ASSERT_NULL(mp_physical_device);
     ASSERT_TRUE(physical_device != VK_NULL_HANDLE);
@@ -60,6 +62,8 @@ void CVulkanLogicalDevice::Initialize(VkPhysicalDevice physical_device)
 
     VkDevice logical_device = VK_NULL_HANDLE;
     VkResult result = vkCreateDevice(physical_device, &device_create_info, nullptr, &logical_device);*/
+
+    SLogger::LogInfo("\tVulkan Logical Device initialized");
 }
 
 /// \brief Releases the logical device

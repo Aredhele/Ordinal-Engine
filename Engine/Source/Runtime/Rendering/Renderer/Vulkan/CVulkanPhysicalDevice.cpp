@@ -22,6 +22,7 @@
 /// \author     Vincent STEHLY--CALISTO
 
 #include <vector>
+#include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Core/Assertion/Assert.hh"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanPhysicalDevice.hpp"
 
@@ -37,14 +38,48 @@ namespace rendering
 /// \param physical_device The vulkan physical device
 void CVulkanPhysicalDevice::Initialize(VkPhysicalDevice physical_device)
 {
-    // Pre-conditions
-    ASSERT_TRUE(physical_device != VK_NULL_HANDLE);
+    SLogger::LogInfo("\t  Vulkan physical device initialization ...");
+    mp_physical_device = physical_device;
+
+    // Initializes the physical device
+    InitializeQueueFamilies();
+
+    SLogger::LogInfo("\t  Vulkan physical device initialized");
 }
 
 /// \brief Releases the physical device
 void CVulkanPhysicalDevice::Release()
 {
     // TODO
+}
+
+/// \brief Initializes all queue families
+/// \throw runtime_error Throws on initialization failure
+void CVulkanPhysicalDevice::InitializeQueueFamilies()
+{
+    // Gets the amount of queue families
+    uint32_t family_count = 0;
+    vkGetPhysicalDeviceQueueFamilyProperties(mp_physical_device, &family_count, nullptr);
+
+    // Stores queue families handle in a vector
+    std::vector<VkQueueFamilyProperties> family_properties(family_count);
+    vkGetPhysicalDeviceQueueFamilyProperties(mp_physical_device, &family_count, family_properties.data());
+
+    for(uint32_t nFamilyProperties = 0; nFamilyProperties < family_properties.size(); ++nFamilyProperties)
+    {
+        if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_GRAPHICS_BIT ||
+           family_properties[nFamilyProperties].queueFlags & VK_QUEUE_COMPUTE_BIT)
+        {
+           m_queue_families.emplace_back(
+                   CVulkanQueueFamily(nFamilyProperties,
+                   family_properties[nFamilyProperties]));
+
+           if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_GRAPHICS_BIT)
+               SLogger::LogInfo("\t\tGraphic queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
+           else
+               SLogger::LogInfo("\t\tCompute queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
+        }
+    }
 }
 
 /// \brief Returns the amount of physical devices detected

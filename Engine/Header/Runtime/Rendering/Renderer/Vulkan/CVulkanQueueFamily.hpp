@@ -24,6 +24,8 @@
 #ifndef ORDINAL_ENGINE_C_VULKAN_QUEUE_FAMILY_HPP__
 #define ORDINAL_ENGINE_C_VULKAN_QUEUE_FAMILY_HPP__
 
+#include "Runtime/Platform/Configuration/Configuration.hh"
+
 /// \namespace ord
 namespace ord
 {
@@ -32,15 +34,45 @@ namespace ord
 namespace rendering
 {
 
-/// \brief TODO
+/// \brief Stores all available queue family for a given physical device
 /// \class CVulkanQueueFamily
 class CVulkanQueueFamily
 {
 public:
+
+    /// \brief Constructor
+    /// \param index The index of the queue family
+    /// \param queue_family_properties The properties of the queue family
+    explicit CVulkanQueueFamily(uint32_t index, const VkQueueFamilyProperties& queue_family_properties);
+
+public:
+
+    /// \brief Returns the index of the queue family
+    /// \return The index of the queue family
+    inline uint32_t GetQueueFamilyIndex() const;
+
+    /// \brief Returns the amount of queues
+    /// \return The amount of queues
+    inline uint32_t GetQueueFamilyCount() const;
+
+    /// \brief Returns the flags of the queue family
+    /// \return The flags of the queue family
+    inline VkQueueFlags GetQueueFamilyFlags() const;
+
+    /// \brief Returns the properties of the queue family
+    /// \return The properties of the queue family
+    inline const VkQueueFamilyProperties& GetQueueFamilyProperties() const;
+
+private:
+
+    uint32_t                m_queue_index = 0;         ///< The index of the queue family
+    VkQueueFamilyProperties m_queue_family_properties; ///< The properties of the queue family
 };
 
 } // !namespace
 
 } // !namespace
+
+#include "Runtime/Rendering/Renderer/Vulkan/Impl/CVulkanQueueFamily.inl"
 
 #endif // !ORDINAL_ENGINE_C_VULKAN_QUEUE_FAMILY_HPP__

@@ -100,7 +100,7 @@ void CVulkanRenderer::InitializeInstance(const SRendererCreateInfo& renderer_inf
     if(result != VK_SUCCESS)
         throw std::runtime_error("Error while creating vulkan instance.");
 
-    SLogger::LogInfo("\tVulkan instance initialized.");
+    SLogger::LogInfo("  Vulkan instance initialized.");
 }
 
 /// \brief Initializes logical devices from physical devices
@@ -127,7 +127,7 @@ void CVulkanRenderer::InitializeLogicalDevices()
     if(m_logical_devices.empty())
         throw std::runtime_error("No suitable GPU found.");
 
-    SLogger::LogInfo("\tLogical devices initialized.");
+    SLogger::LogInfo("  Logical devices initialized.");
 }
 
 } // !namespace

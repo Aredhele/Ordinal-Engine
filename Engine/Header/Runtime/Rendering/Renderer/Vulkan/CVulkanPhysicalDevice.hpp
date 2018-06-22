@@ -45,6 +45,7 @@ public:
 
     /// \brief Initializes the physical device
     /// \param physical_device The vulkan physical device
+    /// \throw runtime_error Throws on initialization failure
     void Initialize(VkPhysicalDevice physical_device);
 
     /// \brief Releases the physical device
@@ -73,6 +74,12 @@ public:
     /// \param physical_device The physical devices to test
     /// \return True if the device is suitable, else false
     static bool IsPhysicalDeviceSuitable(VkPhysicalDevice physical_device);
+
+private:
+
+    /// \brief Initializes all queue families
+    /// \throw runtime_error Throws on initialization failure
+    void InitializeQueueFamilies();
 
 private:
 
