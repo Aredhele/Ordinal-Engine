@@ -16,14 +16,14 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CMemoryManager.hpp
+/// \file       CMemoryTracker.hpp
 /// \date       26/06/2018
 /// \project    Ordinal Engine
 /// \package    Runtime/Core/Memory
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_C_MEMORY_MANAGER_HPP__
-#define ORDINAL_ENGINE_C_MEMORY_MANAGER_HPP__
+#ifndef ORDINAL_ENGINE_C_MEMORY_TRACKER_HPP__
+#define ORDINAL_ENGINE_C_MEMORY_TRACKER_HPP__
 
 /// \namespace ord
 namespace ord
@@ -33,8 +33,9 @@ namespace ord
 namespace core
 {
 
-} // !namespace
 
 } // !namespace
 
-#endif // !ORDINAL_ENGINE_C_MEMORY_MANAGER_HPP__
+} // !namespace
+
+#endif // !ORDINAL_ENGINE_C_MEMORY_TRACKER_HPP__
