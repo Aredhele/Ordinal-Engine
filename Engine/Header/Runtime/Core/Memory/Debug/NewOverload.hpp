@@ -25,8 +25,7 @@
 #ifndef ORDINAL_ENGINE_NEW_OVERLOAD_HPP__
 #define ORDINAL_ENGINE_NEW_OVERLOAD_HPP__
 
-#include <cstddef> ///< std::size_t
-#include <cstdlib> ///< malloc, free
+#include "Runtime/Core/Memory/CMemoryManager.hpp"
 
 #ifdef ORDINAL_DEBUG
 
@@ -35,7 +34,7 @@
 /// \return A pointer on the allocated memory
 void* operator new(std::size_t size)
 {
-    /* TMP */ return malloc(size);
+    return ord::core::CMemoryManager::Allocate(size);
 }
 
 /// \brief  Overload of the global operator new[]
@@ -43,21 +42,21 @@ void* operator new(std::size_t size)
 /// \return A pointer on the allocated memory
 void* operator new[](std::size_t size)
 {
-    /* TMP */ return malloc(size);
+    return ord::core::CMemoryManager::Allocate(size, true);
 }
 
 /// \brief  Overload of the global operator delete
 /// \param  pointer The address of the allocated memory to free
 void operator delete(void* pointer) noexcept
 {
-    /* TMP */ free(pointer);
+    return ord::core::CMemoryManager::Deallocate(pointer);
 }
 
 /// \brief  Overload of the global operator delete[]
 /// \param  pointer The address of the allocated memory to free
 void operator delete[](void* pointer) noexcept
 {
-    /* TMP */ free(pointer);
+    return ord::core::CMemoryManager::Deallocate(pointer, true);
 }
 
 #endif // !ORDINAL_DEBUG
