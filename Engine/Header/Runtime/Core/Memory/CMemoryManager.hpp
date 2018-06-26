@@ -27,6 +27,7 @@
 
 #include <cstddef> ///< std::size_t
 #include <cstdlib> ///< std::malloc, std::free
+#include <cstdint> ///< uint8_t
 
 /// \namespace ord
 namespace ord
@@ -35,6 +36,15 @@ namespace ord
 /// \namespace core
 namespace core
 {
+
+/// \brief  Contains all needed information to initialize the memory manager
+/// \struct SMemoryManagerCreateInfo
+struct SMemoryManagerCreateInfo
+{
+    bool    memory_logging_enabled;
+    bool    memory_initialization_enabled;
+    uint8_t memory_initialization_byte;
+};
 
 /// \brief Manages memory allocations
 /// \class CMemoryManager
@@ -55,6 +65,36 @@ public:
     /// \param  sz_function_name The caller function name
     /// \param  line The called line
     static void Deallocate(void *pointer, bool array_allocation = false, const char* sz_function_name = nullptr, unsigned int line = 0);
+
+    /// \brief  Tells if the memory logging is enabled
+    /// \return True or false
+    static bool IsMemoryLoggingEnabled();
+
+    /// \brief  Tells if the memory initialization is enabled
+    /// \return True or false
+    static bool IsMemoryInitializationEnabled();
+
+private:
+
+    /// \brief Private default constructor
+    CMemoryManager() = default;
+
+    /// \brief Private destructor
+    ~CMemoryManager();
+
+    /// \brief Initializes the memory manager
+    /// \param manager_create_info
+    static void Initialize(const SMemoryManagerCreateInfo& manager_create_info);
+
+    /// \brief Releases the memory manager
+    static void Release();
+
+private:
+
+    static bool    s_initialized;                     ///< Is the manager initialized ?
+    static bool    s_memory_logging_enabled;          ///< Should the memory be logged ?
+    static bool    s_memory_initialization_enabled;   ///< Should the memory be initialized ?
+    static uint8_t s_memory_initialization_byte;      ///< The byte to initialize the memory with
 };
 
 } // !namespace
