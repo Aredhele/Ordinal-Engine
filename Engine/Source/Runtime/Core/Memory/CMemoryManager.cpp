@@ -22,6 +22,9 @@
 /// \package    Runtime/Core/Memory
 /// \author     Vincent STEHLY--CALISTO
 
+#include <cstring>
+#include <stdexcept>
+
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Core/Memory/CMemoryManager.hpp"
 
@@ -52,6 +55,32 @@ CMemoryManager::~CMemoryManager()
 /// \return A pointer on the allocated memory
 /* static */ void* CMemoryManager::Allocate(std::size_t size, bool array_allocation, const char* sz_function_name, unsigned int line)
 {
+    if(!s_initialized)
+    {
+        SLogger::LogError("Did you forget to initialize the memory manager ?");
+        SLogger::LogError("Memory will not be allocated, aborting call.");
+        throw std::runtime_error("Memory manager not initialized");
+    }
+
+    void * pointer = std::malloc(size);
+
+    if(!pointer)
+    {
+        SLogger::LogError("Failed to allocate %llu bytes. Malloc returned nullptr");
+        throw std::bad_alloc();
+    }
+
+    if(s_memory_initialization_enabled)
+    {
+        auto * p_data = static_cast<uint8_t *>(pointer);
+        std::memset(p_data, s_memory_initialization_byte, size);
+    }
+
+    if(s_memory_logging_enabled)
+    {
+        // TODO
+    }
+
     return std::malloc(size);
 }
 
@@ -61,6 +90,13 @@ CMemoryManager::~CMemoryManager()
 /// \param  line The called line
 /* static */ void CMemoryManager::Deallocate(void *pointer, bool array_allocation, const char* sz_function_name, unsigned int line)
 {
+    if(!s_initialized)
+    {
+        SLogger::LogError("Did you forget to initialize the memory manager ?");
+        SLogger::LogError("Memory will not be freed, aborting call.");
+        return;
+    }
+
     std::free(pointer);
 }
 
