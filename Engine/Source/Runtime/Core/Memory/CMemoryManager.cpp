@@ -27,6 +27,7 @@
 
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Core/Memory/CMemoryManager.hpp"
+#include "Runtime/Core/Memory/CMemoryTracker.hpp"
 
 /// \namespace ord
 namespace ord
@@ -81,7 +82,7 @@ CMemoryManager::~CMemoryManager()
         // TODO
     }
 
-    return std::malloc(size);
+    return pointer;
 }
 
 /// \brief  Deallocates the memory at the given address
@@ -131,6 +132,10 @@ CMemoryManager::~CMemoryManager()
 
     s_initialized = true;
 
+#ifdef ORDINAL_DEBUG
+    CMemoryTracker::Initialize();
+#endif
+
     SLogger::LogInfo("Memory Manager fully initialized.");
 }
 
@@ -141,6 +146,11 @@ CMemoryManager::~CMemoryManager()
     {
         s_initialized = false;
     }
+
+#ifdef ORDINAL_DEBUG
+    CMemoryTracker::Release();
+#endif
+
 }
 
 } // !namespace
