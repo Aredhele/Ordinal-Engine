@@ -16,6 +16,17 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-ADD_SUBDIRECTORY(Source)
-ADD_SUBDIRECTORY(UnitTest)
-ADD_SUBDIRECTORY(ThirdParty)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x")
+
+INCLUDE_DIRECTORIES(
+        ${ORDINAL_ENGINE_HEADER_DIR}/
+        ${ORDINAL_THIRD_PARTY_DIR}/GoogleTest/include/)
+
+# Getting sources
+SET(SOURCES_FILES
+        # Core/Memory
+        Core/Memory/UnitTest_CStackAllocator.cpp)
+
+# Linking
+ADD_EXECUTABLE       (OrdinalRuntimeUnitTest ${SOURCES_FILES})
+TARGET_LINK_LIBRARIES(OrdinalRuntimeUnitTest gtest gtest_main)
