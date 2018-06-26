@@ -55,16 +55,16 @@ public:
     /// \brief  Allocates the given amount of bytes and returns a pointer on the allocated memory
     /// \param  size The amount of bytes to allocate
     /// \param  array_allocation Is this an array allocation ?
-    /// \param  sz_function_name The caller function name
+    /// \param  p_function_name The caller function name
     /// \param  line The called line
     /// \return A pointer on the allocated memory
-    static void* Allocate(std::size_t size, bool array_allocation = false, const char* sz_function_name = nullptr, unsigned int line = 0);
+    static void* Allocate(std::size_t size, bool array_allocation = false, const char* p_function_name = nullptr, unsigned int line = 0);
 
     /// \brief  Deallocates the memory at the given address
     /// \param  array_allocation Was the allocation an array allocation ?
-    /// \param  sz_function_name The caller function name
+    /// \param  p_function_name The caller function name
     /// \param  line The called line
-    static void Deallocate(void *pointer, bool array_allocation = false, const char* sz_function_name = nullptr, unsigned int line = 0);
+    static void Deallocate(void *pointer, bool array_allocation = false, const char* p_function_name = nullptr, unsigned int line = 0);
 
     /// \brief  Tells if the memory logging is enabled
     /// \return True or false

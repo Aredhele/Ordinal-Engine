@@ -22,6 +22,8 @@
 /// \package    Runtime/Core/Memory
 /// \author     Vincent STEHLY--CALISTO
 
+#include <Runtime/Core/Assertion/Assert.hh>
+#include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Core/Memory/CMemoryTracker.hpp"
 
 /// \namespace ord
@@ -32,43 +34,122 @@ namespace ord
 namespace core
 {
 
+/* static */ bool                   CMemoryTracker::s_initialized      = false;
+/* static */ CMemoryTracker::SBlock CMemoryTracker::s_block_list       = {};
+/* static */ std::size_t            CMemoryTracker::s_allocated_size   = 0;
+/* static */ unsigned int           CMemoryTracker::s_allocated_block  = 0;
+/* static */ unsigned int           CMemoryTracker::s_allocation_count = 0;
+
 /// \brief Destructor
 CMemoryTracker::~CMemoryTracker()
 {
     Release();
 }
 
-/// \brief Records an allocation in the memory tracker
-/// \param p_block The allocated block
-/// \param size The size of the allocated memory
+/// \brief Records a deallocation in the memory tracker
+/// \param pointer The allocated block
 /// \param is_array Tells if the allocation is an array allocation
-/// \param p_caller_file The caller file
+/// \param p_caller_function The caller function
 /// \param caller_line Thee caller line
-/* static */ void core::CMemoryTracker::RecordDeallocation(uint8_t* p_block, bool is_array, const char* p_caller_file, unsigned int caller_line)
+/* static */ void core::CMemoryTracker::RecordAllocation(uint8_t* pointer, std::size_t size, bool is_array, const char* p_caller_function, unsigned int caller_line)
 {
+    ASSERT_GT      (size, 0);
+    ASSERT_NOT_NULL(pointer);
 
+    auto* p_block = reinterpret_cast<SBlock *>(pointer);
+
+    // Filling block information
+    p_block->block_token       = 0;
+    p_block->block_size        = size;
+    p_block->p_prev_block      = s_block_list.p_prev_block;
+    p_block->p_next_block      = &s_block_list;
+    p_block->caller_line       = caller_line;
+    p_block->p_caller_function = p_caller_function;
+
+    // Updating the block list
+    s_block_list.p_prev_block               = p_block;
+    s_block_list.p_prev_block->p_next_block = p_block;
+
+    // Updating stats
+    s_allocated_size  += size;
+    s_allocated_block ++;
+    s_allocation_count++;
 }
 
-/// \brief Records a deallocation in the memory tracker
-/// \param p_block The allocated block
+/// \brief Records an allocation in the memory tracker
+/// \param { The allocated block
+/// \param size The size of the allocated memory
 /// \param is_array Tells if the allocation is an array allocation
-/// \param p_caller_file The caller file
+/// \param p_caller_function The caller function
 /// \param caller_line Thee caller line
-/* static */ void core::CMemoryTracker::RecordAllocation(uint8_t* p_block, std::size_t size, bool is_array, const char* p_caller_file, unsigned int caller_line)
+/* static */ void core::CMemoryTracker::RecordDeallocation(uint8_t* pointer, bool is_array, const char* p_caller_function, unsigned int caller_line)
 {
+    ASSERT_NOT_NULL(pointer);
 
+    auto* p_block = reinterpret_cast<SBlock *>(pointer);
+
+    // Token validity check
+    if (p_block->block_token != s_allocated_token)
+    {
+        if(p_block->block_token == s_freed_token)
+        {
+            SLogger::LogError("Double delete of pointer.");
+        }
+        else
+        {
+            SLogger::LogError("Delete of a dangling pointer.");
+        }
+
+        return;
+    }
+
+    // Deletion policy check
+    if (p_block->is_array != is_array)
+    {
+        SLogger::LogWaring("Use delete[] after new[].");
+    }
+
+    // Updating list
+    p_block->block_token = s_freed_token;
+    p_block->p_prev_block->p_next_block = p_block->p_next_block;
+    p_block->p_next_block->p_prev_block = p_block->p_prev_block;
+
+    // Updating stats
+    s_allocated_block--;
+    s_allocated_size -= p_block->block_size;
 }
 
 /// \brief Initializes the memory tracker
 void CMemoryTracker::Initialize()
 {
+    SLogger::LogInfo("Memory tracker initialization ...");
 
+    if(s_initialized)
+    {
+        Release();
+    }
+
+    s_block_list.block_size        = 0;
+    s_block_list.block_token       = 0;
+    s_block_list.caller_line       = 0;
+    s_block_list.is_array          = false;
+    s_block_list.p_prev_block      = nullptr;
+    s_block_list.p_next_block      = nullptr;
+    s_block_list.p_caller_function = nullptr;
+
+    s_initialized = true;
+    SLogger::LogInfo("Memory tracker fully initialized.");
 }
 
 /// \brief Releases the memory tracker
 void CMemoryTracker::Release()
 {
+    if(!s_initialized)
+    {
+        s_initialized = false;
+    }
 
+    // TODO
 }
 
 } // !namespace

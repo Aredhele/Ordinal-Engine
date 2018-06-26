@@ -51,10 +51,10 @@ CMemoryManager::~CMemoryManager()
 /// \brief  Allocates the given amount of bytes and returns a pointer on the allocated memory
 /// \param  size The amount of bytes to allocate
 /// \param  array_allocation Is this an array allocation ?
-/// \param  sz_function_name The caller function name
+/// \param  p_function_name The caller function name
 /// \param  line The called line
 /// \return A pointer on the allocated memory
-/* static */ void* CMemoryManager::Allocate(std::size_t size, bool array_allocation, const char* sz_function_name, unsigned int line)
+/* static */ void* CMemoryManager::Allocate(std::size_t size, bool array_allocation, const char* p_function_name, unsigned int line)
 {
     if(!s_initialized)
     {
@@ -63,7 +63,15 @@ CMemoryManager::~CMemoryManager()
         throw std::runtime_error("Memory manager not initialized");
     }
 
-    void * pointer = std::malloc(size);
+    std::size_t extra_size = 0;
+    uint8_t*    pointer    = nullptr;
+
+#ifdef ORDINAL_DEBUG
+    extra_size = sizeof(CMemoryTracker::SBlock);
+    pointer    = static_cast<uint8_t *>(std::malloc(size + extra_size));
+#else
+    pointer = static_cast<uint8_t *>(std::malloc(size));
+#endif
 
     if(!pointer)
     {
@@ -73,30 +81,48 @@ CMemoryManager::~CMemoryManager()
 
     if(s_memory_initialization_enabled)
     {
-        auto * p_data = static_cast<uint8_t *>(pointer);
-        std::memset(p_data, s_memory_initialization_byte, size);
+        std::memset(pointer, s_memory_initialization_byte, size + extra_size);
     }
+
+#ifdef ORDINAL_DEBUG
+    CMemoryTracker::RecordAllocation(pointer, size, array_allocation, p_function_name, line);
+#endif
 
     if(s_memory_logging_enabled)
     {
         // TODO
     }
 
-    return pointer;
+    return pointer + extra_size;
 }
 
 /// \brief  Deallocates the memory at the given address
 /// \param  array_allocation Was the allocation an array allocation ?
-/// \param  sz_function_name The caller function name
+/// \param  p_function_name The caller function name
 /// \param  line The called line
-/* static */ void CMemoryManager::Deallocate(void *pointer, bool array_allocation, const char* sz_function_name, unsigned int line)
+/* static */ void CMemoryManager::Deallocate(void *pointer, bool array_allocation, const char* p_function_name, unsigned int line)
 {
     if(!s_initialized)
     {
         SLogger::LogError("Did you forget to initialize the memory manager ?");
         SLogger::LogError("Memory will not be freed, aborting call.");
+        throw std::runtime_error("Memory manager already initialized");
+    }
+
+    if(!pointer)
+    {
+        SLogger::LogWaring("Tried to free a null pointer.");
         return;
     }
+
+#ifdef ORDINAL_DEBUG
+    // Computing the true address of the block
+    auto* p_block = static_cast<uint8_t *>(pointer) - sizeof(CMemoryTracker::SBlock);
+    CMemoryTracker::RecordDeallocation(p_block, array_allocation, p_function_name, line);
+
+    // Updating the pointer to free
+    pointer = p_block;
+#endif
 
     std::free(pointer);
 }
@@ -119,7 +145,7 @@ CMemoryManager::~CMemoryManager()
 /// \param manager_create_info
 /* static */ void CMemoryManager::Initialize(const SMemoryManagerCreateInfo& manager_create_info)
 {
-    SLogger::LogInfo("Memory Manager initialization ...");
+    SLogger::LogInfo("Memory manager initialization ...");
 
     if(s_initialized)
     {
@@ -136,7 +162,7 @@ CMemoryManager::~CMemoryManager()
     CMemoryTracker::Initialize();
 #endif
 
-    SLogger::LogInfo("Memory Manager fully initialized.");
+    SLogger::LogInfo("Memory manager fully initialized.");
 }
 
 /// \brief Releases the memory manager
