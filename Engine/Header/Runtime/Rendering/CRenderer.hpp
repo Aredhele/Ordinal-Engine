@@ -119,7 +119,7 @@ public:
     std::vector <const char*>       m_instance_extensions;                      ///< TODO
 
     uint32_t                        m_family_properties_index = 0;
-    VkDebugReportCallbackEXT        m_debug_report_callback   = VK_NULL_HANDLE;   ///< TODO
+    VkDebugReportCallbackEXT        m_debug_report_callback   = VK_NULL_HANDLE; ///< TODO
 
     CWindow *                       mp_window = nullptr;
 };

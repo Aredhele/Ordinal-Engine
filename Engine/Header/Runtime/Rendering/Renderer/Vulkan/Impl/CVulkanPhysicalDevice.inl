@@ -34,6 +34,16 @@ namespace rendering
 inline VkPhysicalDevice CVulkanPhysicalDevice::GetPhysicalDeviceHandle() const
 { return mp_physical_device; }
 
+/// \brief  Returns the amount of queue families
+/// \return The amount of queue families
+inline uint32_t CVulkanPhysicalDevice::GetQueueFamilyCount() const
+{ return static_cast<uint32_t>(m_queue_families.size()); }
+
+/// \brief  Returns the array of queue families
+/// \return The array of queue families
+inline const std::vector<CVulkanQueueFamily> &CVulkanPhysicalDevice::GetQueueFamilies() const
+{ return m_queue_families; }
+
 } // !namespace
 
 } // !namespace

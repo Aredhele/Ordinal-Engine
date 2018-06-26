@@ -38,6 +38,7 @@ namespace rendering
 void CVulkanLogicalDevice::Initialize(VkPhysicalDevice physical_device)
 {
     SLogger::LogInfo("\tVulkan Logical Device initialization ...");
+
     // Pre-conditions
     ASSERT_NULL(mp_physical_device);
     ASSERT_TRUE(physical_device != VK_NULL_HANDLE);
@@ -46,6 +47,22 @@ void CVulkanLogicalDevice::Initialize(VkPhysicalDevice physical_device)
     mp_physical_device = new CVulkanPhysicalDevice();
     mp_physical_device->Initialize(physical_device);
 
+    // Initializes a vector to contain all create info
+    // structure about device queues
+    const auto& queue_families = mp_physical_device->GetQueueFamilies();
+    std::vector<VkDeviceQueueCreateInfo> device_queue_create_info_array(queue_families.size());
+
+    float queue_priority = 1.0f;
+    for(const auto& queue_family : queue_families)
+    {
+        VkDeviceQueueCreateInfo device_queue_create_info {};
+        {
+            device_queue_create_info.sType            = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+            device_queue_create_info.queueFamilyIndex = queue_family.GetQueueFamilyIndex();
+            device_queue_create_info.queueCount       = queue_family.GetQueueFamilyCount();
+            device_queue_create_info.pQueuePriorities = &queue_priority;
+        }
+    }
 
     // TODO
     /*float queue_priority = 1.0f;

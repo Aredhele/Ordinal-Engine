@@ -34,12 +34,12 @@ namespace ord
 namespace impl
 {
 
-static constexpr const int8_t   STRING_END_BYTE = 0;
-static constexpr const uint32_t STRING_BIT_SHIT = 5;
+constexpr const int8_t   STRING_END_BYTE = 0;
+constexpr const uint32_t STRING_BIT_SHIT = 5;
 
 /// \brief   Magic number from string hash (k = 33)
 /// \warning Do not edit
-static constexpr const uint32_t STRING_HASH_KEY = 5381;
+constexpr const uint32_t STRING_HASH_KEY = 5381;
 
 /// \brief  Computes a 32 bits hash from a c string
 /// \param  pTail A pointer on the c string
@@ -47,8 +47,7 @@ static constexpr const uint32_t STRING_HASH_KEY = 5381;
 /// \return A 32 bits hash
 ///
 /// \note   This function is tail recursive
-static constexpr
-uint32_t __hash(const char * pTail, uint32_t hash = STRING_HASH_KEY)
+constexpr uint32_t __hash(const char * pTail, uint32_t hash = STRING_HASH_KEY)
 {
     return (pTail[0] == STRING_END_BYTE) ?
            hash : __hash(pTail + 1,
@@ -58,8 +57,7 @@ uint32_t __hash(const char * pTail, uint32_t hash = STRING_HASH_KEY)
 /// \brief  Binds the constexpr tail recursive function to a static member
 ///         to force the compiler to hash the string compile time
 /// \return see __hash function
-template <uint32_t hash> static inline constexpr
-uint32_t __attribute__((always_inline)) __compile_hash()
+template <uint32_t hash>  inline constexpr uint32_t __compile_hash()
 {
     return hash;
 }

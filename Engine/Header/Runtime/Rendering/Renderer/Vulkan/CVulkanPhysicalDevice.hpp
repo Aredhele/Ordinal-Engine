@@ -53,14 +53,22 @@ public:
 
 public:
 
-    /// \brief Returns the vulkan physical device handle
+    /// \brief  Returns the vulkan physical device handle
     /// \return The handle on the vulkan physical device
     inline VkPhysicalDevice GetPhysicalDeviceHandle() const;
 
+    /// \brief  Returns the amount of queue families
+    /// \return The amount of queue families
+    inline uint32_t GetQueueFamilyCount() const;
+
+    /// \brief  Returns the array of queue families
+    /// \return The array of queue families
+    inline const std::vector<CVulkanQueueFamily>& GetQueueFamilies() const;
+
 public:
 
-    /// \brief Returns the amount of physical devices detected
-    /// \param instance The vulkan instance
+    /// \brief  Returns the amount of physical devices detected
+    /// \param  instance The vulkan instance
     /// \return The amount of physical devices detected
     static uint32_t GetPhysicalDeviceCount(VkInstance instance);
 
@@ -70,8 +78,8 @@ public:
     /// \param p_physical_devices The address where to store physical device handles
     static void GetPhysicalDevices(VkInstance instance, uint32_t count, VkPhysicalDevice* p_physical_devices);
 
-    /// \brief Tells if the physical devices is suitable for rendering
-    /// \param physical_device The physical devices to test
+    /// \brief  Tells if the physical devices is suitable for rendering
+    /// \param  physical_device The physical devices to test
     /// \return True if the device is suitable, else false
     static bool IsPhysicalDeviceSuitable(VkPhysicalDevice physical_device);
 
