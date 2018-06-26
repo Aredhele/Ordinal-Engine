@@ -25,6 +25,9 @@
 #ifndef ORDINAL_ENGINE_C_MEMORY_MANAGER_HPP__
 #define ORDINAL_ENGINE_C_MEMORY_MANAGER_HPP__
 
+#include <cstddef> ///< std::size_t
+#include <cstdlib> ///< std::malloc, std::free
+
 /// \namespace ord
 namespace ord
 {
@@ -33,8 +36,32 @@ namespace ord
 namespace core
 {
 
+/// \brief Manages memory allocations
+/// \class CMemoryManager
+class CMemoryManager
+{
+public:
+
+    /// \brief  Allocates the given amount of bytes and returns a pointer on the allocated memory
+    /// \param  size The amount of bytes to allocate
+    /// \param  array_allocation Is this an array allocation ?
+    /// \param  sz_function_name The caller function name
+    /// \param  line The called line
+    /// \return A pointer on the allocated memory
+    static void* Allocate(std::size_t size, bool array_allocation = false, const char* sz_function_name = nullptr, unsigned int line = 0);
+
+    /// \brief  Deallocates the memory at the given address
+    /// \param  array_allocation Was the allocation an array allocation ?
+    /// \param  sz_function_name The caller function name
+    /// \param  line The called line
+    static void Deallocate(void *pointer, bool array_allocation = false, const char* sz_function_name = nullptr, unsigned int line = 0);
+};
+
 } // !namespace
 
 } // !namespace
+
+#define ORDINAL_ALLOCATE  (SIZE,    IS_ARRAY) CMemoryManager::Allocate  (SIZE,    IS_ARRAY, __func__, __LINE__)
+#define ORDINAL_DEALLOCATE(POINTER, IS_ARRAY) CMemoryManager::Deallocate(POINTER, IS_ARRAY, __func__, __LINE__)
 
 #endif // !ORDINAL_ENGINE_C_MEMORY_MANAGER_HPP__
