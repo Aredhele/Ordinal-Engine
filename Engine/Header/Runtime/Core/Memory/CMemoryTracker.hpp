@@ -91,8 +91,8 @@ private:
 
 private:
 
-    static constexpr int s_allocated_token = 0x0; ///< The token of allocated blocks
-    static constexpr int s_freed_token     = 0x0; ///< The token of freed blocks
+    static constexpr int s_allocated_token = 0xFFFF; ///< The token of allocated blocks
+    static constexpr int s_freed_token     = 0xFEFE; ///< The token of freed blocks
 
     static bool         s_initialized;      ///< Is the manager initialized ?
     static SBlock       s_block_list;       ///< The list of blocks

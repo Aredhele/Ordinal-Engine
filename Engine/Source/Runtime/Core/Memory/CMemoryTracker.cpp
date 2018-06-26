@@ -59,7 +59,7 @@ CMemoryTracker::~CMemoryTracker()
     auto* p_block = reinterpret_cast<SBlock *>(pointer);
 
     // Filling block information
-    p_block->block_token       = 0;
+    p_block->block_token       = s_allocated_token;
     p_block->block_size        = size;
     p_block->p_prev_block      = s_block_list.p_prev_block;
     p_block->p_next_block      = &s_block_list;
