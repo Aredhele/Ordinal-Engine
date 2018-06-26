@@ -40,9 +40,9 @@ void CVulkanLogicalDevice::Initialize(VkPhysicalDevice physical_device)
     SLogger::LogInfo("\tVulkan Logical Device initialization ...");
 
     // Pre-conditions
-    ASSERT_NULL(mp_physical_device);
-    ASSERT_TRUE(physical_device != VK_NULL_HANDLE);
-    ASSERT_TRUE(CVulkanPhysicalDevice::IsPhysicalDeviceSuitable(physical_device));
+    ORD_ASSERT_NULL(mp_physical_device);
+    ORD_ASSERT_TRUE(physical_device != VK_NULL_HANDLE);
+    ORD_ASSERT_TRUE(CVulkanPhysicalDevice::IsPhysicalDeviceSuitable(physical_device));
 
     mp_physical_device = new CVulkanPhysicalDevice();
     mp_physical_device->Initialize(physical_device);

@@ -53,8 +53,8 @@ CMemoryTracker::~CMemoryTracker()
 /// \param caller_line Thee caller line
 /* static */ void core::CMemoryTracker::RecordAllocation(uint8_t* pointer, std::size_t size, bool is_array, const char* p_caller_function, unsigned int caller_line)
 {
-    ASSERT_GT      (size, 0);
-    ASSERT_NOT_NULL(pointer);
+    ORD_ASSERT_GT      (size, 0);
+    ORD_ASSERT_NOT_NULL(pointer);
 
     auto* p_block = reinterpret_cast<SBlock *>(pointer);
 
@@ -84,7 +84,7 @@ CMemoryTracker::~CMemoryTracker()
 /// \param caller_line Thee caller line
 /* static */ void core::CMemoryTracker::RecordDeallocation(uint8_t* pointer, bool is_array, const char* p_caller_function, unsigned int caller_line)
 {
-    ASSERT_NOT_NULL(pointer);
+    ORD_ASSERT_NOT_NULL(pointer);
 
     auto* p_block = reinterpret_cast<SBlock *>(pointer);
 

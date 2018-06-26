@@ -21,13 +21,24 @@ INCLUDE_DIRECTORIES(
         ${ORDINAL_VK_HEADER_DIR})
 
 # Gets all source files
-FILE(GLOB_RECURSE ENGINE_SOURCES *.cpp)
+FILE(GLOB_RECURSE ENGINE_SOURCES
+        Core/*.cpp
+        Network/*.cpp
+        Rendering/*.cpp)
+
 FILE(GLOB_RECURSE ENGINE_HEADERS
         ${ORDINAL_ENGINE_HEADER_DIR}/*.hpp
         ${ORDINAL_ENGINE_HEADER_DIR}/*.inl
         ${ORDINAL_ENGINE_HEADER_DIR}/*.hh)
 
+# Builds engine test executable
 ADD_EXECUTABLE(${ORDINAL_RUNTIME}
+        Main.cpp
+        ${ENGINE_SOURCES}
+        ${ENGINE_HEADERS})
+
+# Builds engine library
+ADD_LIBRARY(${ORDINAL_RUNTIME_LIBRARY}
         ${ENGINE_SOURCES}
         ${ENGINE_HEADERS})
 

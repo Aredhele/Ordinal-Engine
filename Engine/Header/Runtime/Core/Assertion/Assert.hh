@@ -128,89 +128,88 @@ void assert_is_lower_than(const T & lhs,
 
 #ifdef ORDINAL_DEBUG
 
-#   define ASSERT_TRUE(EXPR) \
+#   define ORD_ASSERT_TRUE(EXPR) \
         ord::impl::assert_true(EXPR, #EXPR, "None", \
              __FILE__, __func__, __LINE__);
 
-#   define ASSERT_FALSE(EXPR) \
+#   define ORD_ASSERT_FALSE(EXPR) \
         ord::impl::assert_false(EXPR, #EXPR, "None", \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_EQ(LHS, RHS) \
+#   define ORD_ASSERT_EQ(LHS, RHS) \
         ord::impl::assert_equal(LHS, RHS, #LHS, #RHS, "None", \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_NE(LHS, RHS) \
+#   define ORD_ASSERT_NE(LHS, RHS) \
         ord::impl::assert_non_equal(LHS, RHS, #LHS, #RHS, "None", \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_NULL(PTR) \
+#   define ORD_ASSERT_NULL(PTR) \
         ord::impl::assert_is_null(PTR, #PTR, "None", \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_NOT_NULL(PTR) \
+#   define ORD_ASSERT_NOT_NULL(PTR) \
         ord::impl::assert_is_not_null(PTR, #PTR, "None", \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_GT(LHS, RHS) \
+#   define ORD_ASSERT_GT(LHS, RHS) \
         ord::impl::assert_is_greater_than(LHS, RHS, #LHS, #RHS, "None", \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_LT(LHS, RHS) \
+#   define ORD_ASSERT_LT(LHS, RHS) \
         ord::impl::assert_is_lower_than(LHS, RHS, #LHS, #RHS, "None", \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_TRUE_MSG(EXPR, MSG) \
+#   define ORD_ASSERT_TRUE_MSG(EXPR, MSG) \
         ord::impl::assert_true(EXPR, #EXPR, MSG, \
              __FILE__, __func__, __LINE__);
 
-#   define ASSERT_FALSE_MSG(EXPR, MSG) \
+#   define ORD_ASSERT_FALSE_MSG(EXPR, MSG) \
         ord::impl::assert_false(EXPR, #EXPR, MSG, \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_EQ_MSG(LHS, RHS, MSG) \
+#   define ORD_ASSERT_EQ_MSG(LHS, RHS, MSG) \
         ord::impl::assert_equal(LHS, RHS, #LHS, #RHS, MSG, \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_NE_MSG(LHS, RHS, MSG) \
+#   define ORD_ASSERT_NE_MSG(LHS, RHS, MSG) \
         ord::impl::assert_non_equal(LHS, RHS, #LHS, #RHS, MSG, \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_NULL_MSG(PTR, MSG) \
+#   define ORD_ASSERT_NULL_MSG(PTR, MSG) \
         ord::impl::assert_is_null(PTR, #PTR, MSG, \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_NOT_NULL_MSG(PTR, MSG) \
+#   define ORD_ASSERT_NOT_NULL_MSG(PTR, MSG) \
         ord::impl::assert_is_not_null(PTR, #PTR, MSG, \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_GT_MSG(LHS, RHS, MSG) \
+#   define ORD_ASSERT_GT_MSG(LHS, RHS, MSG) \
         ord::impl::assert_is_greater_than(LHS, RHS, #LHS, #RHS, MSG, \
             __FILE__, __func__, __LINE__);
 
-#   define ASSERT_LT_MSG(LHS, RHS, MSG) \
+#   define ORD_ASSERT_LT_MSG(LHS, RHS, MSG) \
         ord::impl::assert_is_lower_than(LHS, RHS, #LHS, #RHS, MSG, \
             __FILE__, __func__, __LINE__);
-
 #else
 
-#   define ASSERT_TRUE
-#   define ASSERT_FALSE
-#   define ASSERT_EQ
-#   define ASSERT_NE
-#   define ASSERT_NULL
-#   define ASSERT_NOT_NULL
-#   define ASSERT_GT
-#   define ASSERT_LT
+#   define ORD_ASSERT_TRUE
+#   define ORD_ASSERT_FALSE
+#   define ORD_ASSERT_EQ
+#   define ORD_ASSERT_NE
+#   define ORD_ASSERT_NULL
+#   define ORD_ASSERT_NOT_NULL
+#   define ORD_ASSERT_GT
+#   define ORD_ASSERT_LT
 
-#   define ASSERT_TRUE_MSG
-#   define ASSERT_FALSE_MSG
-#   define ASSERT_EQ_MSG
-#   define ASSERT_NE_MSG
-#   define ASSERT_NULL_MSG
-#   define ASSERT_NOT_NULL_MSG
-#   define ASSERT_GT_MSG
-#   define ASSERT_LT_MSG
+#   define ORD_ASSERT_TRUE_MSG
+#   define ORD_ASSERT_FALSE_MSG
+#   define ORD_ASSERT_EQ_MSG
+#   define ORD_ASSERT_NE_MSG
+#   define ORD_ASSERT_NULL_MSG
+#   define ORD_ASSERT_NOT_NULL_MSG
+#   define ORD_ASSERT_GT_MSG
+#   define ORD_ASSERT_LT_MSG
 
 #endif // DEBUG
 

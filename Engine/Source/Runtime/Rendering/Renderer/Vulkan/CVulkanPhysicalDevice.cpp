@@ -87,7 +87,7 @@ void CVulkanPhysicalDevice::InitializeQueueFamilies()
 /// \return The amount of physical devices detected
 /* static */ uint32_t CVulkanPhysicalDevice::GetPhysicalDeviceCount(VkInstance instance)
 {
-    ASSERT_TRUE(instance != VK_NULL_HANDLE);
+    ORD_ASSERT_TRUE(instance != VK_NULL_HANDLE);
 
     uint32_t physical_device_count = 0;
     vkEnumeratePhysicalDevices(instance, &physical_device_count, nullptr);
@@ -101,8 +101,8 @@ void CVulkanPhysicalDevice::InitializeQueueFamilies()
 /// \param p_physical_devices The address where to store physical device handles
 /* static */ void CVulkanPhysicalDevice::GetPhysicalDevices(VkInstance instance, uint32_t count, VkPhysicalDevice* p_physical_devices)
 {
-    ASSERT_TRUE    (instance != VK_NULL_HANDLE);
-    ASSERT_NOT_NULL(p_physical_devices);
+    ORD_ASSERT_TRUE    (instance != VK_NULL_HANDLE);
+    ORD_ASSERT_NOT_NULL(p_physical_devices);
 
     vkEnumeratePhysicalDevices(instance, &count, p_physical_devices);
 }

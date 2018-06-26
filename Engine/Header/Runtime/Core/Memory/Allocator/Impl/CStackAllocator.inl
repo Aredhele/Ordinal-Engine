@@ -22,8 +22,8 @@
 /// \package    Runtime/Core/Memory/Allocator/Impl
 /// \author     Vincent STEHLY--CALISTO
 
-/// \namespace ordinal
-namespace ordinal
+/// \namespace ord
+namespace ord
 {
 
 /// \namespace core
@@ -42,8 +42,8 @@ namespace core
 /// \return A pointer on the allocated memory
 /* inline */ void* CStackAllocator::Allocate(std::size_t size)
 {
-    ASSERT_LT      (m_head + size, m_size);
-    ASSERT_NOT_NULL(mp_data);
+    if(m_head + size >= m_size || !mp_data || size == 0)
+        throw std::bad_alloc();
 
     void* pointer = mp_data + m_head;
     m_head += size;
@@ -56,6 +56,20 @@ namespace core
 /* inline */ std::size_t CStackAllocator::GetSize() const
 {
     return m_size;
+}
+
+/// \brief  Returns the head of the stack as an offset in bytes
+/// \return The head of the stack
+/* inline */ std::size_t CStackAllocator::GetHead() const
+{
+    return m_head;
+}
+
+/// \brief  Returns the pointer on the data
+/// \return A pointer on the data
+const uint8_t* CStackAllocator::GetData() const
+{
+    return mp_data;
 }
 
 } // !namespace

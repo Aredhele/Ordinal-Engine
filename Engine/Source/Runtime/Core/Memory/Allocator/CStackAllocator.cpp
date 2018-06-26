@@ -24,8 +24,8 @@
 
 #include "Runtime/Core/Memory/Allocator/CStackAllocator.hpp"
 
-/// \namespace ordinal
-namespace ordinal
+/// \namespace ord
+namespace ord
 {
 
 /// \namespace core
@@ -44,8 +44,8 @@ CStackAllocator::~CStackAllocator()
 /// \return A pointer on the allocated memory
 void CStackAllocator::Initialize(std::size_t size)
 {
-    ASSERT_NE(size, 0);
-    ASSERT_LT(size, 1024 * 1024 * 64); // 4 Mio max
+    if(size == 0 || size >= 1024 * 1024 * 64)
+        throw std::bad_alloc();
 
     Release();
 
@@ -53,7 +53,8 @@ void CStackAllocator::Initialize(std::size_t size)
     m_size  = size;
     mp_data = new uint8_t[m_size];
 
-    ASSERT_NOT_NULL(mp_data);
+    if(!mp_data)
+        throw std::bad_alloc();
 }
 
 /// \brief Releases the allocator memory

@@ -19,16 +19,19 @@
 /// \file       CStackAllocator.hpp
 /// \date       26/06/2018
 /// \project    Ordinal Engine
-/// \package
+/// \package    Runtime/Core/Memory/Allocator
 /// \author     Vincent STEHLY--CALISTO
 
 #ifndef ORDINAL_ENGINE_C_STACK_ALLOCATOR_HPP__
 #define ORDINAL_ENGINE_C_STACK_ALLOCATOR_HPP__
 
+#include <cstddef> ///< std::size_t
+#include <cstdint> ///< uint8_t
+
 #include "Runtime/Core/Assertion/Assert.hh"
 
-/// \namespace ordinal
-namespace ordinal
+/// \namespace ord
+namespace ord
 {
 
 /// \namespace core
@@ -68,6 +71,14 @@ public:
     /// \brief  Returns the size of the allocator
     /// \return The amount of allocated memory in bytes
     inline std::size_t GetSize() const;
+
+    /// \brief  Returns the head of the stack as an offset in bytes
+    /// \return The head of the stack
+    inline std::size_t GetHead() const;
+
+    /// \brief  Returns the pointer on the data
+    /// \return A pointer on the data
+    inline const uint8_t * GetData() const;
 
 private:
 

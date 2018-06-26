@@ -45,3 +45,15 @@ SET(ORDINAL_RUNTIME_DBG_32 OrdinalRuntimeDebug32)
 SET(ORDINAL_RUNTIME_DBG_64 OrdinalRuntimeDebug64)
 SET(ORDINAL_RUNTIME_REL_32 OrdinalRuntimeRelease32)
 SET(ORDINAL_RUNTIME_REL_64 OrdinalRuntimeRelease64)
+
+# Engine runtime libraries names
+SET(ORDINAL_RUNTIME_LIBRARY_DBG_32 OrdinalRuntimeLibraryDebug32)
+SET(ORDINAL_RUNTIME_LIBRARY_DBG_64 OrdinalRuntimeLibraryDebug64)
+SET(ORDINAL_RUNTIME_LIBRARY_REL_32 OrdinalRuntimeLibraryRelease32)
+SET(ORDINAL_RUNTIME_LIBRARY_REL_64 OrdinalRuntimeLibraryRelease64)
+
+# Engine unit test names
+SET(ORDINAL_RUNTIME_UNIT_TEST_DBG_32 OrdinalRuntimeUnitTestDebug32)
+SET(ORDINAL_RUNTIME_UNIT_TEST_DBG_64 OrdinalRuntimeUnitTestDebug64)
+SET(ORDINAL_RUNTIME_UNIT_TEST_REL_32 OrdinalRuntimeUnitTestRelease32)
+SET(ORDINAL_RUNTIME_UNIT_TEST_REL_64 OrdinalRuntimeUnitTestRelease64)

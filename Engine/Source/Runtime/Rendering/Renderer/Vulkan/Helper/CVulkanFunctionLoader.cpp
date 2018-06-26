@@ -39,8 +39,8 @@ namespace rendering
 /// \throw runtime_error if the function cannot be loaded
 void CVulkanFunctionLoader::LoadFunction(VkInstance instance, const char* sz_function_name)
 {
-    ASSERT_TRUE(sz_function_name != nullptr);
-    ASSERT_TRUE(instance         != VK_NULL_HANDLE);
+    ORD_ASSERT_TRUE(sz_function_name != nullptr);
+    ORD_ASSERT_TRUE(instance         != VK_NULL_HANDLE);
 
     PFN_vkVoidFunction function = vkGetInstanceProcAddr(instance, sz_function_name);
 

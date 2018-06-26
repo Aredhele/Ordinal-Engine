@@ -56,7 +56,7 @@ VkBool32 VulkanDebugCallback
 )
 {
     // Pre-conditions
-    ASSERT_NOT_NULL_MSG(p_user_data, "Please set callback user data pointer");
+    ORD_ASSERT_NOT_NULL_MSG(p_user_data, "Please set callback user data pointer");
 
     SDebugCallbackReportInfo callback_report_info {};
     {
