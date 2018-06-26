@@ -146,10 +146,33 @@ void CMemoryTracker::Release()
 {
     if(!s_initialized)
     {
-        s_initialized = false;
+        return;
     }
 
-    // TODO
+    if (s_allocated_block == 0)
+    {
+        SLogger::LogInfo("No memory leak detected in the %u recorded allocations", s_allocation_count);
+    }
+    else
+    {
+        SLogger::LogWaring("No memory leak detected");
+
+        SBlock* p_block = s_block_list.p_next_block;
+        while (p_block != &s_block_list)
+        {
+
+            SLogger::LogWaring("-- %p : %llu bytes allocated at unknown position.", static_cast<void *>(p_block + sizeof(SBlock)), p_block->block_size);
+
+            void* pointer = p_block;
+            p_block       = p_block->p_next_block;
+
+            std::free(pointer);
+        }
+
+        SLogger::LogWaring("%llu bytes leaked (%u blocks).", s_allocated_size, s_allocated_block);
+    }
+
+    s_initialized = false;
 }
 
 } // !namespace
