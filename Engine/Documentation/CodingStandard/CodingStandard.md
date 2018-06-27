@@ -1,7 +1,7 @@
 # Ordinal Engine coding standard
 
 The following coding standard has been created for the specific needs of the engine code. Most of these
-rules exist to allow an efficient reading of the code and to allow fast refactorings. This document is
+rules exist to allow an efficient reading of the code and allow fast refactorings. This document is
 not definitive and will be updated.
 
 ### On this page : 
@@ -19,7 +19,7 @@ not definitive and will be updated.
   
 #### Introduction <div id="Introduction"></div>
 For maintainability purposes, the focus should be **readability and comprehension**. It implies that an internal 
-documentation will be maintained and that **each non-trivial** code should be at least shortly described. If code
+documentation will be maintained and **each non-trivial** code should be at least shortly described. If code
 is taken from the internet, it could be interesting to mention the source in the documentation block. 
     
 #### Copyright Notice <div id="Copyright"></div>
@@ -60,7 +60,6 @@ Each file must include the following copyright notice :
     * If the pointer is a private class member, it's possible to mix both : mp_member
  * Functions or method returning boolean should ask a question : IsInvincible(), IsEnabled() etc.
  * Explicit names are better than cryptic names except if it's really obvious
- * Loop index should be prefixed by
  * The header file extension is .hpp
  * The source file extension is .cpp
  * The file extension for inline function implementation is .inl
@@ -74,7 +73,7 @@ Each file must include the following copyright notice :
     public:
         
         // Pointer prefixed by p
-        explicit CPlayer(const char * p_name);     
+        explicit CPlayer(const char* p_name);     
     
     private:
         
@@ -116,7 +115,7 @@ implementation :
     ```
     
 #### Const correctness <div id="ConstCorrectness"></div>
-The *const-correctness* est necessary and strongly encouraged because it makes the code more robust, more clear
+The *const-correctness* is necessary and strongly recommended because it makes the code more robust, clearer
 and even more optimized without any drawback.
 * Methods that doesn't modify the object state should be mark as const : int Foo() const;
 * Methods that returns a read only reference should mark their return value as const : const Bar& Foo() const;
@@ -126,7 +125,6 @@ to the one you choose :
     * reference : Foo(Bar& bar)
     * constant reference : Foo(const Bar& bar)
     * **move** : Foo(Bar&& bar) 
-    * Pick carefully the  
  ```cpp
     // Returns a reference on a const object
     // It take a const reference on a SFooID
@@ -135,13 +133,14 @@ to the one you choose :
     const Foo& Foo::GetFooFromID(const SFooID& id) const;
  ``` 
  * About the placement of the const keyword, there's no real standard about it and it's a bit confusing.
- We suggest to always place the const on the right except for the most right, it's more intuitive : 
+ We suggest to always place the const on the right except for the most left, it's more intuitive : 
     * const char* p_name = "foo"; // Pointer to a constant string
     * const char* const p_name = "foo"; // Constant pointer to a constant string
     
 #### C++11 and C++14 <div id="cpp11cpp14"></div>
 
-* Use c++ cast as possible instead of C cast
+* Use c++ cast style instead of C cast
+* const_cast is not recommended
 * **nullptr** : Must be used instead of C macro NULL to avoid ambiguity with the number 0 
 * **auto** : Should be used in foearch loops, c++ cast expressions, lambda, iterators
     * for(const auto& entity : entities)
@@ -226,7 +225,7 @@ Note that the use of the "using" keyword is not recommended.
 The memory is one of the main resources of the engine. And it's also easy to make a bad use of it.
 Here're some advices :
 * Any codes that allocates memory is in charge of its deallocation.
-* Don't copy unnecessary, use references, constant reference and the move semantic. 
+* Don't make useless copies, use references, constant references and the move semantic. 
 * If you are handling pointers, don't hesitate to check if they're equal to nullptr (you can use assertions)
 * Never break the memory alignment 
 * Use engine allocators
