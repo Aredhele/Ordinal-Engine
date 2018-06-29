@@ -21,47 +21,25 @@
 /// \package    Runtime
 /// \author     Vincent STEHLY--CALISTO
 
-#include <Runtime/Rendering/Renderer/CVulkanRenderer.hpp>
-#include "Runtime/Core/Debug/SLogger.hpp"
-#include "Runtime/Rendering/CRenderer.hpp"
+#include <stdexcept>
+#include "Runtime/COrdinalRuntime.hpp"
 #include "Runtime/Platform/Configuration/Configuration.hh"
-#include "Runtime/Network/Socket/CSocket.hpp"
-
-// http://etd.dtu.dk/thesis/264045/ep10_38.pdf
 
 /// \brief Ordinal engine entry points
 int Ordinal_EntryPoint(int argc, char ** argv)
 {
-    // Information about the window
-    ord::SWindowCreateInfo s_window_create_info {};
-    s_window_create_info.window_width    = 1280;
-    s_window_create_info.window_height   = 720;
-    s_window_create_info.p_window_name   = "Ordinal Engine";
-
-    // Information about the renderer
-    ord::rendering::SRendererCreateInfo s_renderer_create_info {};
-    s_renderer_create_info.p_engine_name         = "Ordinal Engine";
-    s_renderer_create_info.p_application_name    = "Ordinal";
-    // s_renderer_create_info.p_window_info         = s_window_create_info;
-    s_renderer_create_info.api_version           = VK_MAKE_VERSION(1, 1, 0);
-    s_renderer_create_info.engine_version        = VK_MAKE_VERSION(0, 1, 0);
-    s_renderer_create_info.application_version   = VK_MAKE_VERSION(0, 1, 0);
-
-    ord::rendering::CVulkanRenderer vulkan_renderer;
+    ord::COrdinalRuntime ordinal_runtime;
 
     try
     {
-        // Tries to initialize the renderer
-        vulkan_renderer.Initialize(s_renderer_create_info);
+        ordinal_runtime.Initialize();
+        ordinal_runtime.Run();
+        ordinal_runtime.Release();
     }
     catch (const std::runtime_error& error)
     {
-        // Something wrong happened
-        ord::SLogger::LogError(error.what());
-        return EXIT_FAILURE;
+        // TODO
     }
 
-    vulkan_renderer.Release();
-
-    return EXIT_SUCCESS;
+    // TODO
 }

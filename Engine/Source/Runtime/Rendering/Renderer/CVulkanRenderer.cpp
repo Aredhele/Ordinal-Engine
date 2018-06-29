@@ -25,7 +25,7 @@
 #include "Runtime/Core/Assertion/Assert.hh"
 #include "Runtime/Core/StringHash/StringHash.hpp"
 
-#include "Runtime/Rendering/Renderer/CVulkanRenderer.hpp"
+#include "Runtime/Rendering/Renderer/Vulkan/CVulkanRenderer.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanPhysicalDevice.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Debug/VulkanDebugCallback.hpp"
 

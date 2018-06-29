@@ -21,7 +21,7 @@
 /// \package    Runtime/Rendering/Renderer
 /// \author     Vincent STEHLY--CALISTO
 
-#include "Runtime/Rendering/Renderer/COpenGL3Renderer.hpp"
+#include "Runtime/Rendering/Renderer/OpenGL3/COpenGL3Renderer.hpp"
 
 /// \namespace ord
 namespace ord

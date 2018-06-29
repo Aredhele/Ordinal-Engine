@@ -21,7 +21,7 @@
 /// \package    Runtime/Rendering/Renderer
 /// \author     Vincent STEHLY--CALISTO
 
-#include "Runtime/Rendering/Renderer/COpenGL4Renderer.hpp"
+#include "Runtime/Rendering/Renderer/OpenGL4/COpenGL4Renderer.hpp"
 
 /// \namespace ord
 namespace ord

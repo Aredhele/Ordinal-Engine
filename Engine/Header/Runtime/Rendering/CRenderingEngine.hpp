@@ -1,5 +1,6 @@
 /// Copyright (C) 2018-2019, Ordinal Engine
 /// Vincent STEHLY--CALISTO, vincentstehly@hotmail.fr
+/// See https://vincentcalisto.com/ordinal-engine/
 ///
 /// This program is free software; you can redistribute it and/or modify
 /// it under the terms of the GNU General Public License as published by
@@ -15,13 +16,14 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CDirect3D12Renderer.cpp
-/// \date       21/06/2018
+/// \file       CRenderingEngine.hpp
+/// \date       29/06/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Rendering/Renderer
+/// \package    Runtime/Rendering
 /// \author     Vincent STEHLY--CALISTO
 
-#include "Runtime/Rendering/Renderer/Direct3D12/CDirect3D12Renderer.hpp"
+#ifndef ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__
+#define ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__
 
 /// \namespace ord
 namespace ord
@@ -31,19 +33,8 @@ namespace ord
 namespace rendering
 {
 
-/// \brief Initializes the renderer from the create info structure
-/// \param s_renderer_info Contains all needed information to initialize a renderer
-void CDirect3D12Renderer::Initialize(const SRendererCreateInfo& s_renderer_info)
-{
-    // None
-}
+} // ! namespace
 
-/// \brief Releases the renderer
-void CDirect3D12Renderer::Release()
-{
-    // None
-}
+} // ! namespace
 
-} // !namespace
-
-} // !namespace
+#endif // !ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__

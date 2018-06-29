@@ -34,6 +34,7 @@ FILE(GLOB_RECURSE ENGINE_HEADERS
 # Builds engine test executable
 ADD_EXECUTABLE(${ORDINAL_RUNTIME}
         Main.cpp
+        COrdinalRuntime.cpp
         ${ENGINE_SOURCES}
         ${ENGINE_HEADERS})
 
