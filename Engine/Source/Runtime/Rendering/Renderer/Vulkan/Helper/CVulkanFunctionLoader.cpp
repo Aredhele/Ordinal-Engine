@@ -53,6 +53,19 @@ void CVulkanFunctionLoader::LoadFunction(VkInstance instance, const char* sz_fun
     m_function_pointers.emplace(DSID(sz_function_name), function);
 }
 
+/// \brief Returns the amount of loaded functions
+/// \return The number of loaded functions
+std::size_t CVulkanFunctionLoader::GetFunctionCount() const
+{
+    return m_function_pointers.size();
+}
+
+/// \brief Releases the function loader, clear all registered functions
+void CVulkanFunctionLoader::Release()
+{
+    m_function_pointers.clear();
+}
+
 } // !namespace
 
 } // !namespace

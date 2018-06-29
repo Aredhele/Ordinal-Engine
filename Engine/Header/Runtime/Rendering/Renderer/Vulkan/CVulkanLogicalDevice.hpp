@@ -56,8 +56,30 @@ public:
 
 private:
 
-    VkDevice                mp_logical_device  = VK_NULL_HANDLE;    ///< TODO
-    CVulkanPhysicalDevice * mp_physical_device = nullptr;           ///< TODO
+    /// \brief Adds to device extensions list all required extensions
+    void InitializeDeviceExtensions();
+
+#ifdef ORDINAL_DEBUG
+    /// \brief Adds to the device layers list all required layers
+    void InitializeDeviceLayers();
+#endif
+
+    /// \brief Initializes the vulkan logical device
+    void InitializeLogicalDevice();
+
+    /// \brief Releases the attached physical device
+    void ReleasePhysicalDevice();
+
+    /// \brief Releases the logical device
+    void ReleaseLogicalDevice();
+
+private:
+
+    VkDevice                 mp_logical_device  = VK_NULL_HANDLE;   ///< TODO
+    CVulkanPhysicalDevice *  mp_physical_device = nullptr;          ///< TODO
+
+    std::vector<const char*> m_device_layers;                       ///< TODO
+    std::vector<const char*> m_device_extensions;                   ///< TODO
 };
 
 } // !namespace

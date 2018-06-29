@@ -55,6 +55,13 @@ public:
     template<typename T>
     T GetFunction(uint32_t key) const;
 
+    /// \brief Returns the amount of loaded functions
+    /// \return The number of loaded functions
+    std::size_t GetFunctionCount() const;
+
+    /// \brief Releases the function loader, clear all registered functions
+    void Release();
+
 private:
 
     std::unordered_map<uint32_t, PFN_vkVoidFunction> m_function_pointers; ///< The map of loaded functions

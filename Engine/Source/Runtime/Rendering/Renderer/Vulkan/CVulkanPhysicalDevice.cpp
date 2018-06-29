@@ -50,7 +50,12 @@ void CVulkanPhysicalDevice::Initialize(VkPhysicalDevice physical_device)
 /// \brief Releases the physical device
 void CVulkanPhysicalDevice::Release()
 {
-    // TODO
+    SLogger::LogInfo("\t  Releasing vulkan physical device");
+
+    mp_physical_device = VK_NULL_HANDLE;
+    m_queue_families.clear();
+
+    SLogger::LogInfo("\t  Vulkan physical device released");
 }
 
 /// \brief Initializes all queue families
@@ -67,17 +72,18 @@ void CVulkanPhysicalDevice::InitializeQueueFamilies()
 
     for(uint32_t nFamilyProperties = 0; nFamilyProperties < family_properties.size(); ++nFamilyProperties)
     {
-        if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_GRAPHICS_BIT ||
-           family_properties[nFamilyProperties].queueFlags & VK_QUEUE_COMPUTE_BIT)
+        if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_GRAPHICS_BIT)
         {
            m_queue_families.emplace_back(
                    CVulkanQueueFamily(nFamilyProperties,
                    family_properties[nFamilyProperties]));
 
            if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_GRAPHICS_BIT)
-               SLogger::LogInfo("\t\tGraphic queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
+               SLogger::LogInfo("\t\tGraphics queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
+           else if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_TRANSFER_BIT)
+               SLogger::LogInfo("\t\tTransfer queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
            else
-               SLogger::LogInfo("\t\tCompute queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
+               SLogger::LogInfo("\t\tCompute  queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
         }
     }
 }
@@ -118,6 +124,7 @@ bool CVulkanPhysicalDevice::IsPhysicalDeviceSuitable(VkPhysicalDevice physical_d
     std::vector<VkQueueFamilyProperties> family_properties(family_count);
     vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &family_count, family_properties.data());
 
+    // TODO : Make possible to choose which queues are necessary
     for (const auto& family_property : family_properties)
     {
         if(family_property.queueFlags & VK_QUEUE_GRAPHICS_BIT)

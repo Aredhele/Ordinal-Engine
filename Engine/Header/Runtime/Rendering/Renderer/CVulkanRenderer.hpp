@@ -30,6 +30,7 @@
 #include "Runtime/Rendering/Renderer/IRenderer.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanLogicalDevice.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Debug/CVulkanDebugReporter.hpp"
+#include "Runtime/Rendering/Renderer/Vulkan/Helper/CVulkanFunctionLoader.hpp"
 
 /// \namespace ord
 namespace ord
@@ -61,6 +62,12 @@ private:
 
     /// \brief Fills the vector of extensions to enable
     void InitializeInstanceExtensions();
+
+    /// \brief Initializes the vulkan debug callback
+    void InitializeDebugCallback();
+
+    /// \brief Releases the vulkan debug callback
+    void ReleaseDebugCallback();
 #endif
 
     /// \brief Initializes the renderer from the create info structure
@@ -68,18 +75,35 @@ private:
     /// \throw runtime_error Throws on initialization failure
     void InitializeInstance(const SRendererCreateInfo& renderer_info);
 
+    /// \brief Loads all required vulkan functions
+    void InitializeFunctions();
+
     /// \brief Initializes logical devices from physical devices
     /// \throw runtime_error Throws on initialization failure
     void InitializeLogicalDevices();
 
+    /// \brief Releases all logical devices
+    void ReleaseLogicalDevice();
+
+    /// \brief Releases all loaded functions
+    void ReleaseFunctions();
+
+    /// \brief Releases the vulkan instance
+    void ReleaseInstance();
+
 private:
 
-    VkInstance                          mp_instance       = VK_NULL_HANDLE; ///< The vulkan instance handle
-    CVulkanDebugReporter                m_debug_reporter;                   ///< Vulkan debug reporter
-    std::vector<CVulkanLogicalDevice *> m_logical_devices;                  ///< Contains all logical devices
+    VkInstance                          mp_instance        = VK_NULL_HANDLE; ///< The vulkan instance handle
+    CVulkanFunctionLoader               m_function_loader;                   ///< The helper to load function
+    std::vector<CVulkanLogicalDevice *> m_logical_devices;                   ///< Contains all logical devices
 
-    std::vector<const char *>           m_instance_layers;                  ///< TODO
-    std::vector<const char *>           m_instance_extensions;              ///< TODO
+#ifdef ORDINAL_DEBUG
+    CVulkanDebugReporter                m_debug_reporter;                    ///< Vulkan debug reporter
+    VkDebugReportCallbackEXT            mp_report_callback = VK_NULL_HANDLE; ///< The vulkan debug report callback handle
+#endif
+
+    std::vector<const char *>           m_instance_layers;                   ///< TODO
+    std::vector<const char *>           m_instance_extensions;               ///< TODO
 };
 
 } // !namespace

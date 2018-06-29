@@ -22,8 +22,12 @@
 /// \author     Vincent STEHLY--CALISTO
 
 #include "Runtime/Core/Debug/SLogger.hpp"
+#include "Runtime/Core/Assertion/Assert.hh"
+#include "Runtime/Core/StringHash/StringHash.hpp"
+
 #include "Runtime/Rendering/Renderer/CVulkanRenderer.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanPhysicalDevice.hpp"
+#include "Runtime/Rendering/Renderer/Vulkan/Debug/VulkanDebugCallback.hpp"
 
 /// \namespace ord
 namespace ord
@@ -42,18 +46,36 @@ void CVulkanRenderer::Initialize(const SRendererCreateInfo& renderer_info)
 #ifdef ORDINAL_DEBUG
     InitializeInstanceLayers();
     InitializeInstanceExtensions();
+    InitializeInstance(renderer_info);
+    InitializeFunctions();
+    InitializeDebugCallback();
+    InitializeLogicalDevices();
+#else
+    InitializeInstance(renderer_info);
+    InitializeFunctions();
+    InitializeLogicalDevices();
 #endif
 
-    InitializeInstance(renderer_info);
-    InitializeLogicalDevices();
-
-    SLogger::LogInfo("Vulkan renderer fully initialized");
+    SLogger::LogInfo("Vulkan renderer fully initialized.\n");
 }
 
 /// \brief Releases the renderer
 void CVulkanRenderer::Release()
 {
-   // None
+    SLogger::LogInfo("Releasing the vulkan renderer ...");
+
+#ifdef ORDINAL_DEBUG
+   ReleaseDebugCallback();
+   ReleaseLogicalDevice();
+   ReleaseInstance();
+   ReleaseFunctions();
+#else
+    ReleaseLogicalDevice();
+    ReleaseInstance();
+    ReleaseFunctions();
+#endif
+
+    SLogger::LogInfo("Vulkan renderer successfully released.");
 }
 
 #ifdef ORDINAL_DEBUG
@@ -67,6 +89,51 @@ void CVulkanRenderer::InitializeInstanceLayers()
 void CVulkanRenderer::InitializeInstanceExtensions()
 {
     m_instance_extensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+}
+
+/// \brief Initializes the vulkan debug callback
+void CVulkanRenderer::InitializeDebugCallback()
+{
+    VkDebugReportCallbackCreateInfoEXT debug_report_create_info = {};
+    {
+        debug_report_create_info.sType       = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
+        debug_report_create_info.flags       = VK_DEBUG_REPORT_ERROR_BIT_EXT   |
+                                               VK_DEBUG_REPORT_WARNING_BIT_EXT |
+                                               VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;
+
+        debug_report_create_info.pfnCallback = VulkanDebugCallback;
+        debug_report_create_info.pUserData   = &m_debug_reporter;
+    }
+
+    // Getting the create debug report callback
+    auto create_function = m_function_loader.GetFunction<PFN_vkCreateDebugReportCallbackEXT>(SSID("vkCreateDebugReportCallbackEXT"));
+
+    // Creating the callback
+    if (create_function(mp_instance, &debug_report_create_info, nullptr, &mp_report_callback) != VK_SUCCESS)
+    {
+        SLogger::LogError("  Failed to set up callback");
+        throw std::runtime_error("Failed to set up callback");
+    }
+
+    SLogger::LogInfo("  Callback successfully set up.");
+}
+
+/// \brief Releases the vulkan debug callback
+void CVulkanRenderer::ReleaseDebugCallback()
+{
+    SLogger::LogInfo("  Releasing the debug callback.");
+
+    // Getting the destroy debug report callback
+    auto destroy_function = m_function_loader.GetFunction<PFN_vkDestroyDebugReportCallbackEXT>(SSID("vkDestroyDebugReportCallbackEXT"));
+
+    ORD_ASSERT_NOT_NULL(mp_instance);
+    ORD_ASSERT_NOT_NULL((void *)destroy_function);
+
+    destroy_function(mp_instance, mp_report_callback, nullptr);
+
+    mp_report_callback = VK_NULL_HANDLE;
+
+    SLogger::LogInfo("  Debug callback released.");
 }
 #endif
 
@@ -103,6 +170,19 @@ void CVulkanRenderer::InitializeInstance(const SRendererCreateInfo& renderer_inf
     SLogger::LogInfo("  Vulkan instance initialized.");
 }
 
+/// \brief Loads all required vulkan functions
+void CVulkanRenderer::InitializeFunctions()
+{
+    ORD_ASSERT_NOT_NULL(mp_instance);
+
+#ifdef ORDINAL_DEBUG
+    m_function_loader.LoadFunction(mp_instance, "vkCreateDebugReportCallbackEXT" );
+    m_function_loader.LoadFunction(mp_instance, "vkDestroyDebugReportCallbackEXT");
+#endif
+
+    SLogger::LogInfo("  %lu functions loaded.", m_function_loader.GetFunctionCount());
+}
+
 /// \brief Initializes logical devices from physical devices
 /// \throw runtime_error Throws on initialization failure
 void CVulkanRenderer::InitializeLogicalDevices()
@@ -119,7 +199,7 @@ void CVulkanRenderer::InitializeLogicalDevices()
     {
         if(CVulkanPhysicalDevice::IsPhysicalDeviceSuitable(physical_device))
         {
-            m_logical_devices.emplace_back(new CVulkanLogicalDevice());
+            m_logical_devices.push_back(new CVulkanLogicalDevice());
             m_logical_devices.back()->Initialize(physical_device);
         }
     }
@@ -128,6 +208,44 @@ void CVulkanRenderer::InitializeLogicalDevices()
         throw std::runtime_error("No suitable GPU found.");
 
     SLogger::LogInfo("  Logical devices initialized.");
+}
+
+/// \brief Releases all logical devices
+void CVulkanRenderer::ReleaseLogicalDevice()
+{
+    SLogger::LogInfo("  Releasing all logical devices.");
+
+    // Destroying
+    for(CVulkanLogicalDevice * p_logical_device : m_logical_devices)
+    {
+        p_logical_device->Release();
+        delete p_logical_device;
+    }
+
+    // Clearing vectors
+    m_logical_devices.clear();
+    m_instance_layers.clear();
+    m_instance_extensions.clear();
+
+    SLogger::LogInfo("  Logical devices released.");
+}
+
+/// \brief Releases the vulkan instance
+void CVulkanRenderer::ReleaseInstance()
+{
+    SLogger::LogInfo("  Releasing the instance.");
+
+    // Destroying the vulkan instance
+    vkDestroyInstance(mp_instance, nullptr);
+    mp_instance = VK_NULL_HANDLE;
+
+    SLogger::LogInfo("  Vulkan instance released.");
+}
+
+/// \brief Releases all loaded functions
+void CVulkanRenderer::ReleaseFunctions()
+{
+    m_function_loader.Release();
 }
 
 } // !namespace

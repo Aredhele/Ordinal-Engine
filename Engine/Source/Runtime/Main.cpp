@@ -61,5 +61,7 @@ int Ordinal_EntryPoint(int argc, char ** argv)
         return EXIT_FAILURE;
     }
 
+    vulkan_renderer.Release();
+
     return EXIT_SUCCESS;
 }
