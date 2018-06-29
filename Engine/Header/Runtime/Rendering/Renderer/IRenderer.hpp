@@ -34,6 +34,17 @@ namespace ord
 namespace rendering
 {
 
+/// \brief Represents the rendering api to use
+/// \enum  ERenderingAPI
+enum ERenderingAPI
+{
+    RENDERING_API_AUTO        = 0, ///< The engine chooses the most appropriate rendering api
+    RENDERING_API_VULKAN      = 1, ///< The engine try to use Vulkan
+    RENDERING_API_OPENGL_3    = 2, ///< The engine try to use OpenGL 3
+    RENDERING_API_OPENGL_4    = 3, ///< The engine try to use OpenGL 4
+    RENDERING_API_DIRECT3D_12 = 4  ///< The engine try to use Direct3D 12
+};
+
 /// \brief  Contains all needed information to initialize the renderer
 /// \struct SRendererCreateInfo
 struct SRendererCreateInfo

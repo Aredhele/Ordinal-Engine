@@ -25,6 +25,8 @@
 #ifndef ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__
 #define ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__
 
+#include "Runtime/Rendering/Renderer/IRenderer.hpp"
+
 /// \namespace ord
 namespace ord
 {
@@ -32,6 +34,56 @@ namespace ord
 /// \namespace rendering
 namespace rendering
 {
+
+/// \brief  TODO
+/// \struct SRenderingEngineCreateInfo
+struct SRenderingEngineCreateInfo
+{
+    ERenderingAPI        e_renderering_api;      ///< TODO
+    SRendererCreateInfo* p_renderer_create_info; ///< TODO
+};
+
+/// \brief TODO
+/// \class CRenderingEngine
+class CRenderingEngine
+{
+public:
+
+    /// \brief  Creates an instance of the Rendering engine
+    /// \return The instance of the rendering engine
+    static CRenderingEngine* GetInstance();
+
+public:
+
+    /// \brief Deletes the copy constructor
+    CRenderingEngine(const CRenderingEngine& other) = delete;
+
+    /// \brief Deletes the assignment operator
+    void operator=  (const CRenderingEngine& other) = delete;
+
+    /// \brief Initializes the rendering engine
+    /// \param rendering_engine_create_info The info to create the rendering engine
+    void Initialize(const SRenderingEngineCreateInfo& rendering_engine_create_info);
+
+    /// \brief Releases the rendering engine
+    void Release();
+
+private:
+
+    /// \brief Private constructor
+    CRenderingEngine();
+
+    /// \brief Private destructor
+    ~CRenderingEngine();
+
+    /// \brief Initializes the renderer
+    /// \param rendering_engine_create_info The info to create the rendering engine
+    void InitializeRenderer(const SRenderingEngineCreateInfo &rendering_engine_create_info);
+
+private:
+
+    IRenderer* mp_renderer  = nullptr; ///< TODO
+};
 
 } // ! namespace
 
