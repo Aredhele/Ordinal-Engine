@@ -79,11 +79,11 @@ void CVulkanPhysicalDevice::InitializeQueueFamilies()
                    family_properties[nFamilyProperties]));
 
            if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_GRAPHICS_BIT)
-               SLogger::LogInfo("\t\tGraphics queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
+               SLogger::LogInfo("\t  Graphics queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
            else if(family_properties[nFamilyProperties].queueFlags & VK_QUEUE_TRANSFER_BIT)
-               SLogger::LogInfo("\t\tTransfer queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
+               SLogger::LogInfo("\t  Transfer queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
            else
-               SLogger::LogInfo("\t\tCompute  queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
+               SLogger::LogInfo("\t  Compute  queue family added, %u queues", family_properties[nFamilyProperties].queueCount);
         }
     }
 }

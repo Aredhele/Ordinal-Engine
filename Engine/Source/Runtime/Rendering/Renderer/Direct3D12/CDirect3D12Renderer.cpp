@@ -44,6 +44,14 @@ void CDirect3D12Renderer::Release()
     // None
 }
 
+/// \brief  Creates a window
+/// \param  window_create_info The window create info
+/// \return A pointer on the window
+platform::CWindow* CDirect3D12Renderer::OpenWindow(const platform::SWindowCreateInfo &window_create_info)
+{
+    return nullptr;
+}
+
 } // !namespace
 
 } // !namespace

@@ -24,6 +24,7 @@
 #ifndef ORDINAL_ENGINE_I_RENDERER_HPP__
 #define ORDINAL_ENGINE_I_RENDERER_HPP__
 
+#include "Runtime/Platform/Window/CWindow.hpp"
 #include "Runtime/Platform/Configuration/Configuration.hh"
 
 /// \namespace ord
@@ -68,6 +69,11 @@ public:
 
     /// \brief Releases the renderer
     virtual void Release() = 0;
+
+    /// \brief  Creates a window
+    /// \param  window_create_info The window create info
+    /// \return A pointer on the window
+    virtual platform::CWindow* OpenWindow(const platform::SWindowCreateInfo& window_create_info) = 0;
 };
 
 } // !namespace

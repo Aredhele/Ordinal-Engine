@@ -1,5 +1,6 @@
 /// Copyright (C) 2018-2019, Ordinal Engine
 /// Vincent STEHLY--CALISTO, vincentstehly@hotmail.fr
+/// See https://vincentcalisto.com/ordinal-engine/
 ///
 /// This program is free software; you can redistribute it and/or modify
 /// it under the terms of the GNU General Public License as published by
@@ -31,38 +32,54 @@
 namespace ord
 {
 
-/// \brief
+/// \namespace platform
+namespace platform
+{
+
+/// \brief  Stores all required information to create a window
+/// \struct SWindowCreateInfo
+struct SWindowCreateInfo
+{
+    uint32_t    width;  ///< TODO
+    uint32_t    height; ///< TODO
+    const char* p_name; ///< TODO
+};
+
+/// \brief TODO
 /// \class CWindow
 class CWindow
 {
 public:
 
-     CWindow();
+    /// \brief Destructor
     ~CWindow();
 
-    void Close ();
+    /// \brief Opens a window
+    /// \param window_create_info Create info structure
+    void Open(const SWindowCreateInfo& window_create_info);
+
+    /// \brief Closes the window
+    void Close();
+
+    /// \brief Updates the window
     bool Update();
 
 private:
 
-    void InitializeOSWindow ();
-    void ReleaseOSWindow    ();
-    void UpdateOSWindow     ();
+    void InitializeOSWindow();
+
+    void ReleaseOSWindow();
+
+    void UpdateOSWindow();
+
     void InitializeOSSurface();
 
 private:
 
-    bool m_window_should_run = true;
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-    std::string     m_win32_class_name;
-    static uint64_t m_win32_class_id_counter;
-
-    HINSTANCE       m_win32_instance = nullptr;
-    HWND            m_win32_window   = nullptr;
-#endif
-
+    bool m_window_should_run = true;  ///< TODO
 };
+
+} // !namespace
 
 } // !namespace
 

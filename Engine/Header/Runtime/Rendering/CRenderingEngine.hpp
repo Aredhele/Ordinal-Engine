@@ -31,6 +31,12 @@
 namespace ord
 {
 
+// Forward declaration
+namespace platform
+{
+    class CWindow;
+}
+
 /// \namespace rendering
 namespace rendering
 {
@@ -39,7 +45,7 @@ namespace rendering
 /// \struct SRenderingEngineCreateInfo
 struct SRenderingEngineCreateInfo
 {
-    ERenderingAPI        e_renderering_api;      ///< TODO
+    ERenderingAPI        e_rendering_api;        ///< TODO
     SRendererCreateInfo* p_renderer_create_info; ///< TODO
 };
 
@@ -82,8 +88,10 @@ private:
 
 private:
 
-    IRenderer* mp_renderer  = nullptr; ///< TODO
-};
+    bool               m_initialized = false;   ///< TODO
+    IRenderer*         mp_renderer   = nullptr; ///< TODO
+    platform::CWindow* mp_window     = nullptr; ///< TODO
+ };
 
 } // ! namespace
 

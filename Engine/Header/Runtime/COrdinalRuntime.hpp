@@ -31,6 +31,15 @@
 namespace ord
 {
 
+/// \brief  TODO
+/// \struct SOrdinalRuntimeCreateInfo
+struct SOrdinalRuntimeCreateInfo
+{
+    const char*                            p_runtime_name;                 ///< The name of the application
+    uint32_t                               runtime_version;                ///< The version of the engine
+    rendering::SRenderingEngineCreateInfo* p_rendering_engine_create_info; ///< TODO
+};
+
 /// \brief Main engine class
 /// \class COrdinalRuntime
 class COrdinalRuntime
@@ -41,7 +50,8 @@ public:
     ~COrdinalRuntime();
 
     /// \brief Initializes the engine
-    void Initialize();
+    /// \param ordinal_runtime_create_info The required info to initialize the engine
+    void Initialize(const SOrdinalRuntimeCreateInfo& ordinal_runtime_create_info);
 
     /// \brief Starts the engine
     void Run();
@@ -51,6 +61,8 @@ public:
 
 private:
 
+    bool                         m_initialized       = false; ///< TODO
+    rendering::CRenderingEngine* mp_rendering_engine;         ///< TODO
 };
 
 } // !namespace 

@@ -41,7 +41,7 @@ namespace rendering
 /// \param s_renderer_info Contains all needed information to initialize a renderer
 void CVulkanRenderer::Initialize(const SRendererCreateInfo& renderer_info)
 {
-    SLogger::LogInfo("Vulkan initialization ...");
+    SLogger::LogInfo("    Vulkan initialization ...");
 
 #ifdef ORDINAL_DEBUG
     InitializeInstanceLayers();
@@ -56,13 +56,13 @@ void CVulkanRenderer::Initialize(const SRendererCreateInfo& renderer_info)
     InitializeLogicalDevices();
 #endif
 
-    SLogger::LogInfo("Vulkan renderer fully initialized.\n");
+    SLogger::LogInfo("    Vulkan renderer fully initialized.");
 }
 
 /// \brief Releases the renderer
 void CVulkanRenderer::Release()
 {
-    SLogger::LogInfo("Releasing the vulkan renderer ...");
+    SLogger::LogInfo("    Releasing the vulkan renderer ...");
 
 #ifdef ORDINAL_DEBUG
    ReleaseDebugCallback();
@@ -75,7 +75,15 @@ void CVulkanRenderer::Release()
     ReleaseFunctions();
 #endif
 
-    SLogger::LogInfo("Vulkan renderer successfully released.");
+    SLogger::LogInfo("    Vulkan renderer successfully released.");
+}
+
+/// \brief  Creates a window
+/// \param  window_create_info The window create info
+/// \return A pointer on the window
+platform::CWindow* CVulkanRenderer::OpenWindow(const platform::SWindowCreateInfo &window_create_info)
+{
+    return nullptr;
 }
 
 #ifdef ORDINAL_DEBUG
@@ -111,17 +119,17 @@ void CVulkanRenderer::InitializeDebugCallback()
     // Creating the callback
     if (create_function(mp_instance, &debug_report_create_info, nullptr, &mp_report_callback) != VK_SUCCESS)
     {
-        SLogger::LogError("  Failed to set up callback");
+        SLogger::LogError("    Failed to set up callback");
         throw std::runtime_error("Failed to set up callback");
     }
 
-    SLogger::LogInfo("  Callback successfully set up.");
+    SLogger::LogInfo("    Callback successfully set up.");
 }
 
 /// \brief Releases the vulkan debug callback
 void CVulkanRenderer::ReleaseDebugCallback()
 {
-    SLogger::LogInfo("  Releasing the debug callback.");
+    SLogger::LogInfo("    Releasing the debug callback.");
 
     // Getting the destroy debug report callback
     auto destroy_function = m_function_loader.GetFunction<PFN_vkDestroyDebugReportCallbackEXT>(SSID("vkDestroyDebugReportCallbackEXT"));
@@ -133,7 +141,7 @@ void CVulkanRenderer::ReleaseDebugCallback()
 
     mp_report_callback = VK_NULL_HANDLE;
 
-    SLogger::LogInfo("  Debug callback released.");
+    SLogger::LogInfo("    Debug callback released.");
 }
 #endif
 
@@ -167,7 +175,7 @@ void CVulkanRenderer::InitializeInstance(const SRendererCreateInfo& renderer_inf
     if(result != VK_SUCCESS)
         throw std::runtime_error("Error while creating vulkan instance.");
 
-    SLogger::LogInfo("  Vulkan instance initialized.");
+    SLogger::LogInfo("    Vulkan instance initialized.");
 }
 
 /// \brief Loads all required vulkan functions
@@ -180,7 +188,7 @@ void CVulkanRenderer::InitializeFunctions()
     m_function_loader.LoadFunction(mp_instance, "vkDestroyDebugReportCallbackEXT");
 #endif
 
-    SLogger::LogInfo("  %lu functions loaded.", m_function_loader.GetFunctionCount());
+    SLogger::LogInfo("    %lu functions loaded.", m_function_loader.GetFunctionCount());
 }
 
 /// \brief Initializes logical devices from physical devices
@@ -207,13 +215,13 @@ void CVulkanRenderer::InitializeLogicalDevices()
     if(m_logical_devices.empty())
         throw std::runtime_error("No suitable GPU found.");
 
-    SLogger::LogInfo("  Logical devices initialized.");
+    SLogger::LogInfo("    Logical devices initialized.");
 }
 
 /// \brief Releases all logical devices
 void CVulkanRenderer::ReleaseLogicalDevice()
 {
-    SLogger::LogInfo("  Releasing all logical devices.");
+    SLogger::LogInfo("    Releasing all logical devices.");
 
     // Destroying
     for(CVulkanLogicalDevice * p_logical_device : m_logical_devices)
@@ -227,19 +235,19 @@ void CVulkanRenderer::ReleaseLogicalDevice()
     m_instance_layers.clear();
     m_instance_extensions.clear();
 
-    SLogger::LogInfo("  Logical devices released.");
+    SLogger::LogInfo("    Logical devices released.");
 }
 
 /// \brief Releases the vulkan instance
 void CVulkanRenderer::ReleaseInstance()
 {
-    SLogger::LogInfo("  Releasing the instance.");
+    SLogger::LogInfo("    Releasing the instance.");
 
     // Destroying the vulkan instance
     vkDestroyInstance(mp_instance, nullptr);
     mp_instance = VK_NULL_HANDLE;
 
-    SLogger::LogInfo("  Vulkan instance released.");
+    SLogger::LogInfo("    Vulkan instance released.");
 }
 
 /// \brief Releases all loaded functions

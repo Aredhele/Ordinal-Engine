@@ -22,24 +22,55 @@
 /// \author     Vincent STEHLY--CALISTO
 
 #include <stdexcept>
+
 #include "Runtime/COrdinalRuntime.hpp"
+#include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Platform/Configuration/Configuration.hh"
+
+using COrdinalRuntime            = ord::COrdinalRuntime;
+using SOrdinalRuntimeCreateInfo  = ord::SOrdinalRuntimeCreateInfo;
+using SRendererCreateInfo        = ord::rendering::SRendererCreateInfo;
+using SRenderingEngineCreateInfo = ord::rendering::SRenderingEngineCreateInfo;
 
 /// \brief Ordinal engine entry points
 int Ordinal_EntryPoint(int argc, char ** argv)
 {
-    ord::COrdinalRuntime ordinal_runtime;
+    // Engine
+    COrdinalRuntime ordinal_runtime;
+
+    SRendererCreateInfo renderer_create_info {};
+    {
+        renderer_create_info.p_engine_name         = "Ordinal Engine";
+        renderer_create_info.p_application_name    = "Ordinal";
+        renderer_create_info.api_version           = (1 << 22) | (1 << 12) | 0;
+        renderer_create_info.engine_version        = (0 << 22) | (1 << 12) | 0;
+        renderer_create_info.application_version   = (0 << 22) | (1 << 12) | 0;
+    }
+
+    SRenderingEngineCreateInfo rendering_engine_create_info {};
+    {
+        rendering_engine_create_info.e_rendering_api        = ord::rendering::RENDERING_API_VULKAN;
+        rendering_engine_create_info.p_renderer_create_info = &renderer_create_info;
+    }
+
+    SOrdinalRuntimeCreateInfo runtime_create_info {};
+    {
+        runtime_create_info.p_runtime_name                 = "Ordinal Runtime";
+        runtime_create_info.runtime_version                = (0 << 22) | (0 << 12) | 1;
+        runtime_create_info.p_rendering_engine_create_info = &rendering_engine_create_info;
+    }
 
     try
     {
-        ordinal_runtime.Initialize();
+        ordinal_runtime.Initialize(runtime_create_info);
         ordinal_runtime.Run();
         ordinal_runtime.Release();
     }
     catch (const std::runtime_error& error)
     {
-        // TODO
+        ord::SLogger::LogError("Caught : %s.", error.what());
+        return EXIT_FAILURE;
     }
 
-    // TODO
+    return EXIT_SUCCESS;
 }

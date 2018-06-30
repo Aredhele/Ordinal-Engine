@@ -58,17 +58,23 @@ CRenderingEngine::~CRenderingEngine()
 /// \param rendering_engine_create_info The info to create the rendering engine
 void CRenderingEngine::Initialize(const SRenderingEngineCreateInfo &rendering_engine_create_info)
 {
-    SLogger::LogInfo("Rendering engine initialization ...");
+    Release();
+    SLogger::LogInfo("  Rendering engine initialization ...");
 
     InitializeRenderer(rendering_engine_create_info);
 
-    SLogger::LogInfo("Rendering engine fully initialized;");
+    m_initialized = true;
+    SLogger::LogInfo("  Rendering engine fully initialized;");
 }
 
 /// \brief Releases the rendering engine
 void CRenderingEngine::Release()
 {
-    // TODO
+    if(m_initialized)
+    {
+        mp_renderer->Release();
+        m_initialized = false;
+    }
 }
 
 /// \brief Initializes the renderer
@@ -77,7 +83,7 @@ void CRenderingEngine::InitializeRenderer(const SRenderingEngineCreateInfo &rend
 {
     SLogger::LogInfo("  Initializing renderer.");
 
-    if(!mp_renderer != nullptr)
+    if(mp_renderer)
     {
         mp_renderer->Release();
         delete mp_renderer;
@@ -85,7 +91,7 @@ void CRenderingEngine::InitializeRenderer(const SRenderingEngineCreateInfo &rend
     }
 
     // Instantiating the renderer
-    switch(rendering_engine_create_info.e_renderering_api)
+    switch(rendering_engine_create_info.e_rendering_api)
     {
         // TODO : Implements auto selection
         case RENDERING_API_AUTO:        mp_renderer = new CVulkanRenderer();     break;

@@ -23,6 +23,7 @@
 /// \author     Vincent STEHLY--CALISTO
 
 #include "Runtime/COrdinalRuntime.hpp"
+#include "Runtime/Core/Debug/SLogger.hpp"
 
 /// \namespace ord
 namespace ord
@@ -35,21 +36,36 @@ COrdinalRuntime::~COrdinalRuntime()
 }
 
 /// \brief Initializes the engine
-void COrdinalRuntime::Initialize()
+void COrdinalRuntime::Initialize(const SOrdinalRuntimeCreateInfo& ordinal_runtime_create_info)
 {
+    Release();
+    SLogger::LogInfo("Engine Initialization ...");
 
+    mp_rendering_engine = rendering::CRenderingEngine::GetInstance();
+    mp_rendering_engine->Initialize(*ordinal_runtime_create_info.p_rendering_engine_create_info);
+
+    m_initialized = true;
+    SLogger::LogInfo("Engine fully initialized.\n");
 }
 
 /// \brief Starts the engine
 void COrdinalRuntime::Run()
 {
-
+    // TODO
 }
 
 /// \brief Releases the engine
 void COrdinalRuntime::Release()
 {
+    if(m_initialized)
+    {
+        SLogger::LogInfo("Releasing engine ...");
 
+        mp_rendering_engine->Release();
+
+        m_initialized = false;
+        SLogger::LogInfo("Engine released.");
+    }
 }
 
 } // !namespace
