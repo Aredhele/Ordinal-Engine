@@ -21,30 +21,42 @@
 /// \package    Runtime/Rendering/Window
 /// \author     Vincent STEHLY--CALISTO
 
-#include "Runtime/Rendering/Window/CWindow.hpp"
+#include "Runtime/Platform/Window/CWindow.hpp"
 
 /// \namespace ord
 namespace ord
 {
 
-CWindow::CWindow()
+/// \namespace platform
+namespace platform
 {
 
-}
-
+/// \brief Destructor
 CWindow::~CWindow()
 {
-
+    // TODO
 }
 
-void CWindow::Close()
+/// \brief Initializes (open) a window
+/// \param window_create_info Create info structure
+void CWindow::Initialize(const SWindowCreateInfo &window_create_info)
 {
-    m_window_should_run = false;
+    // TODO
 }
 
+/// \brief Releases (close) the window
+void CWindow::Release()
+{
+    // TODO
+}
+
+/// \brief  Updates the window
+/// \return True of false if the window is closed
 bool CWindow::Update()
 {
     return m_window_should_run;
 }
+
+} // !namespace
 
 } // !namespace

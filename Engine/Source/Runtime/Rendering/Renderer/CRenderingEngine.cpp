@@ -62,6 +62,7 @@ void CRenderingEngine::Initialize(const SRenderingEngineCreateInfo &rendering_en
     SLogger::LogInfo("  Rendering engine initialization ...");
 
     InitializeRenderer(rendering_engine_create_info);
+    InitializeWindow(rendering_engine_create_info);
 
     m_initialized = true;
     SLogger::LogInfo("  Rendering engine fully initialized;");
@@ -74,6 +75,9 @@ void CRenderingEngine::Release()
     {
         mp_renderer->Release();
         m_initialized = false;
+
+        mp_renderer = nullptr;
+        mp_window   = nullptr;
     }
 }
 
@@ -81,14 +85,8 @@ void CRenderingEngine::Release()
 /// \param rendering_engine_create_info The info to create the rendering engine
 void CRenderingEngine::InitializeRenderer(const SRenderingEngineCreateInfo &rendering_engine_create_info)
 {
-    SLogger::LogInfo("  Initializing renderer.");
-
-    if(mp_renderer)
-    {
-        mp_renderer->Release();
-        delete mp_renderer;
-        mp_renderer = nullptr;
-    }
+    Release();
+    SLogger::LogInfo("  Initializing renderer ...");
 
     // Instantiating the renderer
     switch(rendering_engine_create_info.e_rendering_api)
@@ -108,6 +106,17 @@ void CRenderingEngine::InitializeRenderer(const SRenderingEngineCreateInfo &rend
     mp_renderer->Initialize(*rendering_engine_create_info.p_renderer_create_info);
 
     SLogger::LogInfo("  Renderer initialized.");
+}
+
+/// \brief Initializes the window
+/// \param rendering_engine_create_info The info to create the rendering engine
+void CRenderingEngine::InitializeWindow(const SRenderingEngineCreateInfo &rendering_engine_create_info)
+{
+    SLogger::LogInfo("  Initializing window ...");
+
+    mp_window = mp_renderer->OpenWindow(*rendering_engine_create_info.p_window_create_info);
+
+    SLogger::LogInfo("  Window Initialized.");
 }
 
 } // ! namespace

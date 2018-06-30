@@ -1,5 +1,6 @@
 /// Copyright (C) 2018-2019, Ordinal Engine
 /// Vincent STEHLY--CALISTO, vincentstehly@hotmail.fr
+/// See https://vincentcalisto.com/ordinal-engine/
 ///
 /// This program is free software; you can redistribute it and/or modify
 /// it under the terms of the GNU General Public License as published by
@@ -15,46 +16,27 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CWindow_win32.cpp
-/// \date       09/06/2018
+/// \file       IWindow.hpp
+/// \date       30/06/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Rendering/Window
+/// \package    Runtime/Rendering/Renderer
 /// \author     Vincent STEHLY--CALISTO
 
-#include "Runtime/Platform/Window/CWindow.hpp"
+#ifndef ORDINAL_ENGINE_I_WINDOW_HPP__
+#define ORDINAL_ENGINE_I_WINDOW_HPP__
 
 /// \namespace ord
 namespace ord
 {
 
-/// \namespace platform
-namespace platform
+/// \namespace rendering
+namespace rendering
 {
 
-#ifdef VK_USE_PLATFORM_WIN32_KHR
 
-void CWindow::InitializeOSWindow()
-{
-    WNDCLASSEX win_class{};
-}
-
-void CWindow::UpdateOSWindow()
-{
-
-}
-
-void CWindow::ReleaseOSWindow()
-{
-
-}
-
-void CWindow::InitializeOSSurface()
-{
-
-}
-
-#endif // !VK_USE_PLATFORM_WIN32_KHR
 
 } // !namespace
 
 } // !namespace
+
+#endif // !ORDINAL_ENGINE_I_WINDOW_HPP__

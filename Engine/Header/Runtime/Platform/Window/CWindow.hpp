@@ -54,12 +54,12 @@ public:
     /// \brief Destructor
     ~CWindow();
 
-    /// \brief Opens a window
+    /// \brief Initializes (open) a window
     /// \param window_create_info Create info structure
-    void Open(const SWindowCreateInfo& window_create_info);
+    void Initialize(const SWindowCreateInfo& window_create_info);
 
-    /// \brief Closes the window
-    void Close();
+    /// \brief Releases (close) the window
+    void Release();
 
     /// \brief Updates the window
     bool Update();
@@ -67,11 +67,8 @@ public:
 private:
 
     void InitializeOSWindow();
-
     void ReleaseOSWindow();
-
     void UpdateOSWindow();
-
     void InitializeOSSurface();
 
 private:

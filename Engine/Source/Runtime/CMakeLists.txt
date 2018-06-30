@@ -24,6 +24,7 @@ INCLUDE_DIRECTORIES(
 FILE(GLOB_RECURSE ENGINE_SOURCES
         Core/*.cpp
         Network/*.cpp
+        Platform/*.cpp
         Rendering/*.cpp)
 
 FILE(GLOB_RECURSE ENGINE_HEADERS

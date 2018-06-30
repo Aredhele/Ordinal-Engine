@@ -29,8 +29,12 @@
 
 using COrdinalRuntime            = ord::COrdinalRuntime;
 using SOrdinalRuntimeCreateInfo  = ord::SOrdinalRuntimeCreateInfo;
+using SWindowCreateInfo          = ord::platform::SWindowCreateInfo;
 using SRendererCreateInfo        = ord::rendering::SRendererCreateInfo;
 using SRenderingEngineCreateInfo = ord::rendering::SRenderingEngineCreateInfo;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreturn-stack-address"
 
 /// \brief Ordinal engine entry points
 int Ordinal_EntryPoint(int argc, char ** argv)
@@ -39,26 +43,26 @@ int Ordinal_EntryPoint(int argc, char ** argv)
     COrdinalRuntime ordinal_runtime;
 
     SRendererCreateInfo renderer_create_info {};
-    {
-        renderer_create_info.p_engine_name         = "Ordinal Engine";
-        renderer_create_info.p_application_name    = "Ordinal";
-        renderer_create_info.api_version           = (1 << 22) | (1 << 12) | 0;
-        renderer_create_info.engine_version        = (0 << 22) | (1 << 12) | 0;
-        renderer_create_info.application_version   = (0 << 22) | (1 << 12) | 0;
-    }
+    renderer_create_info.p_engine_name       = "Ordinal Engine";
+    renderer_create_info.p_application_name  = "Ordinal";
+    renderer_create_info.api_version         = (1 << 22) | (1 << 12) | 0;
+    renderer_create_info.engine_version      = (0 << 22) | (1 << 12) | 0;
+    renderer_create_info.application_version = (0 << 22) | (1 << 12) | 0;
+
+    SWindowCreateInfo window_create_info {};
+    window_create_info.width  = 1280;
+    window_create_info.height = 720;
+    window_create_info.p_name = "Ordinal";
 
     SRenderingEngineCreateInfo rendering_engine_create_info {};
-    {
-        rendering_engine_create_info.e_rendering_api        = ord::rendering::RENDERING_API_VULKAN;
-        rendering_engine_create_info.p_renderer_create_info = &renderer_create_info;
-    }
+    rendering_engine_create_info.e_rendering_api        = ord::rendering::RENDERING_API_VULKAN;
+    rendering_engine_create_info.p_window_create_info   = &window_create_info;
+    rendering_engine_create_info.p_renderer_create_info = &renderer_create_info;
 
     SOrdinalRuntimeCreateInfo runtime_create_info {};
-    {
-        runtime_create_info.p_runtime_name                 = "Ordinal Runtime";
-        runtime_create_info.runtime_version                = (0 << 22) | (0 << 12) | 1;
-        runtime_create_info.p_rendering_engine_create_info = &rendering_engine_create_info;
-    }
+    runtime_create_info.p_runtime_name                 = "Ordinal Runtime";
+    runtime_create_info.runtime_version                = (0 << 22) | (0 << 12) | 1;
+    runtime_create_info.p_rendering_engine_create_info = &rendering_engine_create_info;
 
     try
     {
@@ -74,3 +78,5 @@ int Ordinal_EntryPoint(int argc, char ** argv)
 
     return EXIT_SUCCESS;
 }
+
+#pragma clang diagnostic pop

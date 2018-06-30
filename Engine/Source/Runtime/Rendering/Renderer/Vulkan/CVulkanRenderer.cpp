@@ -81,9 +81,13 @@ void CVulkanRenderer::Release()
 /// \brief  Creates a window
 /// \param  window_create_info The window create info
 /// \return A pointer on the window
-platform::CWindow* CVulkanRenderer::OpenWindow(const platform::SWindowCreateInfo &window_create_info)
+platform::CWindow* CVulkanRenderer::OpenWindow(const platform::SWindowCreateInfo& window_create_info)
 {
-    return nullptr;
+    // TODO (Release)
+    auto* p_window = new platform::CWindow();
+    p_window->Initialize(window_create_info);
+
+    return p_window;
 }
 
 #ifdef ORDINAL_DEBUG

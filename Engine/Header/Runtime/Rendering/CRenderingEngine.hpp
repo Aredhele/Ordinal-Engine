@@ -31,12 +31,6 @@
 namespace ord
 {
 
-// Forward declaration
-namespace platform
-{
-    class CWindow;
-}
-
 /// \namespace rendering
 namespace rendering
 {
@@ -45,7 +39,10 @@ namespace rendering
 /// \struct SRenderingEngineCreateInfo
 struct SRenderingEngineCreateInfo
 {
+    using SWindowCreateInfo = platform::SWindowCreateInfo;
+
     ERenderingAPI        e_rendering_api;        ///< TODO
+    SWindowCreateInfo*   p_window_create_info;   ///< TODO
     SRendererCreateInfo* p_renderer_create_info; ///< TODO
 };
 
@@ -85,6 +82,10 @@ private:
     /// \brief Initializes the renderer
     /// \param rendering_engine_create_info The info to create the rendering engine
     void InitializeRenderer(const SRenderingEngineCreateInfo &rendering_engine_create_info);
+
+    /// \brief Initializes the window
+    /// \param rendering_engine_create_info The info to create the rendering engine
+    void InitializeWindow(const SRenderingEngineCreateInfo& rendering_engine_create_info);
 
 private:
 
