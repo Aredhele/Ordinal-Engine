@@ -46,6 +46,11 @@ public:
 
     /// \brief Releases the renderer
     void Release() final;
+
+    /// \brief  Creates a window
+    /// \param  window_create_info The window create info
+    /// \return A pointer on the window
+    platform::CWindow* OpenWindow(const platform::SWindowCreateInfo& window_create_info) final;
 };
 
 } // !namespace
