@@ -39,7 +39,6 @@ using SRenderingEngineCreateInfo = ord::rendering::SRenderingEngineCreateInfo;
 /// \brief Ordinal engine entry points
 int Ordinal_EntryPoint(int argc, char ** argv)
 {
-    // Engine
     COrdinalRuntime ordinal_runtime;
 
     SRendererCreateInfo renderer_create_info {};
