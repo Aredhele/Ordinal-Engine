@@ -40,7 +40,7 @@ inline void assert_true(bool bExpr, const char *szExpr, const char *szMsg,
     if (!bExpr)
     {
         assert_print("ASSERT_TRUE", szExpr, szMsg, szFile, szFunc, line);
-        DEBUG_BREAK();
+        ORD_DEBUG_BREAK();
     }
 }
 
@@ -51,7 +51,7 @@ inline void assert_false(bool bExpr, const char *szExpr, const char *szMsg,
     if (bExpr)
     {
         assert_print("ASSERT_FALSE", szExpr, szMsg, szFile, szFunc, line);
-        DEBUG_BREAK();
+        ORD_DEBUG_BREAK();
     }
 }
 
@@ -68,7 +68,7 @@ inline void assert_equal(const T &lhs, const U &rhs,
                            std::string(szRhs);
 
         assert_print("ASSERT_EQ", expr.c_str(), szMsg, szFile, szFunc, line);
-        DEBUG_BREAK();
+        ORD_DEBUG_BREAK();
     }
 }
 
@@ -85,7 +85,7 @@ inline void assert_non_equal(const T &lhs, const U &rhs,
                            std::string(szRhs);
 
         assert_print("ASSERT_NE", expr.c_str(), szMsg, szFile, szFunc, line);
-        DEBUG_BREAK();
+        ORD_DEBUG_BREAK();
     }
 }
 
@@ -96,7 +96,7 @@ inline void assert_is_null(void *ptr, const char *szExpr, const char *szMsg,
     if (ptr != nullptr)
     {
         assert_print("ASSERT_NULL", szExpr, szMsg, szFile, szFunc, line);
-        DEBUG_BREAK();
+        ORD_DEBUG_BREAK();
     }
 }
 
@@ -107,7 +107,7 @@ inline void assert_is_not_null(void *ptr, const char *szExpr, const char *szMsg,
     if (ptr == nullptr)
     {
         assert_print("ASSERT_NOT_NULL", szExpr, szMsg, szFile, szFunc, line);
-        DEBUG_BREAK();
+        ORD_DEBUG_BREAK();
     }
 }
 
@@ -124,7 +124,7 @@ inline void assert_is_greater_than(const T & lhs, const U & rhs,
                            std::string(szRhs);
 
         assert_print("ASSERT_GT", expr.c_str(), szMsg, szFile, szFunc, line);
-        DEBUG_BREAK();
+        ORD_DEBUG_BREAK();
     }
 }
 
@@ -141,7 +141,7 @@ inline void assert_is_lower_than(const T & lhs, const U & rhs,
                            std::string(szRhs);
 
         assert_print("ASSERT_LT", expr.c_str(), szMsg, szFile, szFunc, line);
-        DEBUG_BREAK();
+        ORD_DEBUG_BREAK();
     }
 }
 

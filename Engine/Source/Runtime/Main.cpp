@@ -25,7 +25,7 @@
 
 #include "Runtime/COrdinalRuntime.hpp"
 #include "Runtime/Core/Debug/SLogger.hpp"
-#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Platform/Configuration/Configuration.hpp"
 
 using COrdinalRuntime            = ord::COrdinalRuntime;
 using SOrdinalRuntimeCreateInfo  = ord::SOrdinalRuntimeCreateInfo;

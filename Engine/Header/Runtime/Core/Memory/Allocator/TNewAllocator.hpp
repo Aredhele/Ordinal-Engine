@@ -1,5 +1,6 @@
 /// Copyright (C) 2018-2019, Ordinal Engine
 /// Vincent STEHLY--CALISTO, vincentstehly@hotmail.fr
+/// See https://vincentcalisto.com/ordinal-engine/
 ///
 /// This program is free software; you can redistribute it and/or modify
 /// it under the terms of the GNU General Public License as published by
@@ -15,28 +16,51 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       SocketHandle.hh
-/// \date       21/06/2018
+/// \file       TNewAllocator.hpp
+/// \date       03/07/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Network/Socket
+/// \package    Runtime/Core/Memory
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_C_SOCKET_HANDLE_HH_
-#define ORDINAL_ENGINE_C_SOCKET_HANDLE_HH_
+#ifndef ORDINAL_ENGINE_T_NEW_ALLOCATOR_HPP__
+#define ORDINAL_ENGINE_T_NEW_ALLOCATOR_HPP__
 
+#include <memory>
 #include "Runtime/Platform/Configuration/Configuration.hpp"
 
-/// \namespace ord
-namespace ord { namespace network {
+/// \namespace Ord
+namespace Ord
+{
 
-#if defined(ORDINAL_WINDOWS)
-    typedef UINT_PTR SocketHandle;
+/// \namespace Core
+namespace Core
+{
 
-#else
-    typedef int SocketHandle;
+/// \brief  TODO
+/// \tparam TODO
+/// \class  TODO
+template<typename Tp>
+class TNewAllocator
+{
+public:
 
-#endif
+    using size_type       = size_t;
+    using value_type      = Tp;
+    using difference_type = ptrdiff_t;
+    using pointer         = Tp*;
+    using reference       = Tp&;
+    using const_pointer   = const Tp*;
+    using const_reference = const Tp&;
 
-} } // !namespace
+    TNewAllocator() noexcept;
 
-#endif // !ORDINAL_ENGINE_C_SOCKET_HANDLE_HH__
+    TNewAllocator(const TNewAllocator& other) noexcept;
+
+    ~TNewAllocator() noexcept;
+};
+
+} // !namespace
+
+} // !namespace
+
+#endif // !ORDINAL_ENGINE_T_NEW_ALLOCATOR_HPP__

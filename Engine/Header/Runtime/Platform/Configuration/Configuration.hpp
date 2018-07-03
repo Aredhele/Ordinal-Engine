@@ -26,5 +26,6 @@
 
 #include "Runtime/Platform/Configuration/Compiler.hpp"
 #include "Runtime/Platform/Configuration/Platform.hpp"
+#include "Runtime/Platform/Configuration/Type.hpp"
 
 #endif // !ORDINAL_ENGINE_CONFIGURATION_HPP__

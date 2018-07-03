@@ -40,16 +40,16 @@ static_assert(sizeof(uint64_t) == 8, "sizeof(uint64_t) should be 8.");
 namespace Ord
 {
 
-using Int8    = int8_t;    ///< A signed  8 bits long type
-using Int16   = int16_t;   ///< A signed 16 bits long type
-using Int32   = int32_t;   ///< A signed 32 bits long type
-using Int64   = int64_t;   ///< A signed 64 bits long type
-using IntPtr  = intptr_t;  ///< A signed pointer type
-using UInt8   = uint8_t;   ///< An unsigned  8 bits long type
-using UInt16  = uint16_t;  ///< An unsigned 16 bits long type
-using UInt32  = uint32_t;  ///< An unsigned 32 bits long type
-using UInt64  = uint64_t;  ///< An unsigned 64 bits long type
-using UIntPtr = uintptr_t; ///< An unsigned pointer type
+using Int8    = int8_t;         ///< A signed  8 bits long type
+using Int16   = int16_t;        ///< A signed 16 bits long type
+using Int32   = int32_t;        ///< A signed 32 bits long type
+using Int64   = int64_t;        ///< A signed 64 bits long type
+using IntPtr  = intptr_t;       ///< A signed pointer type
+using UInt8   = uint8_t;        ///< An unsigned  8 bits long type
+using UInt16  = uint16_t;       ///< An unsigned 16 bits long type
+using UInt32  = uint32_t;       ///< An unsigned 32 bits long type
+using UInt64  = uint64_t;       ///< An unsigned 64 bits long type
+using UIntPtr = uintptr_t;      ///< An unsigned pointer type
 
 } // !namespace
 

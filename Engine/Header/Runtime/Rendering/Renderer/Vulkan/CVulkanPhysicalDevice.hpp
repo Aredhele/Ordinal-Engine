@@ -26,7 +26,7 @@
 
 #include <vector>
 
-#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Platform/Configuration/Configuration.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanQueueFamily.hpp"
 
 /// \namespace ord

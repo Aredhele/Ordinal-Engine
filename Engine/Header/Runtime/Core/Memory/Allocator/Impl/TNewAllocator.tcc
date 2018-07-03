@@ -1,5 +1,6 @@
 /// Copyright (C) 2018-2019, Ordinal Engine
 /// Vincent STEHLY--CALISTO, vincentstehly@hotmail.fr
+/// See https://vincentcalisto.com/ordinal-engine/
 ///
 /// This program is free software; you can redistribute it and/or modify
 /// it under the terms of the GNU General Public License as published by
@@ -15,28 +16,22 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       SocketHandle.hh
-/// \date       21/06/2018
+/// \file       TNewAllocator.tcc
+/// \date       03/07/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Network/Socket
+/// \package    Runtime/Core/Memory/Allocator/Impl/
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_C_SOCKET_HANDLE_HH_
-#define ORDINAL_ENGINE_C_SOCKET_HANDLE_HH_
+/// \namespace Ord
+namespace Ord
+{
 
-#include "Runtime/Platform/Configuration/Configuration.hpp"
+/// \namespace Core
+namespace Core
+{
 
-/// \namespace ord
-namespace ord { namespace network {
 
-#if defined(ORDINAL_WINDOWS)
-    typedef UINT_PTR SocketHandle;
 
-#else
-    typedef int SocketHandle;
+} // !namespace
 
-#endif
-
-} } // !namespace
-
-#endif // !ORDINAL_ENGINE_C_SOCKET_HANDLE_HH__
+} // !namespace

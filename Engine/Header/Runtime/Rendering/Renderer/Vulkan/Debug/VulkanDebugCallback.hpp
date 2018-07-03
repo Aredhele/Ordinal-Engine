@@ -24,7 +24,7 @@
 #ifndef ORDINAL_ENGINE_VULKAN_DEBUG_CALLBACK_HPP__
 #define ORDINAL_ENGINE_VULKAN_DEBUG_CALLBACK_HPP__
 
-#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Platform/Configuration/Configuration.hpp"
 
 /// \namespace ord
 namespace ord

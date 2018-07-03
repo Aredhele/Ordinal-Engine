@@ -27,7 +27,7 @@
 #include <string>
 #include <cstring>
 
-#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Platform/Configuration/Configuration.hpp"
 
 /// \namespace  ord
 namespace ord

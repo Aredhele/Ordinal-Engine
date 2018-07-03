@@ -24,7 +24,7 @@
 #ifndef ORDINAL_ENGINE_C_VULKAN_LOGICAL_DEVICE_HPP__
 #define ORDINAL_ENGINE_C_VULKAN_LOGICAL_DEVICE_HPP__
 
-#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Platform/Configuration/Configuration.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanPhysicalDevice.hpp"
 
 /// \namespace ord

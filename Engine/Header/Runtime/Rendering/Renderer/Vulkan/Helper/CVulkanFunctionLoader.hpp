@@ -25,7 +25,7 @@
 #define ORDINAL_ENGINE_C_VULKAN_FUNCTION_LOADER_HPP__
 
 #include <unordered_map>
-#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Platform/Configuration/Configuration.hpp"
 
 /// \namespace ord
 namespace ord

@@ -24,7 +24,7 @@
 #ifndef ORDINAL_ENGINE_C_VULKAN_QUEUE_FAMILY_HPP__
 #define ORDINAL_ENGINE_C_VULKAN_QUEUE_FAMILY_HPP__
 
-#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Platform/Configuration/Configuration.hpp"
 
 /// \namespace ord
 namespace ord

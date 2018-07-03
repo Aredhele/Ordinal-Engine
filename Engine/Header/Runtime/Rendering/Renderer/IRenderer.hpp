@@ -25,7 +25,7 @@
 #define ORDINAL_ENGINE_I_RENDERER_HPP__
 
 #include "Runtime/Platform/Window/CWindow.hpp"
-#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Platform/Configuration/Configuration.hpp"
 
 /// \namespace ord
 namespace ord

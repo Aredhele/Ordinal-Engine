@@ -26,7 +26,7 @@
 #define ORDINAL_ENGINE_C_WINDOW_HPP__
 
 #include <string>
-#include "Runtime/Platform/Configuration/Configuration.hh"
+#include "Runtime/Platform/Configuration/Configuration.hpp"
 
 /// \namespace ord
 namespace ord
