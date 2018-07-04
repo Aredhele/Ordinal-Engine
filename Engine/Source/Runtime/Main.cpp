@@ -29,6 +29,7 @@
 #include "Runtime/Platform/Configuration/Configuration.hpp"
 #include "Runtime/Core/Maths/Vector/Vector.hpp"
 #include "Runtime/Core/Memory/Allocator/TNewAllocator.hpp"
+#include "Runtime/Core/Memory/Allocator/TMallocAllocator.hpp"
 
 using COrdinalRuntime            = ord::COrdinalRuntime;
 using SOrdinalRuntimeCreateInfo  = ord::SOrdinalRuntimeCreateInfo;
@@ -36,12 +37,10 @@ using SWindowCreateInfo          = ord::platform::SWindowCreateInfo;
 using SRendererCreateInfo        = ord::rendering::SRendererCreateInfo;
 using SRenderingEngineCreateInfo = ord::rendering::SRenderingEngineCreateInfo;
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreturn-stack-address"
-
 /// \brief Ordinal engine entry points
 int Ordinal_EntryPoint(int argc, char ** argv)
 {
+    COrdinalRuntime ordinal_runtime;
 
     SRendererCreateInfo renderer_create_info {};
     renderer_create_info.p_engine_name       = "Ordinal Engine";
@@ -77,14 +76,5 @@ int Ordinal_EntryPoint(int argc, char ** argv)
         return EXIT_FAILURE;
     }
 
-
-    Ord::Core::Vec1 vec0 = Ord::Core::Vec1(5.0f);
-    Ord::Core::Vec1 vec1 = Ord::Core::Vec1(5.0f);
-
-    bool t = vec0 == vec1;
-    Ord::Core::TNewAllocator<int> a;
-
     return EXIT_SUCCESS;
 }
-
-#pragma clang diagnostic pop

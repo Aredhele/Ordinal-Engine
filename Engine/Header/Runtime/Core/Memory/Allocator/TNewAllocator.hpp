@@ -73,11 +73,11 @@ public:
     /// \return A pointer on the allocated memory
     inline void Deallocate(pointer p);
 
-    /// \brief Constructs an object at given memory location
+    /// \brief  Constructs an object at given memory location
     /// \tparam Up The pointer type
     /// \tparam Args The arguments to construct the object
-    /// \param p The pointer to the memory
-    /// \param args The arguments to construct the object
+    /// \param  p The pointer to the memory
+    /// \param  args The arguments to construct the object
     template<typename Up, typename... Args>
     inline void Construct(Up* p, Args&&... args);
 
