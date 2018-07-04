@@ -154,7 +154,7 @@ inline VectorRegister128Double MakeVectorRegister128Double(
     const double x,
     const double y) ORDINAL_NOEXCEPT
 {
-    return _mm_set_pd(x, y);
+    return _mm_set_pd(y, x);
 }
 
 /// \brief  Returns a 2 doubles vector
@@ -164,7 +164,7 @@ inline VectorRegister128Double MakeVectorRegister128Double(
 inline VectorRegister128Double MakeVectorRegister128Double(
     const double x) ORDINAL_NOEXCEPT
 {
-    return _mm_set_pd(x, 0.0);
+    return _mm_set_pd(0.0, x);
 }
 
 /// \brief  Loads 4 floats from unaligned memory
@@ -239,7 +239,7 @@ inline Int32 GetVectorRegister128IntComponent(
 /// \param  vector The vector register
 /// \param  ComponentIndex	Which component to get, X=0, Y=1
 /// \return The wanted component as a double
-inline double GetVector128DoubleComponent(
+inline double GetVectorRegister128DoubleComponent(
     const VectorRegister128Double vector,
     const UInt32 index) ORDINAL_NOEXCEPT
 {
@@ -248,38 +248,37 @@ inline double GetVector128DoubleComponent(
 
 /// \brief  Replicates the element at the given index
 /// \param  vector The vector
-/// \param  INDEX The index (0-3)
+/// \tparam Index The index (0-3)
 /// \return VectorRegister(vector[index], vector[index], vector[index], vector[index])
+template<UInt8 Index>
 inline VectorRegister128 ReplicateVectorRegister128Component(
-    const VectorRegister128 vector,
-    const UInt8 index) ORDINAL_NOEXCEPT
+    const VectorRegister128 vector) ORDINAL_NOEXCEPT
 {
-    return _mm_shuffle_ps(vector, vector, MakeShuffleMask(
-            index, index, index, index));
+    return _mm_shuffle_ps(vector, vector, _MM_SHUFFLE(
+            Index, Index, Index, Index));
 }
 
 /// \brief  Replicates the element at the given index
 /// \param  vector The vector
-/// \param  INDEX The index (0-3)
+/// \tparam Index The index (0-3)
 /// \return VectorRegister128Int(vector[index], vector[index], vector[index], vector[index])
+template<UInt8 Index>
 inline VectorRegister128Int ReplicateVector128IntComponent(
-    const VectorRegister128Int vector,
-    const UInt8 index) ORDINAL_NOEXCEPT
+    const VectorRegister128Int vector) ORDINAL_NOEXCEPT
 {
-    return _mm_shuffle_epi32(vector, MakeShuffleMask(
-            index, index, index, index));
+    return _mm_shuffle_epi32(vector, _MM_SHUFFLE(
+            Index, Index, Index, Index));
 }
 
 /// \brief  Replicates the element at the given index
 /// \param  vector The vector
-/// \param  INDEX The index (0-1)
+/// \tparam Index The index (0-1)
 /// \return VectorRegister128Double(vector[index], vector[index], vector[index], vector[index])
+template<UInt8 Index>
 inline VectorRegister128Double ReplicateVector128DoubleComponent(
-    const VectorRegister128Double vector,
-    const UInt8 index) ORDINAL_NOEXCEPT
+    const VectorRegister128Double vector) ORDINAL_NOEXCEPT
 {
-    return _mm_shuffle_pd(vector, vector, MakeShuffleMask(
-            index, index, index, index));
+    return _mm_shuffle_pd(vector, vector, _MM_SHUFFLE2(Index, Index));
 }
 
 /// \brief  Adds two vectors
@@ -319,7 +318,7 @@ inline VectorRegister128Double AddVectorRegister128Double(
 /// \param  V1 The first  vector
 /// \param  V2 The second vector
 /// \return VectorRegister(V1.x - V2.x, V1.y - V2.y, V1.z - V2.z, V1.w - V2.w)
-inline VectorRegister128 SubtractVectoRegister128(
+inline VectorRegister128 SubtractVectorRegister128(
     const VectorRegister128 a,
     const VectorRegister128 b) ORDINAL_NOEXCEPT
 {
@@ -330,7 +329,7 @@ inline VectorRegister128 SubtractVectoRegister128(
 /// \param  V1 The first  vector
 /// \param  V2 The second vector
 /// \return VectorRegister(V1.x - V2.x, V1.y - V2.y, V1.z - V2.z, V1.w - V2.w)
-inline VectorRegister128Int SubtractVectoRegister128Int(
+inline VectorRegister128Int SubtractVectorRegister128Int(
     const VectorRegister128Int a,
     const VectorRegister128Int b) ORDINAL_NOEXCEPT
 {
@@ -341,7 +340,7 @@ inline VectorRegister128Int SubtractVectoRegister128Int(
 /// \param  V1 The first  vector
 /// \param  V2 The second vector
 /// \return VectorRegister(V1.x - V2.x, V1.y - V2.y)
-inline VectorRegister128Double SubtractVectoRegister128Double(
+inline VectorRegister128Double SubtractVectorRegister128Double(
     const VectorRegister128Double a,
     const VectorRegister128Double b) ORDINAL_NOEXCEPT
 {
@@ -367,7 +366,9 @@ inline VectorRegister128Int MultiplyVectorRegister128Int(
     const VectorRegister128Int a,
     const VectorRegister128Int b) ORDINAL_NOEXCEPT
 {
-    return _mm_mul_epi32(a, b);
+    __m128i tmp1 = _mm_mul_epu32(a, b);
+    __m128i tmp2 = _mm_mul_epu32(_mm_srli_si128(a,4), _mm_srli_si128(b,4));
+    return _mm_unpacklo_epi32(_mm_shuffle_epi32(tmp1, _MM_SHUFFLE (0, 0, 2, 0)), _mm_shuffle_epi32(tmp2, _MM_SHUFFLE(0, 0, 2, 0)));
 }
 
 /// \brief  Multiplies two vectors
@@ -379,6 +380,33 @@ inline VectorRegister128Double MultiplyVectorRegister128Double(
     const VectorRegister128Double b) ORDINAL_NOEXCEPT
 {
     return _mm_mul_pd(a, b);
+}
+
+/// \brief  Stores a vector into an array of floats
+/// \param  p_data The output
+/// \param  vector The input
+inline void StoreVectorRegister128Unaligned(float* p_data,
+    const VectorRegister128 vector) ORDINAL_NOEXCEPT
+{
+    _mm_storeu_ps(p_data, vector);
+}
+
+/// \brief  Stores a vector into an array of ints
+/// \param  p_data The output
+/// \param  vector The input
+inline void StoreVectorRegister128IntUnaligned(Int32* p_data,
+    const VectorRegister128Int vector) ORDINAL_NOEXCEPT
+{
+    _mm_storeu_si128((__m128i_u*)p_data, vector);
+}
+
+/// \brief  Stores a vector into an array of floats
+/// \param  p_data The output
+/// \param  vector The input
+inline void StoreVectorRegister128DoubleUnaligned(double* p_data,
+    const VectorRegister128Double vector) ORDINAL_NOEXCEPT
+{
+    _mm_storeu_pd(p_data, vector);
 }
 
 } // !namespace

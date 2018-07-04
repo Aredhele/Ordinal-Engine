@@ -27,6 +27,7 @@ INCLUDE_DIRECTORIES(
 FILE(GLOB_RECURSE ENGINE_RUNTIME_SOURCES
         ${ORDINAL_ENGINE_SOURCE_DIR}/Runtime/Core/*.cpp
         ${ORDINAL_ENGINE_SOURCE_DIR}/Runtime/Network/*.cpp
+        ${ORDINAL_ENGINE_SOURCE_DIR}/Runtime/Platform/*.cpp
         ${ORDINAL_ENGINE_SOURCE_DIR}/Runtime/Rendering/*.cpp)
 
 # Get engine runtime headers
@@ -37,6 +38,9 @@ FILE(GLOB_RECURSE ENGINE_RUNTIME_HEADERS
 
 # Getting sources
 SET(TEST_FILES
+        # Platform/Hardware
+        Platform/Hardware/UnitTest_Vector_SSE2.cpp
+
         # Core/Memory
         Core/Memory/UnitTest_CStackAllocator.cpp)
 
