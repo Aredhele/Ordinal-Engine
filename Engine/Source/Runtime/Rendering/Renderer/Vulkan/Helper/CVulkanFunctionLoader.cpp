@@ -21,7 +21,7 @@
 /// \package    Runtime/Rendering/Renderer/Helper
 /// \author     Vincent STEHLY--CALISTO
 
-#include "Runtime/Core/Assertion/Assert.hh"
+#include "Runtime/Core/Assertion/Assert.hpp"
 #include "Runtime/Core/StringHash/StringHash.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Helper/CVulkanFunctionLoader.hpp"
 

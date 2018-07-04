@@ -21,7 +21,7 @@
 /// \package    Runtime/Rendering/Renderer/Vulkan/Debug
 /// \author     Vincent STEHLY--CALISTO
 
-#include "Runtime/Core/Assertion/Assert.hh"
+#include "Runtime/Core/Assertion/Assert.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Debug/VulkanDebugCallback.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Debug/CVulkanDebugReporter.hpp"
 

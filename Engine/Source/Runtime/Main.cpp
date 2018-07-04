@@ -22,10 +22,12 @@
 /// \author     Vincent STEHLY--CALISTO
 
 #include <stdexcept>
+#include <iostream>
 
 #include "Runtime/COrdinalRuntime.hpp"
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Platform/Configuration/Configuration.hpp"
+#include "Runtime/Platform/Hardware/Vector_SSE2.hpp"
 
 using COrdinalRuntime            = ord::COrdinalRuntime;
 using SOrdinalRuntimeCreateInfo  = ord::SOrdinalRuntimeCreateInfo;

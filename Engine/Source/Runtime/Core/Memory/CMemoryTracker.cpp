@@ -22,7 +22,7 @@
 /// \package    Runtime/Core/Memory
 /// \author     Vincent STEHLY--CALISTO
 
-#include <Runtime/Core/Assertion/Assert.hh>
+#include <Runtime/Core/Assertion/Assert.hpp>
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Core/Memory/CMemoryTracker.hpp"
 

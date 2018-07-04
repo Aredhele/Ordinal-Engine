@@ -28,7 +28,7 @@
 #include <cstddef> ///< std::size_t
 #include <cstdint> ///< uint8_t
 
-#include "Runtime/Core/Assertion/Assert.hh"
+#include "Runtime/Core/Assertion/Assert.hpp"
 
 /// \namespace ord
 namespace ord

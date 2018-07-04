@@ -24,7 +24,7 @@
 #include <stdexcept>
 
 #include "Runtime/Core/Debug/SLogger.hpp"
-#include "Runtime/Core/Assertion/Assert.hh"
+#include "Runtime/Core/Assertion/Assert.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanLogicalDevice.hpp"
 
 /// \namespace ord
