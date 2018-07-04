@@ -61,39 +61,27 @@ public:
 
     /// \brief  Constructs a vector from another of the same type
     /// \param  vector The vector to copy
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<1, Tp>& vector) ORDINAL_NOEXCEPT;
-
-    /// \brief  Constructs a 1D vector from a 2D vector
-    /// \param  vector The 2D vector
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<2, Tp>& vector) ORDINAL_NOEXCEPT;
-
-    /// \brief  Constructs a 1D vector from a 3D vector
-    /// \param  vector The 3D vector
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<3, Tp>& vector) ORDINAL_NOEXCEPT;
-
-    /// \brief  Constructs a 1D vector from a 4D vector
-    /// \param  vector The 4D vector
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<4, Tp>& vector) ORDINAL_NOEXCEPT;
+    ORDINAL_CONSTEXPR inline TVec(const TVec<1, Tp>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a 1D vector from another one of different type
     /// \param  vector The vector to copy
     template <typename U>
-    ORDINAL_CONSTEXPR inline TVec(const TVec<1, U>& vector) ORDINAL_NOEXCEPT;
+    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<1, U>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a 1D vector from another one of different type
     /// \param  vector The vector to copy
     template <typename U>
-    ORDINAL_CONSTEXPR inline TVec(const TVec<2, U>& vector) ORDINAL_NOEXCEPT;
+    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<2, U>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a 1D vector from another one of different type
     /// \param  vector The vector to copy
     template <typename U>
-    ORDINAL_CONSTEXPR inline TVec(const TVec<3, U>& vector) ORDINAL_NOEXCEPT;
+    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<3, U>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a 1D vector from another one of different type
     /// \param  vector The vector to copy
     template <typename U>
-    ORDINAL_CONSTEXPR inline TVec(const TVec<4, U>& vector) ORDINAL_NOEXCEPT;
+    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<4, U>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Default Destructor
     inline ~TVec() ORDINAL_NOEXCEPT ORDINAL_DEFAULT;
@@ -243,7 +231,7 @@ inline TVec<1, Tp> operator-(const TVec<1, Tp>& lhs, const TVec<1, Tp>& rhs) ORD
 /// \param  scalar The scalar to multiply with
 /// \return A new vector (vector.x * scalar)
 template<typename Tp>
-inline TVec<1, Tp> operator*(const TVec<1, Tp>& v, const Tp scalar) ORDINAL_NOEXCEPT;
+inline TVec<1, Tp> operator*(const TVec<1, Tp>& vector, const Tp scalar) ORDINAL_NOEXCEPT;
 
 /// \brief  Binary operator *
 /// \param  scalar The scalar to multiply with
@@ -297,5 +285,7 @@ inline bool operator!=(const TVec<1, Tp>& lhs, const TVec<1, Tp>& rhs) ORDINAL_N
 } // !namespace
 
 } // !namespace
+
+#include "Runtime/Core/Maths/Vector/Impl/TVec1_FPU.inl"
 
 #endif // !ORDINAL_ENGINE_T_VEC_1_HPP__

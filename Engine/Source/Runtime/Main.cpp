@@ -78,7 +78,10 @@ int Ordinal_EntryPoint(int argc, char ** argv)
     }
 
 
-    Ord::Core::Vec2 vec;
+    Ord::Core::Vec1 vec0 = Ord::Core::Vec1(5.0f);
+    Ord::Core::Vec1 vec1 = Ord::Core::Vec1(5.0f);
+
+    bool t = vec0 == vec1;
 
     return EXIT_SUCCESS;
 }

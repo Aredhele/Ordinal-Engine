@@ -38,6 +38,7 @@ namespace Ord
 namespace Core
 {
 
+using Vec1 = TVec<1, float>;
 using Vec2 = TVec<2, float>;
 
 } // !namespace

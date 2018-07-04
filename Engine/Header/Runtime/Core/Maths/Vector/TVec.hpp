@@ -26,6 +26,7 @@
 #define ORDINAL_ENGINE_T_VEC_HPP__
 
 #include <cmath>
+#include "Runtime/Core/Assertion/Assert.hpp"
 #include "Runtime/Platform/Configuration/Configuration.hpp"
 
 /// \namespace Ord
