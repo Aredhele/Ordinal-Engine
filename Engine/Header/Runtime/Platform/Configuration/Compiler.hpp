@@ -147,6 +147,7 @@
 #   if __cplusplus >= 201103L
 #       define ORDINAL_FINAL     final
 #       define ORDINAL_NULLPTR   nullptr
+#       define ORDINAL_EXPLICIT  explicit
 #       define ORDINAL_OVERRIDE  override
 #       define ORDINAL_NOEXCEPT  noexcept
 #       define ORDINAL_CONSTEXPR constexpr
@@ -155,14 +156,19 @@
 #       define ORDINAL_CXX99
 #       define ORDINAL_FINAL
 #       define ORDINAL_NULLPTR NULL
+#       define ORDINAL_EXPLICIT
 #       define ORDINAL_OVERRIDE
 #       define ORDINAL_NOEXCEPT throw();
 #       define ORDINAL_CONSTEXPR
 #   endif
 
 #   if __cplusplus >= 201103L
+#       define ORDINAL_DEFAULT         = default
+#       define ORDINAL_DELETE_FUNCTION = delete
 #       define ORDINAL_STATIC_ASSERT(X) static_assert(X);
 #   else
+#       define ORDINAL_DEFAULT {}
+#       define ORDINAL_DELETE_FUNCTION
 #       define ORDINAL_STATIC_ASSERT(X)
 #   endif
 

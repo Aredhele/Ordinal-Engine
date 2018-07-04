@@ -27,7 +27,7 @@
 #include "Runtime/COrdinalRuntime.hpp"
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Platform/Configuration/Configuration.hpp"
-#include "Runtime/Platform/Hardware/Vector_SSE2.hpp"
+#include "Runtime/Core/Maths/Vector/Vector.hpp"
 
 using COrdinalRuntime            = ord::COrdinalRuntime;
 using SOrdinalRuntimeCreateInfo  = ord::SOrdinalRuntimeCreateInfo;
@@ -76,6 +76,9 @@ int Ordinal_EntryPoint(int argc, char ** argv)
         ord::SLogger::LogError("Caught : %s.", error.what());
         return EXIT_FAILURE;
     }
+
+
+    Ord::Core::Vec2 vec;
 
     return EXIT_SUCCESS;
 }
