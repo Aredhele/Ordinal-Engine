@@ -85,7 +85,8 @@ void assert_non_equal(const T & lhs,
                       int32_t line);
 
 /// \brief  Checks if ptr is null pointer
-void assert_is_null(void * ptr,
+template <class T>
+void assert_is_null(const T* ptr,
                     const char * szExpr,
                     const char * szMsg,
                     const char * szFile,
@@ -93,7 +94,8 @@ void assert_is_null(void * ptr,
                     int32_t line);
 
 /// \brief  Checks if ptr is not null pointer
-void assert_is_not_null(void * ptr,
+template <class T>
+void assert_is_not_null(const T* ptr,
                         const char * szExpr,
                         const char * szMsg,
                         const char * szFile,

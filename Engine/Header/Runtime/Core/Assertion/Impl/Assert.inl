@@ -90,10 +90,11 @@ inline void assert_non_equal(const T &lhs, const U &rhs,
 }
 
 /// \brief  Checks if ptr is null pointer
-inline void assert_is_null(void *ptr, const char *szExpr, const char *szMsg,
+template <class T>
+inline void assert_is_null(const T* ptr, const char *szExpr, const char *szMsg,
                            const char *szFile, const char *szFunc, int32_t line)
 {
-    if (ptr != nullptr)
+    if (ptr != ORDINAL_NULLPTR)
     {
         assert_print("ASSERT_NULL", szExpr, szMsg, szFile, szFunc, line);
         ORDINAL_DEBUG_BREAK();
@@ -101,10 +102,11 @@ inline void assert_is_null(void *ptr, const char *szExpr, const char *szMsg,
 }
 
 /// \brief  Checks if ptr is not null pointer
-inline void assert_is_not_null(void *ptr, const char *szExpr, const char *szMsg,
+template <class T>
+inline void assert_is_not_null(const T* ptr, const char *szExpr, const char *szMsg,
                                const char *szFile, const char *szFunc, int32_t line)
 {
-    if (ptr == nullptr)
+    if (ptr == ORDINAL_NULLPTR)
     {
         assert_print("ASSERT_NOT_NULL", szExpr, szMsg, szFile, szFunc, line);
         ORDINAL_DEBUG_BREAK();

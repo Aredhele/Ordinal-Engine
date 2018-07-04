@@ -22,8 +22,8 @@
 /// \package    Runtime/Platform/Hardware
 /// \author     Vincent STEHLY--CALISTO
 
-#ifndef ORDINAL_ENGINE_CONFIGURATION_HPP__
-#define ORDINAL_ENGINE_CONFIGURATION_HPP__
+#ifndef ORDINAL_ENGINE_HARDWARE_CONFIGURATION_HPP__
+#define ORDINAL_ENGINE_HARDWARE_CONFIGURATION_HPP__
 
 #include "Runtime/Platform/Configuration/Configuration.hpp"
 
@@ -45,4 +45,4 @@
 
 #endif
 
-#endif // !ORDINAL_ENGINE_CONFIGURATION_HPP__
+#endif // !ORDINAL_ENGINE_HARDWARE_CONFIGURATION_HPP__
