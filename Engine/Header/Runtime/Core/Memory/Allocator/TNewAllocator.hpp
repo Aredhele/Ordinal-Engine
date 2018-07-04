@@ -25,8 +25,7 @@
 #ifndef ORDINAL_ENGINE_T_NEW_ALLOCATOR_HPP__
 #define ORDINAL_ENGINE_T_NEW_ALLOCATOR_HPP__
 
-#include <memory>
-#include "Runtime/Platform/Configuration/Configuration.hpp"
+#include "Runtime/Core/Memory/Allocator/TBaseAllocator.hpp"
 
 /// \namespace Ord
 namespace Ord
@@ -36,11 +35,11 @@ namespace Ord
 namespace Core
 {
 
-/// \brief  TODO
-/// \tparam TODO
-/// \class  TODO
+/// \brief  Default allocator using new
+/// \tparam Tp The type of objects to allocate
+/// \class  TNewAllocator
 template<typename Tp>
-class TNewAllocator
+class TNewAllocator : public TBaseAllocator<Tp>
 {
 public:
 
@@ -48,19 +47,51 @@ public:
     using value_type      = Tp;
     using difference_type = ptrdiff_t;
     using pointer         = Tp*;
-    using reference       = Tp&;
+    using reference       = Tp &;
     using const_pointer   = const Tp*;
-    using const_reference = const Tp&;
+    using const_reference = const Tp &;
 
-    TNewAllocator() noexcept;
+public:
 
-    TNewAllocator(const TNewAllocator& other) noexcept;
+    /// \brief Default constructor
+    TNewAllocator() ORDINAL_NOEXCEPT ORDINAL_DEFAULT;
 
-    ~TNewAllocator() noexcept;
+    /// \brief Default copy constructor
+    /// \param other The other allocator
+    TNewAllocator(const TNewAllocator& other) ORDINAL_NOEXCEPT ORDINAL_DEFAULT;
+
+    /// \brief Default destructor
+    ~TNewAllocator() ORDINAL_NOEXCEPT ORDINAL_DEFAULT;
+
+    /// \brief  Allocates n * sizeof(Tp) bytes
+    /// \param  n The number of elements to allocate
+    /// \return A pointer on the allocated memory
+    inline pointer Allocate(size_type n);
+
+    /// \brief  Allocates n * sizeof(Tp) bytes
+    /// \param  n The number of elements to allocate
+    /// \return A pointer on the allocated memory
+    inline void Deallocate(pointer p);
+
+    /// \brief Constructs an object at given memory location
+    /// \tparam Up The pointer type
+    /// \tparam Args The arguments to construct the object
+    /// \param p The pointer to the memory
+    /// \param args The arguments to construct the object
+    template<typename Up, typename... Args>
+    inline void Construct(Up* p, Args&&... args);
+
+    /// \brief  Destroys an object at the given memory location
+    /// \tparam Up The pointer type
+    /// \param  p The pointer on the object
+    template<typename Up>
+    inline void Destroy(Up* p);
 };
 
 } // !namespace
 
 } // !namespace
+
+#include "Runtime/Core/Memory/Allocator/Impl/TNewAllocator.inl"
 
 #endif // !ORDINAL_ENGINE_T_NEW_ALLOCATOR_HPP__

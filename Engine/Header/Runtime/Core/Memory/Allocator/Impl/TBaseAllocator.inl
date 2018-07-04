@@ -34,7 +34,7 @@ namespace Core
 /// \param  x A reference on a variable
 /// \return A pointer on the given variable
 template<typename Tp>
-/* inline */ TBaseAllocator::pointer TBaseAllocator<Tp>::Address(reference x) const ORDINAL_NOEXCEPT
+/* inline */ Tp* TBaseAllocator<Tp>::Address(reference x) const ORDINAL_NOEXCEPT
 {
     return std::addressof(x);
 }
@@ -43,7 +43,7 @@ template<typename Tp>
 /// \param  x A const reference on a variable
 /// \return A const pointer on the given variable
 template<typename Tp>
-/* inline */ TBaseAllocator::const_pointer TBaseAllocator<Tp>::Address(const_reference x) const ORDINAL_NOEXCEPT
+/* inline */ const Tp* TBaseAllocator<Tp>::Address(const_reference x) const ORDINAL_NOEXCEPT
 {
     return std::addressof(x);
 }

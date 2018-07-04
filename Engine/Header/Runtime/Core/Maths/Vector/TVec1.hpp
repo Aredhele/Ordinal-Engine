@@ -53,35 +53,35 @@ public:
 public:
 
     /// \brief  Default constructor
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec() ORDINAL_NOEXCEPT;
+    inline ORDINAL_CONSTEXPR ORDINAL_EXPLICIT TVec() ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a vector with only 1 component
     /// \param  X The x component
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const value_type X) ORDINAL_NOEXCEPT;
+    inline ORDINAL_CONSTEXPR ORDINAL_EXPLICIT TVec(const value_type X) ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a vector from another of the same type
     /// \param  vector The vector to copy
-    ORDINAL_CONSTEXPR inline TVec(const TVec<1, Tp>& vector) ORDINAL_NOEXCEPT;
+    inline ORDINAL_CONSTEXPR TVec(const TVec<1, Tp>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a 1D vector from another one of different type
     /// \param  vector The vector to copy
     template <typename U>
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<1, U>& vector) ORDINAL_NOEXCEPT;
+    inline ORDINAL_CONSTEXPR ORDINAL_EXPLICIT TVec(const TVec<1, U>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a 1D vector from another one of different type
     /// \param  vector The vector to copy
     template <typename U>
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<2, U>& vector) ORDINAL_NOEXCEPT;
+    inline ORDINAL_CONSTEXPR ORDINAL_EXPLICIT TVec(const TVec<2, U>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a 1D vector from another one of different type
     /// \param  vector The vector to copy
     template <typename U>
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<3, U>& vector) ORDINAL_NOEXCEPT;
+    inline ORDINAL_CONSTEXPR ORDINAL_EXPLICIT TVec(const TVec<3, U>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Constructs a 1D vector from another one of different type
     /// \param  vector The vector to copy
     template <typename U>
-    ORDINAL_CONSTEXPR inline ORDINAL_EXPLICIT TVec(const TVec<4, U>& vector) ORDINAL_NOEXCEPT;
+    inline ORDINAL_CONSTEXPR ORDINAL_EXPLICIT TVec(const TVec<4, U>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Default Destructor
     inline ~TVec() ORDINAL_NOEXCEPT ORDINAL_DEFAULT;
@@ -89,13 +89,13 @@ public:
     /// \brief  Unary operator =
     /// \param  vector The vector to assign
     /// \return The updated vector
-    ORDINAL_CXX14_CONSTEXPR inline TVec& operator=(const TVec<1, Tp>& vector) ORDINAL_NOEXCEPT ORDINAL_DEFAULT;
+    inline ORDINAL_CXX14_CONSTEXPR TVec& operator=(const TVec<1, Tp>& vector) ORDINAL_NOEXCEPT ORDINAL_DEFAULT;
 
     /// \brief  Unary operator =
     /// \param  vector The vector to assign
     /// \return The updated vector
     template<typename U>
-    ORDINAL_CXX14_CONSTEXPR inline TVec& operator=(const TVec<1, U>& vector) ORDINAL_NOEXCEPT;
+    inline ORDINAL_CXX14_CONSTEXPR TVec& operator=(const TVec<1, U>& vector) ORDINAL_NOEXCEPT;
 
     /// \brief  Unary operator +=
     /// \param  scalar The scalar to add

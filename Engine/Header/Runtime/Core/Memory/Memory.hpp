@@ -16,22 +16,15 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       TNewAllocator.tcc
-/// \date       03/07/2018
+/// \file       Memory.hpp
+/// \date       04/07/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Core/Memory/Allocator/Impl/
+/// \package    Runtime/Core/Memory
 /// \author     Vincent STEHLY--CALISTO
 
-/// \namespace Ord
-namespace Ord
-{
+#ifndef ORDINAL_ENGINE_MEMORY_HPP__
+#define ORDINAL_ENGINE_MEMORY_HPP__
 
-/// \namespace Core
-namespace Core
-{
+// TODO
 
-
-
-} // !namespace
-
-} // !namespace
+#endif // !ORDINAL_ENGINE_MEMORY_HPP__
