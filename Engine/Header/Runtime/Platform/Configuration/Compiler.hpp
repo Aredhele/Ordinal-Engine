@@ -121,27 +121,6 @@
 
 #endif
 
-/// \brief
-#if defined(__SSE__)
-#   define ORDINAL_SSE
-#endif
-
-#if defined(__SSE2__)
-#   define ORDINAL_SSE2
-#endif
-
-#if defined(__SSE3__)
-#   define ORDINAL_SSE3
-#endif
-
-#if defined(__AVX__)
-#   define ORDINAL_AVX
-#endif
-
-#if defined(__AVX2__)
-#   define ORDINAL_AVX2
-#endif
-
 /// \brief C++ standard backward compatibility
 #if defined(__cplusplus)
 #   if    __cplusplus == 201103L
@@ -172,7 +151,7 @@
 #       define ORDINAL_NOEXCEPT  noexcept
 #       define ORDINAL_CONSTEXPR constexpr
 #   else
-#       warning "Please update your C++ standard."
+#       warning "Please update your C++ compiler."
 #       define ORDINAL_CXX99
 #       define ORDINAL_FINAL
 #       define ORDINAL_NULLPTR NULL
