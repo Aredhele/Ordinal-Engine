@@ -25,7 +25,8 @@
 #ifndef ORDINAL_ENGINE_VECTOR_SSE_2_HPP__
 #define ORDINAL_ENGINE_VECTOR_SSE_2_HPP__
 
-#include "Runtime/Platform/Hardware/Vector.hpp"
+#include "Runtime/Core/Assertion/Assert.hpp"
+#include "Runtime/Platform/Hardware/Configuration.hpp"
 
 /// \namespace Ord
 namespace Ord
@@ -38,6 +39,20 @@ namespace Platform
 using VectorRegister128       = __m128;  ///< A vector based on 4 floats
 using VectorRegister128Int    = __m128i; ///< A vector based on 4 ints
 using VectorRegister128Double = __m128d; ///< A vector based on 2 doubles
+
+/// \brief  Shuffles vector index
+/// \param  A0 Selects the A0 element into the first vector
+/// \param  A1 Selects the A1 element into the first vector
+/// \param  B2 Selects the B2 element into the second vector
+/// \param  B3 Selects the B3 element into the second vector
+/// \return The mask to shuffle the vector
+ORDINAL_CONSTEXPR
+inline UInt32 MakeShuffleMask(
+    const UInt8 A0, const UInt8 A1,
+    const UInt8 B2, const UInt8 B3) ORDINAL_NOEXCEPT
+{
+    return ((A0) | ((A1) << 2) | ((B2) << 4) | ((B3) << 6));
+}
 
 /// \brief  Returns a vector filled with zeroes
 /// \return {0.0f, 0.0f, 0.0f, 0.0f}
@@ -341,7 +356,7 @@ inline VectorRegister128 MultiplyVectorRegister128(
     const VectorRegister128 a,
     const VectorRegister128 b) ORDINAL_NOEXCEPT
 {
-    return  _mm_mul_ps(a, b);
+    return _mm_mul_ps(a, b);
 }
 
 /// \brief  Multiplies two vectors
@@ -352,7 +367,7 @@ inline VectorRegister128Int MultiplyVectorRegister128Int(
     const VectorRegister128Int a,
     const VectorRegister128Int b) ORDINAL_NOEXCEPT
 {
-    return  _mm_mul_epi32(a, b);
+    return _mm_mul_epi32(a, b);
 }
 
 /// \brief  Multiplies two vectors
@@ -363,7 +378,7 @@ inline VectorRegister128Double MultiplyVectorRegister128Double(
     const VectorRegister128Double a,
     const VectorRegister128Double b) ORDINAL_NOEXCEPT
 {
-    return  _mm_mul_pd(a, b);
+    return _mm_mul_pd(a, b);
 }
 
 } // !namespace
