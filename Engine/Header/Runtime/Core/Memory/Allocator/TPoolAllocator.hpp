@@ -40,7 +40,7 @@ namespace Core
 /// \tparam TAllocator The allocator to use
 /// \brief  Allocator based on memory pooling
 template <typename Tp, typename TAllocator = TBaseAllocator<Tp>>
-class PoolAllocator
+class TPoolAllocator
 {
 public:
 
@@ -55,46 +55,46 @@ public:
 public:
 
     /// \brief  Constructor
-    inline ORDINAL_EXPLICIT PoolAllocator() ORDINAL_NOEXCEPT;
+    inline ORDINAL_EXPLICIT TPoolAllocator() ORDINAL_NOEXCEPT;
 
     /// \brief  Destructor
-    inline ~PoolAllocator() ORDINAL_NOEXCEPT;
+    inline ~TPoolAllocator() ORDINAL_NOEXCEPT;
 
     /// \brief Initializes the pool allocator with the given size
     /// \param capacity The count of object of type T to allocate
-    void Initialize(UInt32 capacity);
+    inline void Initialize(UInt32 capacity);
 
     /// \brief Clear the allocator and free the allocated memory
-    void Release(void);
+    inline void Release();
 
     /// \brief Deallocates all memory block in the pool but
     ///        it doesn't free any memory
-    void Clear(void) ORDINAL_NOEXCEPT;
+    inline void Clear() ORDINAL_NOEXCEPT;
 
     /// \brief  Allocates an element in the pool
     /// \return A pointer on the block of data
-    pointer Allocate(void);
+    inline pointer Allocate();
 
     /// \brief  Allocates an element in the pool
     ///         and call the copy constructor
     /// \param  A reference on the object to copy
     /// \return A pointer on the new constructed object
-    pointer Allocate(const_reference object);
+    inline pointer Allocate(const_reference object);
 
     /// \brief  Allocates an element in the pool
     ///         and construct the object with given arguments
     /// \param  args Variadic arguments
     /// \return A pointer on the new constructed object
     template <typename... Args>
-    pointer Allocate(Args&&... args);
+    inline pointer Allocate(Args&&... args);
 
     /// \brief  Deallocates the given block in the pool
     /// \param  index The index of the block to deallocate
-    void Deallocate(UInt32 index);
+    inline void Deallocate(UInt32 index);
 
     /// \brief  Deallocates the given block in the pool
     /// \param  p The pointer on the block to deallocate
-    void Deallocate(pointer p);
+    inline void Deallocate(pointer p);
 
     /// \brief  Returns the memory usage of the pool allocator
     /// \return The number of bytes used by the allocator

@@ -37,6 +37,8 @@ using SWindowCreateInfo          = ord::platform::SWindowCreateInfo;
 using SRendererCreateInfo        = ord::rendering::SRendererCreateInfo;
 using SRenderingEngineCreateInfo = ord::rendering::SRenderingEngineCreateInfo;
 
+#include "Runtime/Core/Memory/Allocator/TPoolAllocator.hpp"
+
 /// \brief Ordinal engine entry points
 int Ordinal_EntryPoint(int argc, char ** argv)
 {
