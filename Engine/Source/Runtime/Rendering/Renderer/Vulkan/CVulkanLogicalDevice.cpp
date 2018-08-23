@@ -27,12 +27,12 @@
 #include "Runtime/Core/Assertion/Assert.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanLogicalDevice.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Initializes the logical device

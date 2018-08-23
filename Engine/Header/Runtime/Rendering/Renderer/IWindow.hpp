@@ -25,15 +25,71 @@
 #ifndef ORDINAL_ENGINE_I_WINDOW_HPP__
 #define ORDINAL_ENGINE_I_WINDOW_HPP__
 
+#include <string>
+#include "Runtime/Platform/Configuration/Configuration.hpp"
+
 /// \namespace ord
-namespace ord
+namespace Ord
 {
 
 /// \namespace rendering
-namespace rendering
+namespace Rendering
 {
 
+/// \brief  Stores all required information to create a window
+/// \struct SWindowCreateInfo
+struct SWindowCreateInfo
+{
+    uint32_t    width;      ///< TODO
+    uint32_t    height;     ///< TODO
+    const char* p_name;     ///< TODO
+};
 
+/// \brief Interface for window
+/// \class IWindow
+class IWindow
+{
+public:
+
+    /// \brief Initializes (open) a window
+    /// \param window_create_info Create info structure
+    virtual void Initialize(const SWindowCreateInfo& window_create_info) = 0;
+
+    /// \brief Releases (close) the window
+    virtual void Release() = 0;
+
+    /// \brie Resizes the window
+    virtual void Resize () = 0;
+
+    /// \brief Updates the window
+    virtual bool Update() = 0;
+
+protected:
+
+    /// \brief OS specific functions
+    /// \see Window_win32
+    void InitializeSurfaceOS();
+    void InitializeOS       ();
+    void ReleaseOS          ();
+    void UpdateOS           ();
+
+protected:
+
+    bool        m_window_should_run = false; ///< TODO
+    uint32_t    m_window_width      = 0;
+    uint32_t    m_window_height     = 0;
+    const char* mp_window_name      = nullptr;
+
+private:
+
+#ifdef ORDINAL_PLATFORM_WINDOWS
+    HINSTANCE       m_win32_instance      = nullptr;
+    HWND            m_win32_handle        = nullptr;
+    std::string     m_win32_class_name;
+    static uint64_t m_win32_class_counter;
+#endif
+
+};
 
 } // !namespace
 

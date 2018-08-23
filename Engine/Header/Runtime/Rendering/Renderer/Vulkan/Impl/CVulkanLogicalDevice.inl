@@ -21,12 +21,12 @@
 /// \package    Runtime/Rendering/Renderer/Vulkan/Impl
 /// \author     Vincent STEHLY--CALISTO
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Returns the vulkan physical device handle

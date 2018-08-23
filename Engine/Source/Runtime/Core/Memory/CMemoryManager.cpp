@@ -29,12 +29,12 @@
 #include "Runtime/Core/Memory/CMemoryManager.hpp"
 #include "Runtime/Core/Memory/CMemoryTracker.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace core
-namespace core
+/// \namespace Core
+namespace Core
 {
 
 /* static */ bool    CMemoryManager::s_initialized                   = false;

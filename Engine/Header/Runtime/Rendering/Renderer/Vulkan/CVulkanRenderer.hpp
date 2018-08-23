@@ -28,16 +28,18 @@
 #include <stdexcept>
 
 #include "Runtime/Rendering/Renderer/IRenderer.hpp"
+
+#include "Runtime/Rendering/Renderer/Vulkan/CVulkanWindow.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanLogicalDevice.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Debug/CVulkanDebugReporter.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Helper/CVulkanFunctionLoader.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Vulkan renderer
@@ -57,7 +59,7 @@ public:
     /// \brief  Creates a window
     /// \param  window_create_info The window create info
     /// \return A pointer on the window
-    platform::CWindow* OpenWindow(const platform::SWindowCreateInfo& window_create_info) final;
+    IWindow* OpenWindow(const SWindowCreateInfo& window_create_info) final;
 
 private:
 
@@ -109,6 +111,7 @@ private:
 
     std::vector<const char *>           m_instance_layers;                   ///< TODO
     std::vector<const char *>           m_instance_extensions;               ///< TODO
+    CVulkanWindow*                      mp_window = nullptr;                 ///< TODO
 };
 
 } // !namespace

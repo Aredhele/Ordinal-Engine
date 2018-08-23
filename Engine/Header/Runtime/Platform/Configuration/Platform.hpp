@@ -27,6 +27,8 @@
 #ifdef ORDINAL_WINDOWS
 #   define VK_USE_PLATFORM_WIN32_KHR 1
 #   include <windows.h>
+#else
+#   error "Platform not supported yet"
 #endif
 
 #include "vulkan/vulkan.h"

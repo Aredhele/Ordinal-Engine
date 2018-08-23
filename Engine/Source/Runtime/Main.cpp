@@ -31,11 +31,11 @@
 #include "Runtime/Core/Memory/Allocator/TNewAllocator.hpp"
 #include "Runtime/Core/Memory/Allocator/TMallocAllocator.hpp"
 
-using COrdinalRuntime            = ord::COrdinalRuntime;
-using SOrdinalRuntimeCreateInfo  = ord::SOrdinalRuntimeCreateInfo;
-using SWindowCreateInfo          = ord::platform::SWindowCreateInfo;
-using SRendererCreateInfo        = ord::rendering::SRendererCreateInfo;
-using SRenderingEngineCreateInfo = ord::rendering::SRenderingEngineCreateInfo;
+using COrdinalRuntime            = Ord::COrdinalRuntime;
+using SOrdinalRuntimeCreateInfo  = Ord::SOrdinalRuntimeCreateInfo;
+using SWindowCreateInfo          = Ord::Rendering::SWindowCreateInfo;
+using SRendererCreateInfo        = Ord::Rendering::SRendererCreateInfo;
+using SRenderingEngineCreateInfo = Ord::Rendering::SRenderingEngineCreateInfo;
 
 #include "Runtime/Core/Memory/Allocator/TPoolAllocator.hpp"
 
@@ -52,12 +52,12 @@ int Ordinal_EntryPoint(int argc, char ** argv)
     renderer_create_info.application_version = (0 << 22) | (1 << 12) | 0;
 
     SWindowCreateInfo window_create_info {};
-    window_create_info.width  = 1280;
-    window_create_info.height = 720;
-    window_create_info.p_name = "Ordinal";
+    window_create_info.width      = 1280;
+    window_create_info.height     = 720;
+    window_create_info.p_name     = "Ordinal";
 
     SRenderingEngineCreateInfo rendering_engine_create_info {};
-    rendering_engine_create_info.e_rendering_api        = ord::rendering::RENDERING_API_VULKAN;
+    rendering_engine_create_info.e_rendering_api        = Ord::Rendering::RENDERING_API_VULKAN;
     rendering_engine_create_info.p_window_create_info   = &window_create_info;
     rendering_engine_create_info.p_renderer_create_info = &renderer_create_info;
 
@@ -74,7 +74,7 @@ int Ordinal_EntryPoint(int argc, char ** argv)
     }
     catch (const std::runtime_error& error)
     {
-        ord::SLogger::LogError("Caught : %s.", error.what());
+        Ord::SLogger::LogError("Caught : %s.", error.what());
         return EXIT_FAILURE;
     }
 

@@ -26,12 +26,12 @@
 
 #include "Runtime/Platform/Configuration/Configuration.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief The debug report callback

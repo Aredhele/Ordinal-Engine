@@ -24,15 +24,14 @@
 #ifndef ORDINAL_ENGINE_I_RENDERER_HPP__
 #define ORDINAL_ENGINE_I_RENDERER_HPP__
 
-#include "Runtime/Platform/Window/CWindow.hpp"
-#include "Runtime/Platform/Configuration/Configuration.hpp"
+#include "Runtime/Rendering/Renderer/IWindow.hpp"
 
 /// \namespace ord
-namespace ord
+namespace Ord
 {
 
 /// \namespace rendering
-namespace rendering
+namespace Rendering
 {
 
 /// \brief Represents the rendering api to use
@@ -73,7 +72,7 @@ public:
     /// \brief  Creates a window
     /// \param  window_create_info The window create info
     /// \return A pointer on the window
-    virtual platform::CWindow* OpenWindow(const platform::SWindowCreateInfo& window_create_info) = 0;
+    virtual IWindow* OpenWindow(const SWindowCreateInfo& window_create_info) = 0;
 };
 
 } // !namespace

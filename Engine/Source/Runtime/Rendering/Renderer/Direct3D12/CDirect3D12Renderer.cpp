@@ -24,11 +24,11 @@
 #include "Runtime/Rendering/Renderer/Direct3D12/CDirect3D12Renderer.hpp"
 
 /// \namespace ord
-namespace ord
+namespace Ord
 {
 
 /// \namespace rendering
-namespace rendering
+namespace Rendering
 {
 
 /// \brief Initializes the renderer from the create info structure
@@ -47,7 +47,7 @@ void CDirect3D12Renderer::Release()
 /// \brief  Creates a window
 /// \param  window_create_info The window create info
 /// \return A pointer on the window
-platform::CWindow* CDirect3D12Renderer::OpenWindow(const platform::SWindowCreateInfo &window_create_info)
+IWindow* CDirect3D12Renderer::OpenWindow(const SWindowCreateInfo &window_create_info)
 {
     return nullptr;
 }

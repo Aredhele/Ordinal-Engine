@@ -26,12 +26,12 @@
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Debug/CVulkanDebugReporter.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Manages and displays the the report info

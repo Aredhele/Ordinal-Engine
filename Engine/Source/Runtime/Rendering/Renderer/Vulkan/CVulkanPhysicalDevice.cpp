@@ -26,12 +26,12 @@
 #include "Runtime/Core/Assertion/Assert.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanPhysicalDevice.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Initializes the physical device

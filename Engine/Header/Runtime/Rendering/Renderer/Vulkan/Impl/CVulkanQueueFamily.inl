@@ -23,12 +23,12 @@
 
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanQueueFamily.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Returns the index of the queue family

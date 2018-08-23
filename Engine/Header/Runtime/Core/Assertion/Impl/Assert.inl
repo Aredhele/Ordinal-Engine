@@ -120,7 +120,7 @@ inline void assert_is_greater_than(const T & lhs, const U & rhs,
                             const char * szMsg, const char * szFile,
                             const char * szFunc, int32_t line)
 {
-    if(lhs < rhs)
+    if(lhs <= rhs)
     {
         std::string expr = std::string(szLhs) + " > " +
                            std::string(szRhs);
@@ -137,7 +137,7 @@ inline void assert_is_lower_than(const T & lhs, const U & rhs,
                           const char * szMsg, const char * szFile,
                           const char * szFunc, int32_t line)
 {
-    if(lhs > rhs)
+    if(lhs >= rhs)
     {
         std::string expr = std::string(szLhs) + " < " +
                            std::string(szRhs);

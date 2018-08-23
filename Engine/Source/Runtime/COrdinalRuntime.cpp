@@ -25,8 +25,8 @@
 #include "Runtime/COrdinalRuntime.hpp"
 #include "Runtime/Core/Debug/SLogger.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
 /// \brief Destructor
@@ -41,7 +41,7 @@ void COrdinalRuntime::Initialize(const SOrdinalRuntimeCreateInfo& ordinal_runtim
     Release();
     SLogger::LogInfo("Engine Initialization ...");
 
-    mp_rendering_engine = rendering::CRenderingEngine::GetInstance();
+    mp_rendering_engine = Rendering::CRenderingEngine::GetInstance();
     mp_rendering_engine->Initialize(*ordinal_runtime_create_info.p_rendering_engine_create_info);
 
     m_initialized = true;
@@ -51,7 +51,24 @@ void COrdinalRuntime::Initialize(const SOrdinalRuntimeCreateInfo& ordinal_runtim
 /// \brief Starts the engine
 void COrdinalRuntime::Run()
 {
-    // TODO
+    bool b_should_run            = false;
+    Rendering::IWindow* p_window = mp_rendering_engine->GetWindow();
+
+    if(p_window)
+    {
+        b_should_run = p_window->Update();
+    }
+    else
+    {
+        b_should_run = false;
+    }
+
+    m_is_running = true;
+
+    while(m_is_running && b_should_run)
+    {
+        b_should_run = mp_rendering_engine->Render();
+    }
 }
 
 /// \brief Releases the engine

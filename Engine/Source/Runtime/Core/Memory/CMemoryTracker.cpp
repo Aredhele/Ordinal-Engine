@@ -26,12 +26,12 @@
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Core/Memory/CMemoryTracker.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace core
-namespace core
+/// \namespace Core
+namespace Core
 {
 
 /* static */ bool                   CMemoryTracker::s_initialized      = false;
@@ -51,7 +51,7 @@ CMemoryTracker::~CMemoryTracker()
 /// \param is_array Tells if the allocation is an array allocation
 /// \param p_caller_function The caller function
 /// \param caller_line Thee caller line
-/* static */ void core::CMemoryTracker::RecordAllocation(uint8_t* pointer, std::size_t size, bool is_array, const char* p_caller_function, unsigned int caller_line)
+/* static */ void Core::CMemoryTracker::RecordAllocation(uint8_t* pointer, std::size_t size, bool is_array, const char* p_caller_function, unsigned int caller_line)
 {
     ORD_ASSERT_GT      (size, 0);
     ORD_ASSERT_NOT_NULL(pointer);
@@ -82,7 +82,7 @@ CMemoryTracker::~CMemoryTracker()
 /// \param is_array Tells if the allocation is an array allocation
 /// \param p_caller_function The caller function
 /// \param caller_line Thee caller line
-/* static */ void core::CMemoryTracker::RecordDeallocation(uint8_t* pointer, bool is_array, const char* p_caller_function, unsigned int caller_line)
+/* static */ void Core::CMemoryTracker::RecordDeallocation(uint8_t* pointer, bool is_array, const char* p_caller_function, unsigned int caller_line)
 {
     ORD_ASSERT_NOT_NULL(pointer);
 

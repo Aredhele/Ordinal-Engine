@@ -25,12 +25,12 @@
 #include "Runtime/Core/StringHash/StringHash.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Helper/CVulkanFunctionLoader.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Loads the given function from its name

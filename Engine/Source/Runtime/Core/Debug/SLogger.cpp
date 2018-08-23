@@ -36,7 +36,7 @@
     va_end  (argList);                    \
 
 /// \namespace ord
-namespace ord
+namespace Ord
 {
 
 /// \brief Logs a user message on stdout

@@ -22,16 +22,18 @@
 /// \package    Runtime/Rendering
 /// \author     Vincent STEHLY--CALISTO
 
+#include <Runtime/Rendering/CRenderingEngine.hpp>
+
 #include "Runtime/Core/Debug/SLogger.hpp"
 #include "Runtime/Rendering/CRenderingEngine.hpp"
 #include "Runtime/Rendering/Renderer/Renderers.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Private constructor
@@ -62,7 +64,7 @@ void CRenderingEngine::Initialize(const SRenderingEngineCreateInfo &rendering_en
     SLogger::LogInfo("  Rendering engine initialization ...");
 
     InitializeRenderer(rendering_engine_create_info);
-    InitializeWindow(rendering_engine_create_info);
+    InitializeWindow  (rendering_engine_create_info);
 
     m_initialized = true;
     SLogger::LogInfo("  Rendering engine fully initialized;");
@@ -75,9 +77,7 @@ void CRenderingEngine::Release()
     {
         mp_renderer->Release();
         m_initialized = false;
-
-        mp_renderer = nullptr;
-        mp_window   = nullptr;
+        mp_renderer   = nullptr;
     }
 }
 
@@ -117,6 +117,25 @@ void CRenderingEngine::InitializeWindow(const SRenderingEngineCreateInfo &render
     mp_window = mp_renderer->OpenWindow(*rendering_engine_create_info.p_window_create_info);
 
     SLogger::LogInfo("  Window Initialized.");
+}
+
+/// \brief Makes the rendering
+bool CRenderingEngine::Render()
+{
+    if(!mp_window || !mp_window->Update())
+        return false;
+
+    // Render
+    (void)0;
+
+    return true;
+}
+
+/// \brief Returns a pointer on the window
+/// \return A pointer on the window
+IWindow* CRenderingEngine::GetWindow() const
+{
+    return mp_window;
 }
 
 } // ! namespace

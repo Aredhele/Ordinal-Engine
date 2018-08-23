@@ -26,12 +26,12 @@
 
 #include <cstdint>
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace  impl
-namespace impl
+/// \namespace  Impl
+namespace Impl
 {
 
 constexpr const int8_t   STRING_END_BYTE = 0;
@@ -73,7 +73,7 @@ template <uint32_t hash>  inline constexpr uint32_t __compile_hash()
 /// Example : U32 goID_1 = DSID(go.c_str());
 ///           U32 goID_2 = DSID("BossDoor");
 ///           U32 goID_3 = DSID(szP)
-#define DSID(string) ord::impl::__hash(string)
+#define DSID(string) Ord::Impl::__hash(string)
 
 /// \example SSID
 ///
@@ -81,7 +81,7 @@ template <uint32_t hash>  inline constexpr uint32_t __compile_hash()
 /// at compile time, you have to call the SSID Macro.
 /// It takes in parameter a const expression or static const char *
 /// Example : U32 goID = SSID("MyGameObject");
-#define SSID(string) ord::impl::__compile_hash<impl::__hash(string)>()
+#define SSID(string) Ord::Impl::__compile_hash<Impl::__hash(string)>()
 
 #endif // !ORDINAL_ENGINE_STRING_HASH_HPP__
 

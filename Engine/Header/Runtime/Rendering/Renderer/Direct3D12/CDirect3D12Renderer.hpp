@@ -27,11 +27,11 @@
 #include "Runtime/Rendering/Renderer/IRenderer.hpp"
 
 /// \namespace ord
-namespace ord
+namespace Ord
 {
 
 /// \namespace rendering
-namespace rendering
+namespace Rendering
 {
 
 /// \brief TODO
@@ -50,7 +50,7 @@ public:
     /// \brief  Creates a window
     /// \param  window_create_info The window create info
     /// \return A pointer on the window
-    platform::CWindow* OpenWindow(const platform::SWindowCreateInfo& window_create_info) final;
+    IWindow* OpenWindow(const SWindowCreateInfo& window_create_info) final;
 };
 
 } // !namespace

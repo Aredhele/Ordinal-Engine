@@ -28,12 +28,12 @@
 #include <cstddef> ///< std::size_t
 #include <cstdint> ///< uint8_t
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace core
-namespace core
+/// \namespace Core
+namespace Core
 {
 
 /// \brief Keeps track of the allocated memory within the engine

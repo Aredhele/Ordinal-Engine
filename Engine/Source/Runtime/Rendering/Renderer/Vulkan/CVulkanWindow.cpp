@@ -1,5 +1,6 @@
 /// Copyright (C) 2018-2019, Ordinal Engine
 /// Vincent STEHLY--CALISTO, vincentstehly@hotmail.fr
+/// See https://vincentcalisto.com/ordinal-engine/
 ///
 /// This program is free software; you can redistribute it and/or modify
 /// it under the terms of the GNU General Public License as published by
@@ -15,48 +16,56 @@
 /// with this program; if not, write to the Free Software Foundation, Inc.,
 /// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-/// \file       CWindow.cpp
-/// \date       09/06/2018
+/// \file       CVulkanWindow.cpp
+/// \date       23/08/2018
 /// \project    Ordinal Engine
-/// \package    Runtime/Rendering/Window
+/// \package    Runtime/Rendering/Renderer/Vulkan
 /// \author     Vincent STEHLY--CALISTO
 
-#include "Runtime/Platform/Window/CWindow.hpp"
+#include "Runtime/Rendering/Renderer/Vulkan/CVulkanWindow.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace platform
-namespace platform
+/// \namespace Rendering
+namespace Rendering
 {
-
-/// \brief Destructor
-CWindow::~CWindow()
-{
-    // TODO
-}
 
 /// \brief Initializes (open) a window
 /// \param window_create_info Create info structure
-void CWindow::Initialize(const SWindowCreateInfo &window_create_info)
+void CVulkanWindow::Initialize(const SWindowCreateInfo& window_create_info)
 {
-    // TODO
+    m_window_width  = window_create_info.width;
+    m_window_height = window_create_info.height;
+    mp_window_name  = window_create_info.p_name;
+
+    InitializeOS();
+    m_window_should_run = true;
 }
 
 /// \brief Releases (close) the window
-void CWindow::Release()
+void CVulkanWindow::Release()
+{
+    ReleaseOS();
+    m_window_should_run = false;
+}
+
+/// \brief Updates the window
+bool CVulkanWindow::Update()
+{
+    UpdateOS();
+    return m_window_should_run;
+}
+
+/// \brief Resizes the window
+void CVulkanWindow::Resize()
 {
     // TODO
 }
 
-/// \brief  Updates the window
-/// \return True of false if the window is closed
-bool CWindow::Update()
-{
-    return m_window_should_run;
-}
-
 } // !namespace
 
 } // !namespace
+
+

@@ -30,11 +30,11 @@
 #include <cstdint> ///< uint8_t
 
 /// \namespace ord
-namespace ord
+namespace Ord
 {
 
 /// \namespace core
-namespace core
+namespace Core
 {
 
 /// \brief  Contains all needed information to initialize the memory manager

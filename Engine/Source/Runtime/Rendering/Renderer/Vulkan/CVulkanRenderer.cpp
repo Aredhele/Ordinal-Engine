@@ -29,12 +29,12 @@
 #include "Runtime/Rendering/Renderer/Vulkan/CVulkanPhysicalDevice.hpp"
 #include "Runtime/Rendering/Renderer/Vulkan/Debug/VulkanDebugCallback.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Initializes the renderer from the create info structure
@@ -81,13 +81,15 @@ void CVulkanRenderer::Release()
 /// \brief  Creates a window
 /// \param  window_create_info The window create info
 /// \return A pointer on the window
-platform::CWindow* CVulkanRenderer::OpenWindow(const platform::SWindowCreateInfo& window_create_info)
+IWindow* CVulkanRenderer::OpenWindow(const SWindowCreateInfo& window_create_info)
 {
-    // TODO (Release)
-    auto* p_window = new platform::CWindow();
-    p_window->Initialize(window_create_info);
+    if(!mp_window)
+    {
+        mp_window = new CVulkanWindow();
+        mp_window->Initialize(window_create_info);
+    }
 
-    return p_window;
+    return mp_window;
 }
 
 #ifdef ORDINAL_DEBUG
@@ -246,6 +248,15 @@ void CVulkanRenderer::ReleaseLogicalDevice()
 void CVulkanRenderer::ReleaseInstance()
 {
     SLogger::LogInfo("    Releasing the instance.");
+
+    // Releasing all opened windows
+    if(mp_window)
+    {
+        mp_window->Release();
+        delete mp_window;
+
+        mp_window = nullptr;
+    }
 
     // Destroying the vulkan instance
     vkDestroyInstance(mp_instance, nullptr);

@@ -24,8 +24,8 @@
 #ifndef ORDINAL_ENGINE_S_LOGGER_HPP__
 #define ORDINAL_ENGINE_S_LOGGER_HPP__
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
 /// \class  SLogger

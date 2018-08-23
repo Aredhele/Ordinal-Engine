@@ -28,7 +28,7 @@
 #include "Runtime/Rendering/CRenderingEngine.hpp"
 
 /// \namespace ord
-namespace ord
+namespace Ord
 {
 
 /// \brief  TODO
@@ -37,7 +37,7 @@ struct SOrdinalRuntimeCreateInfo
 {
     const char*                            p_runtime_name;                 ///< The name of the application
     uint32_t                               runtime_version;                ///< The version of the engine
-    rendering::SRenderingEngineCreateInfo* p_rendering_engine_create_info; ///< TODO
+    Rendering::SRenderingEngineCreateInfo* p_rendering_engine_create_info; ///< TODO
 };
 
 /// \brief Main engine class
@@ -61,8 +61,9 @@ public:
 
 private:
 
-    bool                         m_initialized       = false; ///< TODO
-    rendering::CRenderingEngine* mp_rendering_engine;         ///< TODO
+    bool                         m_is_running        = false;   ///< TODO
+    bool                         m_initialized       = false;   ///< TODO
+    Rendering::CRenderingEngine* mp_rendering_engine = nullptr; ///< TODO
 };
 
 } // !namespace 

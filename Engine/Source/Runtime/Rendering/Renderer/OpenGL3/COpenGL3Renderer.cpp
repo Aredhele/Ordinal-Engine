@@ -23,12 +23,12 @@
 
 #include "Runtime/Rendering/Renderer/OpenGL3/COpenGL3Renderer.hpp"
 
-/// \namespace ord
-namespace ord
+/// \namespace Ord
+namespace Ord
 {
 
-/// \namespace rendering
-namespace rendering
+/// \namespace Rendering
+namespace Rendering
 {
 
 /// \brief Initializes the renderer from the create info structure
@@ -47,7 +47,7 @@ void COpenGL3Renderer::Release()
 /// \brief  Creates a window
 /// \param  window_create_info The window create info
 /// \return A pointer on the window
-platform::CWindow* COpenGL3Renderer::OpenWindow(const platform::SWindowCreateInfo &window_create_info)
+IWindow* COpenGL3Renderer::OpenWindow(const SWindowCreateInfo &window_create_info)
 {
     return nullptr;
 }

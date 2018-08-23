@@ -25,22 +25,22 @@
 #ifndef ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__
 #define ORDINAL_ENGINE_C_RENDERING_ENGINE_HPP__
 
+#include <vector>
+#include "Runtime/Rendering/Renderer/IWindow.hpp"
 #include "Runtime/Rendering/Renderer/IRenderer.hpp"
 
 /// \namespace ord
-namespace ord
+namespace Ord
 {
 
 /// \namespace rendering
-namespace rendering
+namespace Rendering
 {
 
 /// \brief  TODO
 /// \struct SRenderingEngineCreateInfo
 struct SRenderingEngineCreateInfo
 {
-    using SWindowCreateInfo = platform::SWindowCreateInfo;
-
     ERenderingAPI        e_rendering_api;        ///< TODO
     SWindowCreateInfo*   p_window_create_info;   ///< TODO
     SRendererCreateInfo* p_renderer_create_info; ///< TODO
@@ -71,6 +71,13 @@ public:
     /// \brief Releases the rendering engine
     void Release();
 
+    /// \brief Makes the rendering
+    bool Render();
+
+    /// \brief Returns a pointer on the window
+    /// \return A pointer on the window
+    IWindow* GetWindow() const;
+
 private:
 
     /// \brief Private constructor
@@ -89,9 +96,9 @@ private:
 
 private:
 
-    bool               m_initialized = false;   ///< TODO
-    IRenderer*         mp_renderer   = nullptr; ///< TODO
-    platform::CWindow* mp_window     = nullptr; ///< TODO
+    bool                 m_initialized = false;   ///< TODO
+    IRenderer*           mp_renderer   = nullptr; ///< TODO
+    IWindow*             mp_window     = nullptr; ///< TODO
  };
 
 } // ! namespace
